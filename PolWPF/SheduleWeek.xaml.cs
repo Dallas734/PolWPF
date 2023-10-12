@@ -153,20 +153,20 @@ namespace PolWPF
             Items.Clear();
         }
 
-        //private void OnScheduleItemClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    int i = Items.FindIndex(x => x.Start >= CurrentDate.Add(TimeStart));
-        //    for (; i < Items.Count && !Items[i].Panel.IsMouseOver; i++) { }
-        //    if (i < Items.Count && Items[i].Clickable)
-        //    {
-        //        ScheduleItemClick?.Invoke(Items[i], EventArgs.Empty);
-        //    }
-        //    else
-        //    {
-        //        //nothing was clicked, fire event with no object
-        //        ScheduleItemClick?.Invoke(null, EventArgs.Empty);
-        //    }
-        //}
+        private void OnScheduleItemClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int i = Items.FindIndex(x => x.Start >= CurrentDate.Add(TimeStart));
+            for (; i < Items.Count && !Items[i].Panel.IsMouseOver; i++) { }
+            if (i < Items.Count && Items[i].Clickable)
+            {
+                ScheduleItemClick?.Invoke(Items[i], EventArgs.Empty);
+            }
+            else
+            {
+                //nothing was clicked, fire event with no object
+                ScheduleItemClick?.Invoke(null, EventArgs.Empty);
+            }
+        }
 
         public void Redraw()
         {
