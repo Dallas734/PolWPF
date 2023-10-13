@@ -115,6 +115,7 @@
                                             <ComboBox x:Name="PatientComboAddVisit" Grid.Column="1" Grid.Row="2"/>
                                             <Button x:Name="guiEventEditSave" Grid.Column="1" Grid.Row="5" Content="Save" HorizontalAlignment="Left" Width="100" Margin="0, 2, 0, 0"/>
                                         </Grid>
+                                        
                                     </GroupBox>
                                 </Grid>
                             </Grid>
@@ -154,16 +155,16 @@
                                     </Grid.RowDefinitions>
                                     <GroupBox Header="Дата" BorderBrush="Black">
                                         <StackPanel Orientation="Vertical">
-                                            <DatePicker x:Name="guidDate" SelectedDateChanged="GuidDate_SelectedDateChanged"/>
+                                            <DatePicker x:Name="guidDate"/>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Content="Пред" x:Name="guifDatePrev" Click="GuifDatePrev_Click" Grid.Column="0" Margin="4"/>
-                                                <Button Content="Сегодня" x:Name="guifDateToday" Click="GuifDateToday_Click" Grid.Column="1" Margin="4"/>
-                                                <Button Content="След" x:Name="guifDateNext" Click="GuifDateNext_Click" Grid.Column="2" Margin="4"/>
+                                                <Button Content="Пред" x:Name="guifDatePrev" Grid.Column="0" Margin="4"/>
+                                                <Button Content="Сегодня" x:Name="guifDateToday" Grid.Column="1" Margin="4"/>
+                                                <Button Content="След" x:Name="guifDateNext" Grid.Column="2" Margin="4"/>
                                             </Grid>
                                         </StackPanel>
                                     </GroupBox>
@@ -328,16 +329,16 @@
                                     </Grid.RowDefinitions>
                                     <GroupBox Header="Дата" BorderBrush="Black">
                                         <StackPanel Orientation="Vertical">
-                                            <DatePicker x:Name="guidDateDoctor" SelectedDateChanged="GuidDate_SelectedDateChanged"/>
+                                            <DatePicker x:Name="guidDateDoctor"/>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Content="Пред" x:Name="guifDatePrevDoctor" Click="GuifDatePrev_Click" Grid.Column="0" Margin="4"/>
-                                                <Button Content="Сегодня" x:Name="guifDateTodayDoctor" Click="GuifDateToday_Click" Grid.Column="1" Margin="4"/>
-                                                <Button Content="След" x:Name="guifDateNextDoctor" Click="GuifDateNext_Click" Grid.Column="2" Margin="4"/>
+                                                <Button Content="Пред" x:Name="guifDatePrevDoctor" Grid.Column="0" Margin="4"/>
+                                                <Button Content="Сегодня" x:Name="guifDateTodayDoctor" Grid.Column="1" Margin="4"/>
+                                                <Button Content="След" x:Name="guifDateNextDoctor" Grid.Column="2" Margin="4"/>
                                             </Grid>
                                         </StackPanel>
                                     </GroupBox>
