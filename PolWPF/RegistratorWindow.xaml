@@ -59,7 +59,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Border BorderBrush="Black" BorderThickness="1">
-                                    <local:SheduleWeek x:Name="ScheduleWeek"/>
+                                    <local:SheduleDay x:Name="ScheduleDayRegistator"/>
                                 </Border>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
