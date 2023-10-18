@@ -89,24 +89,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DoctorWindow.xaml.cs">
+    <Compile Include="Views\DoctorWindow.xaml.cs">
       <DependentUpon>DoctorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegistratorWindow.xaml.cs">
+    <Compile Include="Views\RegistratorWindow.xaml.cs">
       <DependentUpon>RegistratorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SheduleDay.xaml.cs">
+    <Compile Include="Views\SheduleDay.xaml.cs">
       <DependentUpon>SheduleDay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SheduleItem.cs" />
-    <Compile Include="SheduleWeek.xaml.cs">
+    <Compile Include="ViewModels\SheduleItem.cs" />
+    <Compile Include="Views\SheduleWeek.xaml.cs">
       <DependentUpon>SheduleWeek.xaml</DependentUpon>
     </Compile>
-    <Page Include="DoctorWindow.xaml">
+    <Page Include="Views\DoctorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -114,19 +114,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RegistratorWindow.xaml">
+    <Page Include="Views\RegistratorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SheduleDay.xaml">
+    <Page Include="Views\SheduleDay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SheduleWeek.xaml">
+    <Page Include="Views\SheduleWeek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,7 +159,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MainWindow.jpg" />
+    <Resource Include="Resources\MainWindow.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+    <Folder Include="Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
