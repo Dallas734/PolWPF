@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PolWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,11 +20,13 @@ namespace PolWPF
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();           
+            DataContext = new MainViewModel(this);
         }
     }
 
