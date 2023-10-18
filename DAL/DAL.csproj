@@ -31,8 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,12 +50,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\Area.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Certificate.cs" />
+    <Compile Include="Entities\Day.cs" />
+    <Compile Include="Entities\Diagnosis.cs" />
+    <Compile Include="Entities\Doctor.cs" />
+    <Compile Include="Entities\Nurse.cs" />
+    <Compile Include="Entities\Patient.cs" />
+    <Compile Include="PolyclinicContext.cs" />
+    <Compile Include="Entities\Procedure.cs" />
+    <Compile Include="Entities\Shedule.cs" />
+    <Compile Include="Entities\Specialization.cs" />
+    <Compile Include="Entities\Status.cs" />
+    <Compile Include="Entities\sysdiagrams.cs" />
+    <Compile Include="Entities\Visit.cs" />
+    <Compile Include="Interfaces\IDbRepository.cs" />
+    <Compile Include="Interfaces\IReportRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AddressRepositorySQL.cs" />
+    <Compile Include="Repository\AreaRepositorySQL.cs" />
+    <Compile Include="Repository\CategoryRepositorySQL.cs" />
+    <Compile Include="Repository\DayRepositorySQL.cs" />
+    <Compile Include="Repository\DbRepositorySQL.cs" />
+    <Compile Include="Repository\DiagnosisRepositorySQL.cs" />
+    <Compile Include="Repository\DoctorRepositorySQL.cs" />
+    <Compile Include="Repository\PatientRepositorySQL.cs" />
+    <Compile Include="Repository\ProcedureRepositorySQL.cs" />
+    <Compile Include="Repository\ReportRepositorySQL.cs" />
+    <Compile Include="Repository\SheduleRepositorySQL.cs" />
+    <Compile Include="Repository\SpecializationRepositorySQL.cs" />
+    <Compile Include="Repository\StatusRepositorySQL.cs" />
+    <Compile Include="Repository\VisitRepositorySQL.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Repository\" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

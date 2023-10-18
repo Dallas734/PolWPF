@@ -1,0 +1,54 @@
+namespace DAL.Entities
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Patient")]
+    public partial class Patient
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Patient()
+        {
+            Visit = new HashSet<Visit>();
+        }
+
+        public short Id { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string Surname { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string Gender { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime DateOfBirth { get; set; }
+
+        public short Address_id { get; set; }
+
+        [Required]
+        [StringLength(16)]
+        public string Polis { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string WorkPlace { get; set; }
+
+        public virtual Address Address { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Visit> Visit { get; set; }
+    }
+}
