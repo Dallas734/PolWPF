@@ -24,11 +24,15 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Пациент</Label>
                                     <ComboBox x:Name="PatientInfo" Width="216" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                     <Button x:Name="AddPatientBtn" Grid.Column="2" Width="200" Content="Добавить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="DeletePatientBtn" Grid.Column="3" Width="200" Content="Удалить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="SavePatientBtn" Grid.Column="4" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
                                 </Grid>
                             </StackPanel>
                             <DataGrid x:Name="PatientGridInfo" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0"/>
@@ -232,11 +236,15 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Доктор</Label>
                                     <ComboBox x:Name="DoctorInfo" Width="216" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                     <Button x:Name="AddDoctorBtn" Grid.Column="2" Width="200" Content="Добавить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="DeleteDoctorBtn" Grid.Column="3" Width="200" Content="Удалить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="SaveDoctorBtn" Grid.Column="4" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
                                 </Grid>
                             </StackPanel>
                             <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0"/>
