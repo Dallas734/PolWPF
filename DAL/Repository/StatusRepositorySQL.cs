@@ -27,11 +27,26 @@ namespace DAL.Repository
             return dbContext.Status;
         }
 
-        public void Add(Status status) { }
-        public void Update(Status status) { }
-        public void Delete(int id) { }
-        public Status GetItem(int id) { return null; }
-        public void Create(Status status) { }
+        public void Update(Status status)
+        {
+            dbContext.Entry(status).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        {
+            Status status = dbContext.Status.Find(id);
+            if (status != null)
+            {
+                dbContext.Status.Remove(status);
+            }
+        }
+        public Status GetItem(int id)
+        { 
+            return dbContext.Status.Find(id);
+        }
+        public void Create(Status status) 
+        {
+            dbContext.Status.Add(status);
+        }
         public void Load()
         {
             dbContext.Status.Load();

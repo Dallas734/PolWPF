@@ -19,7 +19,6 @@ namespace DAL.Entities
         public virtual DbSet<Day> Day { get; set; }
         public virtual DbSet<Diagnosis> Diagnosis { get; set; }
         public virtual DbSet<Doctor> Doctor { get; set; }
-        public virtual DbSet<Nurse> Nurse { get; set; }
         public virtual DbSet<Patient> Patient { get; set; }
         public virtual DbSet<Procedure> Procedure { get; set; }
         public virtual DbSet<Shedule> Shedule { get; set; }
@@ -83,12 +82,6 @@ namespace DAL.Entities
                 .HasMany(e => e.Visit)
                 .WithRequired(e => e.Patient)
                 .HasForeignKey(e => e.Patient_id);
-
-            modelBuilder.Entity<Procedure>()
-                .HasMany(e => e.Nurse)
-                .WithRequired(e => e.Procedure)
-                .HasForeignKey(e => e.Procedure_id)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Procedure>()
                 .HasMany(e => e.Visit)

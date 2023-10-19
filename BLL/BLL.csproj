@@ -41,12 +41,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbDataOperations.cs" />
+    <Compile Include="Interfaces\IDbCrud.cs" />
+    <Compile Include="Models\AddressDTO.cs" />
+    <Compile Include="Models\AreaDTO.cs" />
+    <Compile Include="Models\CategoryDTO.cs" />
+    <Compile Include="Models\CertificateDTO.cs" />
+    <Compile Include="Models\DayDTO.cs" />
+    <Compile Include="Models\DiagnosisDTO.cs" />
+    <Compile Include="Models\DoctorDTO.cs" />
+    <Compile Include="Models\PatientDTO.cs" />
+    <Compile Include="Models\ProcedureDTO.cs" />
+    <Compile Include="Models\Reports.cs" />
+    <Compile Include="Models\SheduleDTO.cs" />
+    <Compile Include="Models\SpecializationDTO.cs" />
+    <Compile Include="Models\StatusDTO.cs" />
+    <Compile Include="Models\VisitDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{8bf4e3d7-7655-4e0f-afc4-2a602fcf783a}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

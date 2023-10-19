@@ -90,6 +90,15 @@
     </ApplicationDefinition>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\AddAddressWindow.xaml.cs">
+      <DependentUpon>AddAddressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddDoctorWindow.xaml.cs">
+      <DependentUpon>AddDoctorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddPatientWindow.xaml.cs">
+      <DependentUpon>AddPatientWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DoctorWindow.xaml.cs">
       <DependentUpon>DoctorWindow.xaml</DependentUpon>
     </Compile>
@@ -103,6 +112,18 @@
     <Compile Include="Views\SheduleWeek.xaml.cs">
       <DependentUpon>SheduleWeek.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddDoctorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPatientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DoctorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

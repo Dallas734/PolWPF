@@ -12,7 +12,7 @@
             <ImageBrush ImageSource="/Resources/MainWindow.jpg"/>
         </Grid.Background>
         <Rectangle Fill="Black" HorizontalAlignment="Left" Height="4" Margin="68,61,0,0" Stroke="#00000000" VerticalAlignment="Top" Width="659" RenderTransformOrigin="0.5,0.5"/>
-        <Button x:Name="DocB" Content="Войти как доктор" HorizontalAlignment="Right" Margin="0,376,20,0" FontFamily="Candara Light" FontSize="18" Background="#002E4C21" Foreground="#FF080202" BorderBrush="#FF080202" RenderTransformOrigin="1.734,0.287" Height="32" VerticalAlignment="Top" Width="220"/>
+        <Button x:Name="DocB" Content="Войти как доктор" HorizontalAlignment="Right" Margin="0,376,20,0" FontFamily="Candara Light" FontSize="18" Background="#002E4C21" Foreground="#FF080202" BorderBrush="#FF080202" RenderTransformOrigin="1.734,0.287" Height="32" VerticalAlignment="Top" Width="220" Command="{Binding DoctorAutCommand}"/>
         <Button x:Name="AdmB" Content="Войти как регистратор" HorizontalAlignment="Left" Margin="22,374,0,0" VerticalAlignment="Top" Width="231" Height="36" FontFamily="Candara Light" FontSize="18" Background="#002E4C21" Foreground="#FF080202" BorderBrush="#FF080202" RenderTransformOrigin="1.734,0.287" Command="{Binding RegistratorAutCommand}"/>
         <Label Content="Система работы с поликлиникой" HorizontalAlignment="Left" Height="72" Margin="22,-3,0,0" VerticalAlignment="Top" Width="768" FontFamily="Castellar" FontSize="48" Foreground="Black"/>
     </Grid>

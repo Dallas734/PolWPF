@@ -27,11 +27,24 @@ namespace DAL.Repository
             return dbContext.Procedure;
         }
 
-        public void Add(Procedure procedure) { }
-        public void Update(Procedure procedure) { }
-        public void Delete(int id) { }
-        public Procedure GetItem(int id) { return null; }
-        public void Create(Procedure procedure) { }
+        public void Update(Procedure procedure)
+        { 
+            dbContext.Entry(procedure).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        {
+            Procedure procedure = dbContext.Procedure.Find(id);
+            if (procedure != null)
+                dbContext.Procedure.Remove(procedure);
+        }
+        public Procedure GetItem(int id) 
+        { 
+            return dbContext.Procedure.Find(id); 
+        }
+        public void Create(Procedure procedure)
+        {
+            dbContext.Procedure.Add(procedure);
+        }
         public void Load()
         {
             dbContext.Procedure.Load();

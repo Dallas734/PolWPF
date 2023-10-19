@@ -27,11 +27,26 @@ namespace DAL.Repository
             return dbContext.Address;
         }
 
-        public void Add(Address address) { }
-        public void Update(Address address) { }
-        public void Delete(int id) { }
-        public Address GetItem(int id) { return null; }
-        public void Create(Address address) { }
+        public void Update(Address address) 
+        {
+            dbContext.Entry(address).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        {
+            Address address = dbContext.Address.Find(id);
+            if (address != null)
+            {
+                dbContext.Address.Remove(address);
+            }
+        }
+        public Address GetItem(int id) 
+        {
+            return dbContext.Address.Find(id);
+        }
+        public void Create(Address address) 
+        {
+            dbContext.Address.Add(address);
+        }
         public void Load()
         {
             dbContext.Address.Load();

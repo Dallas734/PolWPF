@@ -57,7 +57,6 @@
     <Compile Include="Entities\Day.cs" />
     <Compile Include="Entities\Diagnosis.cs" />
     <Compile Include="Entities\Doctor.cs" />
-    <Compile Include="Entities\Nurse.cs" />
     <Compile Include="Entities\Patient.cs" />
     <Compile Include="PolyclinicContext.cs" />
     <Compile Include="Entities\Procedure.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Repository\AddressRepositorySQL.cs" />
     <Compile Include="Repository\AreaRepositorySQL.cs" />
     <Compile Include="Repository\CategoryRepositorySQL.cs" />
+    <Compile Include="Repository\CertificateRepositorySQL.cs" />
     <Compile Include="Repository\DayRepositorySQL.cs" />
     <Compile Include="Repository\DbRepositorySQL.cs" />
     <Compile Include="Repository\DiagnosisRepositorySQL.cs" />

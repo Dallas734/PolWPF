@@ -27,11 +27,26 @@ namespace DAL.Repository
             return dbContext.Area;
         }
 
-        public void Add(Area area) { }
-        public void Update(Area area) { }
-        public void Delete(int id) { }
-        public Area GetItem(int id) { return null; }
-        public void Create(Area day) { }
+        public void Update(Area area) 
+        { 
+            dbContext.Entry(area).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        {
+            Area area = dbContext.Area.Find(id);
+            if (area != null)
+            {
+                dbContext.Area.Remove(area);
+            }
+        }
+        public Area GetItem(int id) 
+        {
+            return dbContext.Area.Find(id); 
+        }
+        public void Create(Area area) 
+        { 
+            dbContext.Area.Add(area);
+        }
         public void Load()
         {
             dbContext.Area.Load();

@@ -21,9 +21,9 @@ namespace DAL.Entities
         public short? Procedure_id { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? DateT { get; set; }
+        public DateTime DateT { get; set; }
 
-        public TimeSpan? TimeT { get; set; }
+        public TimeSpan TimeT { get; set; }
 
         public short? Doctor_id { get; set; }
 

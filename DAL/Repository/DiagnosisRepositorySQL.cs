@@ -27,11 +27,24 @@ namespace DAL.Repository
             return dbContext.Diagnosis;
         }
 
-        public void Add(Diagnosis diagnosis) { }
-        public void Update(Diagnosis diagnosis) { }
-        public void Delete(int id) { }
-        public Diagnosis GetItem(int id) { return null; }
-        public void Create(Diagnosis ddiagnosis) { }
+        public void Update(Diagnosis diagnosis) 
+        {
+            dbContext.Entry(diagnosis).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        {
+            Diagnosis diagnosis = dbContext.Diagnosis.Find(id);
+            if (diagnosis != null)
+                dbContext.Diagnosis.Remove(diagnosis);
+        }
+        public Diagnosis GetItem(int id) 
+        { 
+            return dbContext.Diagnosis.Find(id);
+        }
+        public void Create(Diagnosis diagnosis)
+        {
+            dbContext.Diagnosis.Add(diagnosis);
+        }
         public void Load()
         {
             dbContext.Diagnosis.Load();

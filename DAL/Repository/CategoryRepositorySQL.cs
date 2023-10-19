@@ -27,11 +27,24 @@ namespace DAL.Repository
             return dbContext.Category;
         }
 
-        public void Add(Category category) { }
-        public void Update(Category category) { }
-        public void Delete(int id) { }
-        public Category GetItem(int id) { return null; }
-        public void Create(Category category) { }
+        public void Update(Category category) 
+        { 
+            dbContext.Entry(category).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        { 
+           Category category = dbContext.Category.Find(id);
+            if (category != null)
+                dbContext.Category.Remove(category);
+        }
+        public Category GetItem(int id)
+        {
+            return dbContext.Category.Find(id); 
+        }
+        public void Create(Category category)
+        { 
+            dbContext.Category.Add(category);
+        }
         public void Load()
         {
             dbContext.Category.Load();

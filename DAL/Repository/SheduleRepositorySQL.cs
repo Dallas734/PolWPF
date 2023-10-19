@@ -32,7 +32,7 @@ namespace DAL.Repository
         }
         public void Create(Shedule item)
         {
-
+            dbContext.Shedule.Add(item);
         }
         public void Update(Shedule item)
         {

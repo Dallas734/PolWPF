@@ -27,11 +27,24 @@ namespace DAL.Repository
             return dbContext.Day;
         }
 
-        public void Add(Day day) { }
-        public void Update(Day day) { }
-        public void Delete(int id) { }
-        public Day GetItem(int id) { return null; }
-        public void Create(Day day) { }
+        public void Update(Day day) 
+        { 
+            dbContext.Entry(day).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        {
+            Day day = dbContext.Day.Find(id);
+            if (day != null)
+                dbContext.Day.Remove(day);
+        }
+        public Day GetItem(int id) 
+        { 
+            return dbContext.Day.Find(id); 
+        }
+        public void Create(Day day) 
+        {
+            dbContext.Day.Add(day);
+        }
 
         public void Load()
         {

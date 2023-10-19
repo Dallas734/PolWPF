@@ -231,10 +231,12 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Доктор</Label>
                                     <ComboBox x:Name="DoctorInfo" Width="216" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <Button x:Name="AddDoctorBtn" Grid.Column="2" Width="200" Content="Добавить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
                                 </Grid>
                             </StackPanel>
                             <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0"/>

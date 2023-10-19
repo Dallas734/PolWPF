@@ -19,6 +19,7 @@ namespace PolWPF.ViewModels
 
         private MainWindow mainWindow;
         private RegistratorWindow _registratorWindow;
+        private DoctorWindow _doctorWindow;
 
         private RelayCommand registratorAutCommand;
         public RelayCommand RegistratorAutCommand
@@ -33,6 +34,19 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private RelayCommand doctorAutCommand;
+        public RelayCommand DoctorAutCommand
+        {
+            get
+            {
+                return doctorAutCommand ??
+                  (doctorAutCommand = new RelayCommand(obj =>
+                  {
+                      ToDoctorPage(obj);
+                  }));
+            }
+        }
+
         public MainViewModel(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -43,6 +57,13 @@ namespace PolWPF.ViewModels
             _registratorWindow = new RegistratorWindow();
             _registratorWindow.Show();
             mainWindow.Close(); 
+        }
+
+        private void ToDoctorPage(object obj)
+        {
+            _doctorWindow = new DoctorWindow();
+            _doctorWindow.Show();
+            mainWindow.Close();
         }
     }
 }

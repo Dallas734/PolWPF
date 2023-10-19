@@ -27,11 +27,24 @@ namespace DAL.Repository
             return dbContext.Specialization;
         }
 
-        public void Add(Specialization specialization) { }
-        public void Update(Specialization specialization) { }
-        public void Delete(int id) { }
-        public Specialization GetItem(int id) { return null; }
-        public void Create(Specialization specialization) { }
+        public void Update(Specialization specialization) 
+        { 
+            dbContext.Entry(specialization).State = EntityState.Modified;
+        }
+        public void Delete(int id)
+        {
+            Specialization specialization = dbContext.Specialization.Find(id);
+            if (specialization != null)
+                dbContext.Specialization.Remove(specialization);
+        }
+        public Specialization GetItem(int id)
+        {
+            return dbContext.Specialization.Find(id); 
+        }
+        public void Create(Specialization specialization)
+        {
+            dbContext.Specialization.Add(specialization);
+        }
         public void Load()
         {
             dbContext.Specialization.Load();
