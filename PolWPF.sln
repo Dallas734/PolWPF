@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolWPF", "PolWPF\PolWPF.csproj", "{85205E41-6A0B-4756-974F-22D8ADF7C5FC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5B4C8ECA-B25A-4977-8D9F-9AEB6FFBF73B} = {5B4C8ECA-B25A-4977-8D9F-9AEB6FFBF73B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{8BF4E3D7-7655-4E0F-AFC4-2A602FCF783A}"
 EndProject

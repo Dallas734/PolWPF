@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +17,13 @@ namespace PolWPF.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        IDbCrud context;
+        IComboService comboService;
+        IDoctorService doctorService;
+        IPatientService patientService;
+        IReportService reportService;
+        IVisitService visitService;
 
         private MainWindow mainWindow;
         private RegistratorWindow _registratorWindow;
@@ -47,14 +55,20 @@ namespace PolWPF.ViewModels
             }
         }
 
-        public MainViewModel(MainWindow mainWindow)
+        public MainViewModel(MainWindow mainWindow, IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService)
         {
             this.mainWindow = mainWindow;
+            this.context = context;
+            this.comboService = comboService;
+            this.doctorService = doctorService;
+            this.patientService = patientService;
+            this.reportService = reportService;
+            this.visitService = visitService;
         }
 
         private void ToRegistratorPage(object obj)
         {
-            _registratorWindow = new RegistratorWindow();
+            _registratorWindow = new RegistratorWindow(context, comboService, doctorService, patientService, reportService, visitService);
             _registratorWindow.Show();
             mainWindow.Close(); 
         }

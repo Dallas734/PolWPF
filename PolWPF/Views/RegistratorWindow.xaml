@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolWPF"
         mc:Ignorable="d"
-        Title="RegistratorWindow" Height="480" Width="1200"
+        Title="RegistratorWindow" Height="480" Width="1300"
         xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Window.Resources>
+        <CollectionViewSource x:Key="Specializations" Source="{Binding allSpecializations}"/>
+    </Window.Resources>
     <Grid x:Name="BackGrid">
         <TabControl TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black">
             <TabItem Header="Пациенты">
@@ -27,15 +30,32 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Пациент</Label>
-                                    <ComboBox x:Name="PatientInfo" Width="216" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                    <Button x:Name="AddPatientBtn" Grid.Column="2" Width="200" Content="Добавить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="DeletePatientBtn" Grid.Column="3" Width="200" Content="Удалить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="SavePatientBtn" Grid.Column="4" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="AddPatientsBtn" Grid.Column="0" Width="200" Content="Добавить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="DeletePatientBtn" Grid.Column="1" Width="200" Content="Удалить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="SavePatientBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
                                 </Grid>
                             </StackPanel>
-                            <DataGrid x:Name="PatientGridInfo" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0"/>
+                            <DataGrid x:Name="PatientGridInfo" Grid.Row="1" ItemsSource="{Binding allPatients}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Отчество" Binding="{Binding Surname}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Пол" Binding="{Binding Gender}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding DateOfBirth, StringFormat=d}" Width="Auto"/>
+                                    <DataGridTemplateColumn Header="Адрес">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox x:Name="Combo4" DisplayMemberPath="Name" SelectedValue="{Binding  Address_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allAddresses, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Полис" Binding="{Binding Polis}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Место работы" Binding="{Binding WorkPlace}" Width="Auto"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Grid>
                     </TabItem>
                     <TabItem  Header="Записать пациента">
@@ -238,16 +258,42 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Доктор</Label>
-                                    <ComboBox x:Name="DoctorInfo" Width="216" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                    <Button x:Name="AddDoctorBtn" Grid.Column="2" Width="200" Content="Добавить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="DeleteDoctorBtn" Grid.Column="3" Width="200" Content="Удалить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="SaveDoctorBtn" Grid.Column="4" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="AddDoctorBtn" Grid.Column="0" Width="200" Content="Добавить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="DeleteDoctorBtn" Grid.Column="1" Width="200" Content="Удалить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="SaveDoctorBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
                                 </Grid>
                             </StackPanel>
-                            <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0"/>
+                            <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" ItemsSource="{Binding allDoctors}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Специальность">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                                <ComboBox x:Name="Combo1" DisplayMemberPath="Name" SelectedValue="{Binding Specialization_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allSpecializations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate> 
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Отчество" Binding="{Binding Surname}"  Width="Auto"/>
+                                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding DateOfBirth, StringFormat=d}" Width="Auto"/>
+                                    <DataGridTemplateColumn Header="Статус">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox x:Name="Combo2" DisplayMemberPath="Name" SelectedValue="{Binding Status_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allStatus, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Участок" Binding="{Binding Area_id}" Width="Auto"/>
+                                    <DataGridTemplateColumn Header="Категория">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox x:Name="Combo3" DisplayMemberPath="Name" SelectedValue="{Binding Category_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allCategories, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Расписание врача">

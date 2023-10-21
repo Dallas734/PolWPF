@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PolWPF.ViewModels;
+using BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,11 @@ namespace PolWPF
     /// </summary>
     public partial class RegistratorWindow : Window
     {
-        public RegistratorWindow()
+        public RegistratorWindow(IDbCrud dbCrud, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService)
         {
             InitializeComponent();
+            
+            DataContext = new RegistratorViewModel(dbCrud, comboService, doctorService, patientService, reportService, visitService);
         }
     }
 }

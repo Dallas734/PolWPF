@@ -42,8 +42,6 @@ namespace DAL.Entities
 
         public short Category_id { get; set; }
 
-        public int Age { get; set; }
-
         public virtual Area Area { get; set; }
 
         public virtual Category Category { get; set; }

@@ -12,7 +12,6 @@ namespace DAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Procedure()
         {
-            Nurse = new HashSet<Nurse>();
             Visit = new HashSet<Visit>();
         }
 

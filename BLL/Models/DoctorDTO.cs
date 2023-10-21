@@ -23,7 +23,6 @@ namespace BLL.Models
             Status_id = d.Status_id;
             Area_id = d.Area_id;
             Category_id = d.Category_id;
-            Age = d.Age;
             FullName = d.LastName + " " + d.FirstName + " " + d.Surname;
         }
 

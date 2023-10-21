@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,7 @@ namespace BLL.Interfaces
 {
     public interface IComboService
     {
-        void FillGridCombobox<T>(DataGridView dataGrid, string columnDevName, List<T> nameOfMembers, string displayMember, string valueMember);
-        void FillComboBox<T>(ComboBox comboBox, List<T> nameOfMembers, string displayMember, string valueMember);
-        
+        void FillObsCollection<T>(ObservableCollection<T> collection, List<T> dtos);
+
     }
 }
