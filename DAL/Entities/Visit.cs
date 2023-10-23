@@ -27,6 +27,8 @@ namespace DAL.Entities
 
         public short? Doctor_id { get; set; }
 
+        public short? VisitStatus_id { get; set; }
+
         public virtual Diagnosis Diagnosis { get; set; }
 
         public virtual Doctor Doctor { get; set; }
@@ -34,5 +36,7 @@ namespace DAL.Entities
         public virtual Patient Patient { get; set; }
 
         public virtual Procedure Procedure { get; set; }
+
+        public virtual VisitStatus VisitStatus { get; set; }
     }
 }

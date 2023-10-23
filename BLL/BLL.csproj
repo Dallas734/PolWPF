@@ -67,6 +67,7 @@
     <Compile Include="Models\SpecializationDTO.cs" />
     <Compile Include="Models\StatusDTO.cs" />
     <Compile Include="Models\VisitDTO.cs" />
+    <Compile Include="Models\VisitStatusDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ComboService.cs" />
     <Compile Include="Services\DoctorService.cs" />

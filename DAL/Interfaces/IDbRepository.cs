@@ -22,6 +22,8 @@ namespace DAL.Interfaces
         IRepository<Status> Statuses { get; }
         IRepository<Category> Categories { get; }
         IRepository<Certificate> Certificates { get; }
+
+        IRepository<VisitStatus> VisitStatuses { get; }
         int Save();
     }
 }

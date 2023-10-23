@@ -61,13 +61,14 @@
     <Compile Include="Entities\Diagnosis.cs" />
     <Compile Include="Entities\Doctor.cs" />
     <Compile Include="Entities\Patient.cs" />
-    <Compile Include="PolyclinicContext.cs" />
+    <Compile Include="Entities\PolyclinicContext.cs" />
     <Compile Include="Entities\Procedure.cs" />
     <Compile Include="Entities\Shedule.cs" />
     <Compile Include="Entities\Specialization.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\sysdiagrams.cs" />
     <Compile Include="Entities\Visit.cs" />
+    <Compile Include="Entities\VisitStatus.cs" />
     <Compile Include="Interfaces\IDbRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Repository\SpecializationRepositorySQL.cs" />
     <Compile Include="Repository\StatusRepositorySQL.cs" />
     <Compile Include="Repository\VisitRepositorySQL.cs" />
+    <Compile Include="Repository\VisitStatusRepositorySQL.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -42,6 +42,9 @@ namespace BLL.Interfaces
 
         List<VisitDTO> visitDTOs { get; }
 
+        List<VisitStatusDTO> visitStatusDTOs { get; }
+        void AddVisitStatus(VisitStatusDTO visitStatusDTO);
+
         bool Save();
     }
 }

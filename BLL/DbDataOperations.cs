@@ -206,6 +206,24 @@ namespace BLL
             }
         }
 
+        public List<VisitStatusDTO> visitStatusDTOs
+        {
+            get
+            {
+                return dbRepos.VisitStatuses.GetAll().Select(i => new VisitStatusDTO(i)).ToList();
+            }
+        }
+
+        public void AddVisitStatus(VisitStatusDTO visitStatusDTO)
+        {
+            dbRepos.VisitStatuses.Create(new VisitStatus()
+            {
+                Id = visitStatusDTO.Id,
+                Name = visitStatusDTO.Name,
+            });
+        }
+
+
         public bool Save()
         {
             if (dbRepos.Save() > 0) return true;

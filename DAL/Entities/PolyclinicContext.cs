@@ -26,6 +26,7 @@ namespace DAL.Entities
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Visit> Visit { get; set; }
+        public virtual DbSet<VisitStatus> VisitStatus { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -107,6 +108,15 @@ namespace DAL.Entities
                 .WithRequired(e => e.Status)
                 .HasForeignKey(e => e.Status_id)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<VisitStatus>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VisitStatus>()
+                .HasMany(e => e.Visit)
+                .WithOptional(e => e.VisitStatus)
+                .HasForeignKey(e => e.VisitStatus_id);
         }
     }
 }
