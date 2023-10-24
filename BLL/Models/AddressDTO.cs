@@ -21,9 +21,9 @@ namespace BLL.Models
             Name = a.Name;
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
-        public short Area_id { get; set; }
+        public int Area_id { get; set; }
 
         public string Name { get; set; }
 

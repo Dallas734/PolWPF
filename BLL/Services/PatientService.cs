@@ -18,11 +18,11 @@ namespace BLL.Services
             dbContext = repository;
         }
 
-        public short GetPatientArea(short patient_id)
+        public int GetPatientArea(int patient_id)
         {
             return 1;
         }
-        public List<PatientDTO> GetPatientsOnArea(short area_id)
+        public List<PatientDTO> GetPatientsOnArea(int area_id)
         {
             return new List<PatientDTO>();
         }

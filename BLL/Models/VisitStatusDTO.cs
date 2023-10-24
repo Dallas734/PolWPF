@@ -17,7 +17,7 @@ namespace BLL.Models
             Name = visitStatus.Name;
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

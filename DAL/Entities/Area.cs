@@ -17,7 +17,7 @@ namespace DAL.Entities
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]

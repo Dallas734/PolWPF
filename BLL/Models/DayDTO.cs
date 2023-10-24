@@ -17,7 +17,7 @@ namespace BLL.Models
             Id = d.Id;
             Name = d.Name;
         }
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

@@ -163,7 +163,6 @@ namespace BLL
             {
                 Id = procedureDTO.Id,
                 Name = procedureDTO.Name,
-                Cost = procedureDTO.Cost,
             });
         }
 

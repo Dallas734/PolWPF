@@ -21,7 +21,7 @@ namespace BLL.Services
         {
             return new List<DoctorDTO>();
         }
-        public List<DoctorDTO> GetDoctorsOnArea(short area_id)
+        public List<DoctorDTO> GetDoctorsOnArea(int area_id)
         {
             return new List<DoctorDTO>();
         }

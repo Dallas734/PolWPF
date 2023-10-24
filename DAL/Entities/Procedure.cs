@@ -15,13 +15,11 @@ namespace DAL.Entities
             Visit = new HashSet<Visit>();
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(256)]
         public string Name { get; set; }
-
-        public int Cost { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Visit> Visit { get; set; }

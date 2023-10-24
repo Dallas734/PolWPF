@@ -26,9 +26,9 @@ namespace BLL.Models
             FullName = d.LastName + " " + d.FirstName + " " + d.Surname;
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
-        public short Specialization_id { get; set; }
+        public int Specialization_id { get; set; }
 
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -38,13 +38,10 @@ namespace BLL.Models
 
         public DateTime DateOfBirth { get; set; }
 
-        public short Status_id { get; set; }
+        public int Status_id { get; set; }
 
-        public short? Area_id { get; set; }
+        public int? Area_id { get; set; }
 
-        public short Category_id { get; set; }
-
-        public int Age { get; set; }
-
+        public int Category_id { get; set; }
     }
 }

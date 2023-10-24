@@ -18,11 +18,11 @@ namespace BLL.Models
             BeginTime = s.BeginTime;
             EndTime = s.EndTime;
         }
-        public short Id { get; set; }
+        public int Id { get; set; }
 
-        public short Day_id { get; set; }
+        public int Day_id { get; set; }
 
-        public short Doctor_id { get; set; }
+        public int Doctor_id { get; set; }
 
         public TimeSpan? BeginTime { get; set; }
 

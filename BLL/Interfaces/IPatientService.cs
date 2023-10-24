@@ -9,7 +9,7 @@ namespace BLL.Interfaces
 {
     public interface IPatientService
     {
-        short GetPatientArea(short patient_id);
-        List<PatientDTO> GetPatientsOnArea(short area_id);
+        int GetPatientArea(int patient_id);
+        List<PatientDTO> GetPatientsOnArea(int area_id);
     }
 }

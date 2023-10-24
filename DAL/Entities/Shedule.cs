@@ -9,11 +9,11 @@ namespace DAL.Entities
     [Table("Shedule")]
     public partial class Shedule
     {
-        public short Id { get; set; }
+        public int Id { get; set; }
 
-        public short Day_id { get; set; }
+        public int Day_id { get; set; }
 
-        public short Doctor_id { get; set; }
+        public int Doctor_id { get; set; }
 
         public TimeSpan? BeginTime { get; set; }
 

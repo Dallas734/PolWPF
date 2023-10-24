@@ -15,7 +15,7 @@ namespace DAL.Entities
             Visit = new HashSet<Visit>();
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(256)]
@@ -36,7 +36,7 @@ namespace DAL.Entities
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
 
-        public short Address_id { get; set; }
+        public int Address_id { get; set; }
 
         [Required]
         [StringLength(16)]

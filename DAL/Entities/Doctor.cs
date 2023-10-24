@@ -17,9 +17,9 @@ namespace DAL.Entities
             Visit = new HashSet<Visit>();
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
-        public short Specialization_id { get; set; }
+        public int Specialization_id { get; set; }
 
         [Required]
         [StringLength(256)]
@@ -36,13 +36,11 @@ namespace DAL.Entities
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
 
-        public short Status_id { get; set; }
+        public int Status_id { get; set; }
 
-        public short? Area_id { get; set; }
+        public int? Area_id { get; set; }
 
-        public short Category_id { get; set; }
-
-        public int Age { get; set; }
+        public int Category_id { get; set; }
 
         public virtual Area Area { get; set; }
 

@@ -18,14 +18,11 @@ namespace BLL.Models
         {
             Id = p.Id;
             Name = p.Name;
-            Cost = p.Cost;
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public int Cost { get; set; }
 
     }
 }

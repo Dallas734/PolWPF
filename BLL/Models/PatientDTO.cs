@@ -27,7 +27,7 @@ namespace BLL.Models
             WorkPlace = p.WorkPlace;
         }
 
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         public string LastName { get; set; }
 
@@ -41,7 +41,7 @@ namespace BLL.Models
 
         public DateTime DateOfBirth { get; set; }
 
-        public short Address_id { get; set; }
+        public int Address_id { get; set; }
 
         public string Polis { get; set; }
 
