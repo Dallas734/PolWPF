@@ -27,7 +27,7 @@ namespace DAL.Entities
 
         public int? Doctor_id { get; set; }
 
-        public int? VisitStatus_id { get; set; }
+        public int VisitStatus_id { get; set; }
 
         public virtual Diagnosis Diagnosis { get; set; }
 

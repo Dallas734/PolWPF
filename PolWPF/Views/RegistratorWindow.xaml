@@ -32,17 +32,23 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button x:Name="AddPatientsBtn" Grid.Column="0" Width="200" Content="Добавить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="DeletePatientBtn" Grid.Column="1" Width="200" Content="Удалить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="SavePatientBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="AddPatientsBtn" Grid.Column="0" Width="200" Content="Добавить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding AddPatientCommand}"/>
+                                    <Button x:Name="DeletePatientBtn" Grid.Column="1" Width="200" Content="Удалить пациента" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding RemovePatientCommand}" CommandParameter="{Binding SelectedPatient}"/>
+                                    <Button x:Name="SavePatientBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding SavePatientCommand}" CommandParameter="{Binding SelectedPatient}"/>
                                 </Grid>
                             </StackPanel>
-                            <DataGrid x:Name="PatientGridInfo" Grid.Row="1" ItemsSource="{Binding allPatients}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
+                            <DataGrid x:Name="PatientGridInfo" Grid.Row="1" ItemsSource="{Binding allPatients}" SelectedItem="{Binding SelectedPatient, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
                                     <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="Auto"/>
                                     <DataGridTextColumn Header="Отчество" Binding="{Binding Surname}" Width="Auto"/>
-                                    <DataGridTextColumn Header="Пол" Binding="{Binding Gender}" Width="Auto"/>
+                                    <DataGridTemplateColumn Header="Пол">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox x:Name="Combo18" DisplayMemberPath="Name" SelectedValue="{Binding Gender_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
                                     <DataGridTextColumn Header="Дата рождения" Binding="{Binding DateOfBirth, StringFormat=d}" Width="Auto"/>
                                     <DataGridTemplateColumn Header="Адрес">
@@ -68,12 +74,15 @@
                                 <StackPanel Grid.Row="0" Margin="0, 5, 0, 10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Врач</Label>
-                                        <ComboBox x:Name="DoctorComboAddVisit" Width="216" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                                        <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Специальность</Label>
+                                        <ComboBox x:Name="SpecComboAddVisit" Width="216" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                                        <Label FontSize="16" FontWeight="Black" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">Врач</Label>
+                                        <ComboBox x:Name="DoctorComboAddVisit" Width="216" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" />
                                     </Grid>
                                 </StackPanel>
                             </Border>
@@ -116,7 +125,6 @@
                                         </Grid>
                                     </GroupBox>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="4">
-                                        <Button Content="Новая запись" x:Name="guifEventNew" Margin="8,0,0,0"/>
                                         <Button Content="Удалить запись" x:Name="guifEventDelete" Margin="8,0,0,0" IsEnabled="False"/>
                                     </StackPanel>
                                     <GroupBox x:Name="guicEventEdit" Header="Новая запись" Margin="4" Grid.Row="3">
@@ -137,7 +145,7 @@
                                             <DatePicker x:Name="guiEventEditDate" Grid.Column="1" Grid.Row="0"/>
                                             <materialDesignMahApps:TimePicker x:Name="guiEventEditTime" Grid.Column="1" Grid.Row="1"/>
                                             <ComboBox x:Name="PatientComboAddVisit" Grid.Column="1" Grid.Row="2"/>
-                                            <Button x:Name="guiEventEditSave" Grid.Column="1" Grid.Row="5" Content="Save" HorizontalAlignment="Left" Width="100" Margin="0, 2, 0, 0"/>
+                                            <Button x:Name="guiEventEditSave" Grid.Column="1" Grid.Row="5" Content="Создать" HorizontalAlignment="Left" Width="100" Margin="0, 2, 0, 0"/>
                                         </Grid>
                                         
                                     </GroupBox>
@@ -259,12 +267,12 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button x:Name="AddDoctorBtn" Grid.Column="0" Width="200" Content="Добавить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="DeleteDoctorBtn" Grid.Column="1" Width="200" Content="Удалить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
-                                    <Button x:Name="SaveDoctorBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+                                    <Button x:Name="AddDoctorBtn" Grid.Column="0" Width="200" Content="Добавить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding AddDoctorCommand}"/>
+                                    <Button x:Name="DeleteDoctorBtn" Grid.Column="1" Width="200" Content="Удалить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding RemoveDoctorCommand}" CommandParameter="{Binding SelectedDoctor}"/>
+                                    <Button x:Name="SaveDoctorBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding SaveDoctorCommand}" CommandParameter="{Binding SelectedDoctor}"/>
                                 </Grid>
                             </StackPanel>
-                            <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" ItemsSource="{Binding allDoctors}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
+                            <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" ItemsSource="{Binding allDoctors}" SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Специальность">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -276,6 +284,13 @@
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
                                     <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="Auto"/>
                                     <DataGridTextColumn Header="Отчество" Binding="{Binding Surname}"  Width="Auto"/>
+                                    <DataGridTemplateColumn Header="Пол">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox x:Name="Combo3" DisplayMemberPath="Name" SelectedValue="{Binding Gender_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="Дата рождения" Binding="{Binding DateOfBirth, StringFormat=d}" Width="Auto"/>
                                     <DataGridTemplateColumn Header="Статус">
                                         <DataGridTemplateColumn.CellTemplate>

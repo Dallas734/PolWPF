@@ -19,12 +19,12 @@ namespace DAL.Entities
         public virtual DbSet<Day> Day { get; set; }
         public virtual DbSet<Diagnosis> Diagnosis { get; set; }
         public virtual DbSet<Doctor> Doctor { get; set; }
+        public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Patient> Patient { get; set; }
         public virtual DbSet<Procedure> Procedure { get; set; }
         public virtual DbSet<Shedule> Shedule { get; set; }
         public virtual DbSet<Specialization> Specialization { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Visit> Visit { get; set; }
         public virtual DbSet<VisitStatus> VisitStatus { get; set; }
 
@@ -79,6 +79,20 @@ namespace DAL.Entities
                 .WithOptional(e => e.Doctor)
                 .HasForeignKey(e => e.Doctor_id);
 
+            modelBuilder.Entity<Gender>()
+                .Property(e => e.Name)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Gender>()
+                .HasMany(e => e.Doctor)
+                .WithOptional(e => e.Gender)
+                .HasForeignKey(e => e.Gender_id);
+
+            modelBuilder.Entity<Gender>()
+                .HasMany(e => e.Patient)
+                .WithOptional(e => e.Gender)
+                .HasForeignKey(e => e.Gender_id);
+
             modelBuilder.Entity<Patient>()
                 .HasMany(e => e.Visit)
                 .WithRequired(e => e.Patient)
@@ -115,8 +129,9 @@ namespace DAL.Entities
 
             modelBuilder.Entity<VisitStatus>()
                 .HasMany(e => e.Visit)
-                .WithOptional(e => e.VisitStatus)
-                .HasForeignKey(e => e.VisitStatus_id);
+                .WithRequired(e => e.VisitStatus)
+                .HasForeignKey(e => e.VisitStatus_id)
+                .WillCascadeOnDelete(false);
         }
     }
 }

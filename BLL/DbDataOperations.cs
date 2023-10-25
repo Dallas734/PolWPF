@@ -42,7 +42,7 @@ namespace BLL
         {
             get
             {
-                return dbRepos.Areas.GetAll().Select(i => new AreaDTO(i)).ToList();
+                return dbRepos.Areas.GetAll().Select(i => new AreaDTO(i, this)).ToList();
             }
         }
         public void AddArea(AreaDTO areaDTO)
@@ -124,7 +124,29 @@ namespace BLL
                 Status_id = doctorDTO.Status_id,
                 Area_id = doctorDTO.Area_id,
                 Category_id = doctorDTO.Category_id,
+                Gender_id = doctorDTO.Gender_id,
             });
+        }
+
+        public void DeleteDoctor(DoctorDTO doctorDTO)
+        {
+            dbRepos.Doctors.Delete(doctorDTO.Id);
+        }
+        public void UpdateDoctor(DoctorDTO doctorDTO)
+        {
+            Doctor d = dbRepos.Doctors.GetItem(doctorDTO.Id);
+            d.Specialization_id = doctorDTO.Specialization_id;
+            d.Category_id = doctorDTO.Category_id;
+            d.Status_id = doctorDTO.Status_id;
+            d.Area_id = doctorDTO.Area_id;
+            d.LastName = doctorDTO.LastName;
+            d.FirstName = doctorDTO.FirstName;
+            d.Surname = doctorDTO.Surname;
+            d.DateOfBirth = doctorDTO.DateOfBirth;
+            d.Gender_id = doctorDTO.Gender_id;
+
+            dbRepos.Doctors.Update(d);
+            dbRepos.Save();
         }
 
         public List<PatientDTO> patientDTOs 
@@ -142,12 +164,33 @@ namespace BLL
                 LastName = patientDTO.LastName,
                 FirstName = patientDTO.FirstName,
                 Surname = patientDTO.Surname,
-                Gender = patientDTO.Gender,
+                Gender_id = patientDTO.Gender_id,
                 DateOfBirth = patientDTO.DateOfBirth,
                 Address_id = patientDTO.Address_id,
                 Polis = patientDTO.Polis,
                 WorkPlace = patientDTO.WorkPlace,
             });
+        }
+
+        public void UpdatePatient(PatientDTO patientDTO)
+        {
+            Patient p = dbRepos.Patients.GetItem(patientDTO.Id);
+            p.LastName = patientDTO.LastName;
+            p.FirstName = patientDTO.FirstName;
+            p.Surname = patientDTO.Surname;
+            p.Gender_id = patientDTO.Gender_id;
+            p.DateOfBirth = patientDTO.DateOfBirth;
+            p.Address_id = patientDTO.Address_id;
+            p.Polis = patientDTO.Polis;
+            p.WorkPlace = patientDTO.WorkPlace;
+
+            dbRepos.Patients.Update(p);
+            dbRepos.Save();
+        }
+
+        public void DeletePatient(PatientDTO patientDTO)
+        {
+            dbRepos.Patients.Delete(patientDTO.Id);
         }
 
         public List<ProcedureDTO> procedureDTOs 
@@ -220,6 +263,14 @@ namespace BLL
                 Id = visitStatusDTO.Id,
                 Name = visitStatusDTO.Name,
             });
+        }
+
+        public List<GenderDTO> genderDTOs
+        {
+            get
+            {
+                return dbRepos.Genders.GetAll().Select(i => new GenderDTO(i)).ToList();
+            }
         }
 
 

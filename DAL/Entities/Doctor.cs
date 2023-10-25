@@ -42,12 +42,16 @@ namespace DAL.Entities
 
         public int Category_id { get; set; }
 
+        public int? Gender_id { get; set; }
+
         public virtual Area Area { get; set; }
 
         public virtual Category Category { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Certificate> Certificate { get; set; }
+
+        public virtual Gender Gender { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Shedule> Shedule { get; set; }

@@ -23,24 +23,26 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">Фамилия</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">Имя</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">Отчество</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top">Пол</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top">Дата рождения</Label>
-        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Top">Адрес</Label>
-        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top">Полис</Label>
-        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top">Место работы</Label>
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding LastName}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding FirstName}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Surname}"/>
-        <ComboBox Grid.Column="1" Grid.Row="3" Text="{Binding Gender}"/>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Top">Участок</Label>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top">Адрес</Label>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top">Полис</Label>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top">Место работы</Label>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding SelectedLastName}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SelectedFirstName}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding SelectedSurname}"/>
+        <ComboBox Grid.Column="1" Grid.Row="3" SelectedItem="{Binding SelectedGender}" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
         <DatePicker Grid.Column="1" Grid.Row="4" x:Name="DateBirthPatient"/>
-        <ComboBox Grid.Column="1" Grid.Row="5" Text="{Binding Address}"/>
-        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Polis}"/>
-        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding WorkPlace}"/>
-        <Button Grid.Column="2" Grid.Row="5" Margin="10, 0, 0, 0" Content="Добавить адрес"/>
-        <Button Grid.Column="1" Grid.Row="8" Margin="0, 20, 0, 0" Content="Подтвердить"/>
+        <ComboBox x:Name="combobox1" Grid.Column="1" Grid.Row="5" SelectedItem="{Binding SelectedArea}" DisplayMemberPath="Id" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allAreas, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+        <ComboBox Grid.Column="1" Grid.Row="6" SelectedItem="{Binding SelectedAddress}" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding SelectedItem.Addresses, ElementName=combobox1}" IsSynchronizedWithCurrentItem="True"/>
+        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding SelectedPolis}"/>
+        <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding SelectedWorkPlace}"/>
+        <Button Grid.Column="1" Grid.Row="9" Margin="0, 20, 0, 0" Content="Подтвердить" Command="{Binding SubmitCommand}"/>
     </Grid>
 </Window>

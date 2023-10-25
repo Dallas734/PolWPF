@@ -29,10 +29,6 @@ namespace DAL.Entities
         [StringLength(256)]
         public string Surname { get; set; }
 
-        [Required]
-        [StringLength(1)]
-        public string Gender { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
 
@@ -46,7 +42,11 @@ namespace DAL.Entities
         [StringLength(256)]
         public string WorkPlace { get; set; }
 
+        public int? Gender_id { get; set; }
+
         public virtual Address Address { get; set; }
+
+        public virtual Gender Gender { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Visit> Visit { get; set; }

@@ -22,23 +22,26 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">Специальность</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">Фамилия</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">Имя</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top">Отчество</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top">Дата рождения</Label>
-        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Top">Категория</Label>
-        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top">Статус</Label>
-        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top">Участок</Label>
-        <ComboBox Grid.Column="1" Grid.Row="0" Text="{Binding Specialization}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LastName}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding FirstName}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Surname}"/>
-        <DatePicker Grid.Column="1" Grid.Row="4" x:Name="DateBirthDoctor"/>
-        <ComboBox Grid.Column="1" Grid.Row="5" Text="{Binding Category}"/>
-        <ComboBox Grid.Column="1" Grid.Row="6" Text="{Binding Status}"/>
-        <ComboBox Grid.Column="1" Grid.Row="7" Text="{Binding Area}"/>
-        <Button Grid.Column="1" Grid.Row="8" Margin="0,20, 0, 0" Content="Подтвердить"/>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Top">Пол</Label>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top">Категория</Label>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top">Статус</Label>
+        <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top">Участок</Label>
+        <ComboBox Grid.Column="1" Grid.Row="0" SelectedItem="{Binding SelectedSpecialization}" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.allSpecializations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SelectedLastName}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding SelectedFirstName}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding SelectedSurname}"/>
+        <ComboBox Grid.Column="1" Grid.Row="5" SelectedItem="{Binding SelectedGender}" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <DatePicker Grid.Column="1" Grid.Row="4" x:Name="DateBirthDoctor" SelectedDate="{Binding SelectedDate}"/>
+        <ComboBox Grid.Column="1" Grid.Row="6" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allCategories, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <ComboBox Grid.Column="1" Grid.Row="7" SelectedItem="{Binding SelectedStatus}" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allStatus, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <ComboBox Grid.Column="1" Grid.Row="8" SelectedItem="{Binding SelectedArea}" DisplayMemberPath="Id" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allAreas, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <Button Grid.Column="1" Grid.Row="9" Margin="0,20, 0, 0" Content="Подтвердить" Command="{Binding SubmitCommand}"/>
     </Grid>
 </Window>

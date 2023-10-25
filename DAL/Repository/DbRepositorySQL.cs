@@ -26,6 +26,7 @@ namespace DAL.Repository
         private CategoryRepositorySQL categoryRepository;
         private CertificateRepositorySQL certificateRepository;
         private VisitStatusRepositorySQL visitStatusRepository;
+        private GenderRepositorySQL genderRepository;  
         public DbRepositorySQL(string connectionString)
         {
             this.dbContext = new PolyclinicContext();
@@ -165,6 +166,16 @@ namespace DAL.Repository
                 if (visitStatusRepository == null)
                     visitStatusRepository = new VisitStatusRepositorySQL(dbContext);
                 return visitStatusRepository;
+            }
+        }
+
+        public IRepository<Gender> Genders
+        {
+            get
+            {
+                if (genderRepository == null)
+                    genderRepository = new GenderRepositorySQL(dbContext); 
+                return genderRepository;
             }
         }
         public int Save()

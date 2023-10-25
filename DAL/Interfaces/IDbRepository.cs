@@ -24,6 +24,8 @@ namespace DAL.Interfaces
         IRepository<Certificate> Certificates { get; }
 
         IRepository<VisitStatus> VisitStatuses { get; }
+
+        IRepository<Gender> Genders { get; }
         int Save();
     }
 }

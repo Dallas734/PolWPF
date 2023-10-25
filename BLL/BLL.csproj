@@ -60,6 +60,7 @@
     <Compile Include="Models\DayDTO.cs" />
     <Compile Include="Models\DiagnosisDTO.cs" />
     <Compile Include="Models\DoctorDTO.cs" />
+    <Compile Include="Models\GenderDTO.cs" />
     <Compile Include="Models\PatientDTO.cs" />
     <Compile Include="Models\ProcedureDTO.cs" />
     <Compile Include="Models\Reports.cs" />

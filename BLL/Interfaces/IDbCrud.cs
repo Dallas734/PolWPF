@@ -27,9 +27,14 @@ namespace BLL.Interfaces
 
         List<DoctorDTO> doctorDTOs { get; }
         void AddDoctor(DoctorDTO doctorDTO);
+        void DeleteDoctor(DoctorDTO doctorDTO);
+        void UpdateDoctor(DoctorDTO doctorDTO);
 
         List<PatientDTO> patientDTOs { get; }
         void AddPatient(PatientDTO patientDTO);
+        void DeletePatient(PatientDTO patientDTO);
+
+        void UpdatePatient(PatientDTO patientDTO);
 
         List<ProcedureDTO> procedureDTOs { get; }
         void AddProcedure(ProcedureDTO procedureDTO);
@@ -44,6 +49,8 @@ namespace BLL.Interfaces
 
         List<VisitStatusDTO> visitStatusDTOs { get; }
         void AddVisitStatus(VisitStatusDTO visitStatusDTO);
+
+        List<GenderDTO> genderDTOs { get; }
 
         bool Save();
     }

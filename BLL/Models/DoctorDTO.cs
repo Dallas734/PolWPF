@@ -19,6 +19,7 @@ namespace BLL.Models
             LastName = d.LastName;
             FirstName = d.FirstName;
             Surname = d.Surname;
+            Gender_id = d.Gender_id;
             DateOfBirth = d.DateOfBirth;
             Status_id = d.Status_id;
             Area_id = d.Area_id;
@@ -43,5 +44,7 @@ namespace BLL.Models
         public int? Area_id { get; set; }
 
         public int Category_id { get; set; }
+
+        public int? Gender_id { get; set; }
     }
 }
