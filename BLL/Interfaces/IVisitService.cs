@@ -11,5 +11,7 @@ namespace BLL.Interfaces
     public interface IVisitService
     {
         bool CheckVisitAvailable(VisitDTO visit);
+
+        List<Talon> GetTalons(DoctorDTO doctor, DateTime date);
     }
 }

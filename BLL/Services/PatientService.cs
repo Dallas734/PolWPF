@@ -24,7 +24,7 @@ namespace BLL.Services
         }
         public List<PatientDTO> GetPatientsOnArea(int area_id)
         {
-            return new List<PatientDTO>();
+            return dbContext.Patients.GetAll().Join(dbContext.Addresses.GetAll().Where(a => a.Area_id == area_id), p => p.Address_id, a => a.Id, (p, a) => p).Select(i => new PatientDTO(i)).ToList();
         }
     }
 }

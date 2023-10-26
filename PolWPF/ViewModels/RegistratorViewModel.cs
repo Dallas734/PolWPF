@@ -58,14 +58,107 @@ namespace PolWPF.ViewModels
             }
         }
 
-        public ObservableCollection<DoctorDTO> allDoctors { get; set; }
-        public ObservableCollection<PatientDTO> allPatients { get; set; }
-        public ObservableCollection<SpecializationDTO> allSpecializations { get; set; }
-        public ObservableCollection<StatusDTO> allStatus { get; set; }
-        public ObservableCollection<CategoryDTO> allCategories { get; set; }
-        public ObservableCollection<AddressDTO> allAddresses { get; set; }
+        private AreaDTO selectedArea;
+        public AreaDTO SelectedArea
+        {
+            get { return selectedArea;}
+            set
+            {
+                selectedArea = value;
+                if (SelectedSpecialization != null)
+                    AllNowDoctors = new ObservableCollection<DoctorDTO>(doctorService.GetDoctorsOnAreaAndSpecialization(SelectedArea.Id, SelectedSpecialization.Id));
+                AllNowPatients = new ObservableCollection<PatientDTO>(patientService.GetPatientsOnArea(selectedArea.Id));
+                OnPropertyChanged("SelectedArea");
+            }
+        }
 
-        public ObservableCollection<GenderDTO> allGenders { get; set; }
+        private SpecializationDTO selectedSpecialization;
+        public SpecializationDTO SelectedSpecialization
+        {
+            get
+            {
+                return selectedSpecialization;
+            }
+            set
+            {
+                selectedSpecialization = value;
+                if (SelectedArea != null)
+                    AllNowDoctors = new ObservableCollection<DoctorDTO>(doctorService.GetDoctorsOnAreaAndSpecialization(SelectedArea.Id, SelectedSpecialization.Id));
+                OnPropertyChanged("SelectedSpecialization");
+            }
+        }
+
+        private ObservableCollection<DoctorDTO> allNowDoctors;
+        public ObservableCollection<DoctorDTO> AllNowDoctors
+        {
+            get
+            {
+                return allNowDoctors;
+            }
+            set
+            {
+                allNowDoctors = value;
+                OnPropertyChanged("AllNowDoctors");
+            }
+        }
+
+        private ObservableCollection<PatientDTO> allNowPatients;
+        public ObservableCollection<PatientDTO> AllNowPatients
+        {
+            get { return allNowPatients; }
+            set
+            {
+                allNowPatients = value;
+                OnPropertyChanged("AllNowPatients");
+            }
+        }
+
+        private DateTime selectedDate = DateTime.Now.Date;
+        public DateTime SelectedDate
+        {
+            get { return selectedDate; }
+            set
+            {
+                selectedDate = value;
+                OnPropertyChanged("SelectedDate");
+            }
+        }
+
+        public Talon selectedTalon;
+        public Talon SelectedTalon
+        {
+            get { return selectedTalon; }
+            set
+            {
+                selectedTalon = value;
+                OnPropertyChanged("SelectedTalon");
+            }
+        }
+
+        public ObservableCollection<DoctorDTO> AllDoctors { get; set; }
+        public ObservableCollection<PatientDTO> AllPatients { get; set; }
+        public ObservableCollection<SpecializationDTO> AllSpecializations { get; set; }
+        public ObservableCollection<StatusDTO> AllStatus { get; set; }
+        public ObservableCollection<CategoryDTO> AllCategories { get; set; }
+        public ObservableCollection<AddressDTO> AllAddresses { get; set; }
+
+        public ObservableCollection<GenderDTO> AllGenders { get; set; }
+
+        public ObservableCollection<AreaDTO> AllAreas { get; set; }
+
+        private ObservableCollection<Talon> talons;
+        public ObservableCollection<Talon> Talons
+        { 
+            get
+            {
+                return talons;
+            } 
+            set
+            {
+                talons = value;
+                OnPropertyChanged("Talons");
+            }
+        }
 
         public RegistratorViewModel(IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService)
         {
@@ -76,21 +169,25 @@ namespace PolWPF.ViewModels
             this.reportService = reportService;
             this.visitService = visitService;
 
-            allDoctors = new ObservableCollection<DoctorDTO>();
-            allPatients = new ObservableCollection<PatientDTO>();
-            allSpecializations = new ObservableCollection<SpecializationDTO>();
-            allStatus = new ObservableCollection<StatusDTO>();
-            allCategories = new ObservableCollection<CategoryDTO>();
-            allAddresses = new ObservableCollection<AddressDTO>();
-            allGenders = new ObservableCollection<GenderDTO>();
+            AllNowDoctors = new ObservableCollection<DoctorDTO>();
+            AllDoctors = new ObservableCollection<DoctorDTO>();
+            AllPatients = new ObservableCollection<PatientDTO>();
+            AllSpecializations = new ObservableCollection<SpecializationDTO>();
+            AllStatus = new ObservableCollection<StatusDTO>();
+            AllCategories = new ObservableCollection<CategoryDTO>();
+            AllAddresses = new ObservableCollection<AddressDTO>();
+            AllGenders = new ObservableCollection<GenderDTO>();
+            AllAreas = new ObservableCollection<AreaDTO>();
+            Talons = new ObservableCollection<Talon>();
 
-            comboService.FillObsCollection<DoctorDTO>(allDoctors, context.doctorDTOs);
-            comboService.FillObsCollection<PatientDTO>(allPatients, context.patientDTOs);
-            comboService.FillObsCollection<SpecializationDTO>(allSpecializations, context.specializationDTOs);
-            comboService.FillObsCollection<StatusDTO>(allStatus, context.statusDTOs);
-            comboService.FillObsCollection<CategoryDTO>(allCategories, context.categoryDTOs);
-            comboService.FillObsCollection<AddressDTO>(allAddresses, context.addressDTOs);
-            comboService.FillObsCollection<GenderDTO>(allGenders, context.genderDTOs);
+            comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs);
+            comboService.FillObsCollection<PatientDTO>(AllPatients, context.patientDTOs);
+            comboService.FillObsCollection<SpecializationDTO>(AllSpecializations, context.specializationDTOs);
+            comboService.FillObsCollection<StatusDTO>(AllStatus, context.statusDTOs);
+            comboService.FillObsCollection<CategoryDTO>(AllCategories, context.categoryDTOs);
+            comboService.FillObsCollection<AddressDTO>(AllAddresses, context.addressDTOs);
+            comboService.FillObsCollection<GenderDTO>(AllGenders, context.genderDTOs);
+            comboService.FillObsCollection<AreaDTO>(AllAreas, context.areaDTOs);
         }
 
         private RelayCommand removePatientCommand;
@@ -104,13 +201,13 @@ namespace PolWPF.ViewModels
                       PatientDTO patient = obj as PatientDTO;
                       if (patient != null)
                       {
-                          allPatients.Remove(patient);
+                          AllPatients.Remove(patient);
                           context.DeletePatient(patient);
                           context.Save();
                       }
                   },
                  //условие, при котором будет доступна команда
-                 (obj) => (allPatients.Count > 0 && selectedPatient != null)));
+                 (obj) => (AllPatients.Count > 0 && selectedPatient != null)));
             }
         }
 
@@ -125,13 +222,13 @@ namespace PolWPF.ViewModels
                       DoctorDTO doctor = obj as DoctorDTO;
                       if (doctor != null)
                       {
-                          allDoctors.Remove(doctor);
+                          AllDoctors.Remove(doctor);
                           context.DeleteDoctor(doctor);
                           context.Save();
                       }
                   },
                  //условие, при котором будет доступна команда
-                 (obj) => (allDoctors.Count > 0 && selectedDoctor != null)));
+                 (obj) => (AllDoctors.Count > 0 && selectedDoctor != null)));
             }
         }
 
@@ -145,7 +242,7 @@ namespace PolWPF.ViewModels
                  {
                      _addDoctorWindow = new AddDoctorWindow(context, comboService);
                      _addDoctorWindow.ShowDialog();
-                     comboService.FillObsCollection(allDoctors, context.doctorDTOs);
+                     comboService.FillObsCollection(AllDoctors, context.doctorDTOs);
                  }));
 
             }
@@ -161,7 +258,7 @@ namespace PolWPF.ViewModels
                     {
                         _addPatientWindow = new AddPatientWindow(context, comboService);
                         _addPatientWindow.ShowDialog();
-                        comboService.FillObsCollection(allPatients, context.patientDTOs);
+                        comboService.FillObsCollection(AllPatients, context.patientDTOs);
                     }));
             }
         }
@@ -189,7 +286,7 @@ namespace PolWPF.ViewModels
                             MessageBox.Show(ex.Message);
                         }
                     },
-                    (obj) => (allDoctors.Count > 0 && selectedDoctor != null)));
+                    (obj) => (AllDoctors.Count > 0 && selectedDoctor != null)));
             }
         }
 
@@ -216,9 +313,37 @@ namespace PolWPF.ViewModels
                             MessageBox.Show(ex.Message);
                         }
                     },
-                    (obj) => (allPatients.Count > 0 && selectedPatient != null)));
+                    (obj) => (AllPatients.Count > 0 && selectedPatient != null)));
             }
 
+        }
+
+        private RelayCommand getTalonsCommand;
+        public RelayCommand GetTalonsCommand
+        {
+            get
+            {
+                return getTalonsCommand ??
+                    (getTalonsCommand = new RelayCommand(obj =>
+                    {
+                        Talons = new ObservableCollection<Talon>(visitService.GetTalons(SelectedDoctor, SelectedDate));
+                    },
+                    (obj) => (selectedDoctor != null && selectedDate != null)));
+            }
+        }
+
+        private RelayCommand addVisitCommand;
+        public RelayCommand AddVisitCommand
+        {
+            get
+            {
+                return addVisitCommand ??
+                    (addVisitCommand = new RelayCommand(obj =>
+                    {
+                        
+                        
+                    }));
+            }
         }
 
     }

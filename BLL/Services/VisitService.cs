@@ -11,6 +11,11 @@ namespace BLL.Services
 {
     public class VisitService : IVisitService
     {
+        enum Days
+        {
+            
+        }
+
         IDbRepository dbContext;
 
         public VisitService(IDbRepository repository)
@@ -21,6 +26,30 @@ namespace BLL.Services
         public bool CheckVisitAvailable(VisitDTO visit)
         {
             return true; 
+        }
+
+        public List<Talon> GetTalons(DoctorDTO doctor, DateTime date)
+        {
+            List<Talon> talons = new List<Talon>();
+            TimeSpan? beginTime = dbContext.Shedules.GetAll().Where(i => i.Doctor_id == doctor.Id && i.Day_id == (int)date.DayOfWeek).FirstOrDefault().BeginTime;
+            TimeSpan? endTime = dbContext.Shedules.GetAll().Where(i => i.Doctor_id == doctor.Id && i.Day_id == (int)date.DayOfWeek).FirstOrDefault().EndTime;
+
+            while (beginTime <= endTime)
+            {
+                Talon talon = new Talon();
+                talon.Time = beginTime.Value;
+                if (dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date.Date && i.VisitStatus.Id == 1).FirstOrDefault() != null)
+                {
+                    VisitDTO visitDTO = new VisitDTO(dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date && i.VisitStatus.Id == 1).FirstOrDefault());
+                    talon.Visit = visitDTO;
+                    talon.Status = "Занято";
+                }
+
+                talons.Add(talon);
+                beginTime = new TimeSpan(beginTime.Value.Ticks + TimeSpan.FromMinutes(30).Ticks);
+            }
+
+            return talons;
         }
     }
 }

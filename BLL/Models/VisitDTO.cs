@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
+    public class Talon
+    { 
+        public Talon() { }
+        public TimeSpan Time { get; set; }
+        public string Status { get; set; }
+
+        public VisitDTO Visit { get; set; }
+    }
+
     public class VisitDTO
     {
         public VisitDTO() { }
@@ -21,6 +30,7 @@ namespace BLL.Models
             DateT = v.DateT;
             TimeT = v.TimeT;
             Doctor_id = v.Doctor_id;
+            VisitStatus_id = v.VisitStatus_id;
         }
         public int Id { get; set; }
 
@@ -37,6 +47,8 @@ namespace BLL.Models
         public TimeSpan TimeT { get; set; }
 
         public int? Doctor_id { get; set; }
+
+        public int VisitStatus_id { get; set; }
 
     }
 }

@@ -10,6 +10,6 @@ namespace BLL.Interfaces
     public interface IDoctorService
     {
         List<DoctorDTO> GetDoctorsOnWork();
-        List<DoctorDTO> GetDoctorsOnArea(int area_id);
+        List<DoctorDTO> GetDoctorsOnAreaAndSpecialization(int area_id, int spec_id);
     }
 }

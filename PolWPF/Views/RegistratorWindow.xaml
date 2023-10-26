@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolWPF"
         mc:Ignorable="d"
-        Title="RegistratorWindow" Height="480" Width="1300"
+        Title="RegistratorWindow" Height="480" Width="1500"
         xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Window.Resources>
-        <CollectionViewSource x:Key="Specializations" Source="{Binding allSpecializations}"/>
+        <CollectionViewSource x:Key="Specializations" Source="{Binding AllSpecializations}"/>
     </Window.Resources>
     <Grid x:Name="BackGrid">
         <TabControl TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black">
@@ -37,7 +37,7 @@
                                     <Button x:Name="SavePatientBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding SavePatientCommand}" CommandParameter="{Binding SelectedPatient}"/>
                                 </Grid>
                             </StackPanel>
-                            <DataGrid x:Name="PatientGridInfo" Grid.Row="1" ItemsSource="{Binding allPatients}" SelectedItem="{Binding SelectedPatient, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
+                            <DataGrid x:Name="PatientGridInfo" Grid.Row="1" ItemsSource="{Binding AllPatients}" SelectedItem="{Binding SelectedPatient, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
                                     <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="Auto"/>
@@ -45,7 +45,7 @@
                                     <DataGridTemplateColumn Header="Пол">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ComboBox x:Name="Combo18" DisplayMemberPath="Name" SelectedValue="{Binding Gender_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                                <ComboBox x:Name="Combo18" DisplayMemberPath="Name" SelectedValue="{Binding Gender_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -54,7 +54,7 @@
                                     <DataGridTemplateColumn Header="Адрес">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ComboBox x:Name="Combo4" DisplayMemberPath="Name" SelectedValue="{Binding  Address_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allAddresses, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                                <ComboBox x:Name="Combo4" DisplayMemberPath="Name" SelectedValue="{Binding  Address_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllAddresses, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -68,31 +68,55 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Border BorderBrush="Black" BorderThickness="1">
                                 <StackPanel Grid.Row="0" Margin="0, 5, 0, 10">
-                                    <Grid>
+                                    <Grid Grid.Row="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Специальность</Label>
-                                        <ComboBox x:Name="SpecComboAddVisit" Width="216" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" />
-                                        <Label FontSize="16" FontWeight="Black" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">Врач</Label>
-                                        <ComboBox x:Name="DoctorComboAddVisit" Width="216" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                                        <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Участок</Label>
+                                        <ComboBox x:Name="AreaComboAddVisit" Width="216" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedArea}" DisplayMemberPath="Id" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllAreas, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                        <Label FontSize="16" FontWeight="Black" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">Специальность</Label>
+                                        <ComboBox x:Name="SpecComboAddVisit" Width="216" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedSpecialization}" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllSpecializations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                        <Label FontSize="16" FontWeight="Black" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top">Врач</Label>
+                                        <ComboBox x:Name="DoctorComboAddVisit" Width="216" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedDoctor}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllNowDoctors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                        <Label FontSize="16" FontWeight="Black" Grid.Column="6" HorizontalAlignment="Left" VerticalAlignment="Top">Пациент</Label>
+                                        <ComboBox x:Name="ЗфешутеComboAddVisit" Width="216" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedPatient}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllNowPatients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                        <Button x:Name="AddVisitBtn" Grid.Column="8" Content="Записать" Command="{Binding AddVisitCommand}" Margin ="15, 0, 0,0 " CommandParameter="{Binding SelectedTalon}"/>
                                     </Grid>
                                 </StackPanel>
                             </Border>
                             <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                    <DatePicker x:Name="AddVisitDate"  Grid.Column="0" HorizontalAlignment="Center" SelectedDate="{Binding SelectedDate}" Width="100" Margin="0, 10, 0, 10"/>
+                                    <Button x:Name="GetTalonsBtn" Grid.Column="1" Content="Показать талоны" Margin="15, 0, 0, 0" Command="{Binding GetTalonsCommand}"/>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Border BorderBrush="Black" BorderThickness="1">
-                                    <local:SheduleDay x:Name="ScheduleDayRegistator"/>
+                                    <DataGrid x:Name="AddVisitGridInfo" Grid.Row="1" ItemsSource="{Binding Talons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTalon, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="*"/>
+                                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
                                 </Border>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
@@ -127,28 +151,6 @@
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="4">
                                         <Button Content="Удалить запись" x:Name="guifEventDelete" Margin="8,0,0,0" IsEnabled="False"/>
                                     </StackPanel>
-                                    <GroupBox x:Name="guicEventEdit" Header="Новая запись" Margin="4" Grid.Row="3">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Grid.Column="0" Grid.Row="0" Content="Дата:"/>
-                                            <Label Grid.Column="0" Grid.Row="1" Content="Время:"/>
-                                            <Label Grid.Column="0" Grid.Row="2" Content="Пациент:"/>
-                                            <DatePicker x:Name="guiEventEditDate" Grid.Column="1" Grid.Row="0"/>
-                                            <materialDesignMahApps:TimePicker x:Name="guiEventEditTime" Grid.Column="1" Grid.Row="1"/>
-                                            <ComboBox x:Name="PatientComboAddVisit" Grid.Column="1" Grid.Row="2"/>
-                                            <Button x:Name="guiEventEditSave" Grid.Column="1" Grid.Row="5" Content="Создать" HorizontalAlignment="Left" Width="100" Margin="0, 2, 0, 0"/>
-                                        </Grid>
-                                        
-                                    </GroupBox>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -272,12 +274,12 @@
                                     <Button x:Name="SaveDoctorBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding SaveDoctorCommand}" CommandParameter="{Binding SelectedDoctor}"/>
                                 </Grid>
                             </StackPanel>
-                            <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" ItemsSource="{Binding allDoctors}" SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
+                            <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" ItemsSource="{Binding AllDoctors}" SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Специальность">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                                <ComboBox x:Name="Combo1" DisplayMemberPath="Name" SelectedValue="{Binding Specialization_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allSpecializations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                                <ComboBox x:Name="Combo1" DisplayMemberPath="Name" SelectedValue="{Binding Specialization_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllSpecializations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate> 
                                     </DataGridTemplateColumn>
@@ -287,7 +289,7 @@
                                     <DataGridTemplateColumn Header="Пол">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ComboBox x:Name="Combo3" DisplayMemberPath="Name" SelectedValue="{Binding Gender_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                                <ComboBox x:Name="Combo3" DisplayMemberPath="Name" SelectedValue="{Binding Gender_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllGenders, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -295,7 +297,7 @@
                                     <DataGridTemplateColumn Header="Статус">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ComboBox x:Name="Combo2" DisplayMemberPath="Name" SelectedValue="{Binding Status_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allStatus, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                                <ComboBox x:Name="Combo2" DisplayMemberPath="Name" SelectedValue="{Binding Status_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllStatus, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -303,7 +305,7 @@
                                     <DataGridTemplateColumn Header="Категория">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ComboBox x:Name="Combo3" DisplayMemberPath="Name" SelectedValue="{Binding Category_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allCategories, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                                <ComboBox x:Name="Combo3" DisplayMemberPath="Name" SelectedValue="{Binding Category_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllCategories, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>

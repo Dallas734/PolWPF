@@ -21,9 +21,9 @@ namespace BLL.Services
         {
             return new List<DoctorDTO>();
         }
-        public List<DoctorDTO> GetDoctorsOnArea(int area_id)
+        public List<DoctorDTO> GetDoctorsOnAreaAndSpecialization(int area_id, int spec_id)
         {
-            return new List<DoctorDTO>();
+            return dbContext.Doctors.GetAll().Where(i => i.Specialization_id == spec_id && i.Area_id == area_id).Select(i => new DoctorDTO(i)).ToList();
         }
     }
 }
