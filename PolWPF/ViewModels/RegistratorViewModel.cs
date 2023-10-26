@@ -58,6 +58,18 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private PatientDTO selectedTalonPatient;
+        public PatientDTO SelectedTalonPatient
+        {
+            get { return selectedTalonPatient; }
+            set
+            {
+                if (selectedTalon.Visit != null && selectedTalon != null)
+                    selectedTalonPatient = context.patientDTOs.Where(i => i.Id == selectedTalon.Visit.Patient_id).FirstOrDefault();
+                OnPropertyChanged("SelectedTalonPatient");
+            }
+        }
+
         private AreaDTO selectedArea;
         public AreaDTO SelectedArea
         {
@@ -131,6 +143,8 @@ namespace PolWPF.ViewModels
             set
             {
                 selectedTalon = value;
+                if(selectedTalon.Visit != null && selectedTalon != null)
+                    selectedTalon.Patient = context.patientDTOs.Where(i => i.Id == selectedTalon.Visit.Patient_id).FirstOrDefault();
                 OnPropertyChanged("SelectedTalon");
             }
         }
@@ -340,9 +354,18 @@ namespace PolWPF.ViewModels
                 return addVisitCommand ??
                     (addVisitCommand = new RelayCommand(obj =>
                     {
-                        
-                        
-                    }));
+                        Talon talon = obj as Talon;
+                        VisitDTO visit = new VisitDTO();
+                        visit.Diagnosis_id = 9;
+                        visit.Procedure_id = 4;
+                        visit.Patient_id = selectedPatient.Id;
+                        visit.Doctor_id = selectedDoctor.Id;
+                        visit.DateT = selectedDate;
+                        visit.TimeT = talon.Time;
+                        visit.VisitStatus_id = 1;
+
+                    },
+                    (obj) => (selectedTalon != null && selectedTalon.Visit == null)));
             }
         }
 

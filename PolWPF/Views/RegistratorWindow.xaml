@@ -142,10 +142,10 @@
                                             <Label Grid.Column="0" Grid.Row="1" Content="Время:"/>
                                             <Label Grid.Column="0" Grid.Row="2" Content="Врач:"/>
                                             <Label Grid.Column="0" Grid.Row="3" Content="Пациент:"/>
-                                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Start, StringFormat={}{0:D}}"/>
-                                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Start, StringFormat={}{0:t}}"/>
-                                            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding DoctorT}"/>
-                                            <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding PatientT}"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding SelectedTalon.Date, StringFormat={}{0:D}}"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SelectedTalon.Time, StringFormat={}{0:t}}"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedDoctor.FullName}"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding SelectedTalon.Patient.FullName}"/>
                                         </Grid>
                                     </GroupBox>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="4">

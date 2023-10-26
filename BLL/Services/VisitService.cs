@@ -38,6 +38,7 @@ namespace BLL.Services
             {
                 Talon talon = new Talon();
                 talon.Time = beginTime.Value;
+                talon.Date = date;
                 if (dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date.Date && i.VisitStatus.Id == 1).FirstOrDefault() != null)
                 {
                     VisitDTO visitDTO = new VisitDTO(dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date && i.VisitStatus.Id == 1).FirstOrDefault());

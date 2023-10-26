@@ -9,9 +9,14 @@ namespace BLL.Models
 {
     public class Talon
     { 
-        public Talon() { }
+        public Talon() 
+        {
+        }
         public TimeSpan Time { get; set; }
+        public DateTime Date { get; set; }
         public string Status { get; set; }
+
+        public PatientDTO Patient { get; set; }
 
         public VisitDTO Visit { get; set; }
     }
