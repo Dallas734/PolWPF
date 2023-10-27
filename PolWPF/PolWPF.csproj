@@ -113,13 +113,6 @@
     <Compile Include="Views\RegistratorWindow.xaml.cs">
       <DependentUpon>RegistratorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SheduleDay.xaml.cs">
-      <DependentUpon>SheduleDay.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\SheduleItem.cs" />
-    <Compile Include="Views\SheduleWeek.xaml.cs">
-      <DependentUpon>SheduleWeek.xaml</DependentUpon>
-    </Compile>
     <Page Include="Views\AddAddressWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,14 +142,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\RegistratorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SheduleDay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SheduleWeek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

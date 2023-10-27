@@ -26,5 +26,10 @@ namespace BLL.Services
         {
             return dbContext.Patients.GetAll().Join(dbContext.Addresses.GetAll().Where(a => a.Area_id == area_id), p => p.Address_id, a => a.Id, (p, a) => p).Select(i => new PatientDTO(i)).ToList();
         }
+
+        public List<VisitDTO> GetPatientCard(PatientDTO patient)
+        {
+            return dbContext.Visits.GetAll().Where(i => i.Patient_id == patient.Id && i.VisitStatus_id == 2).Select(i => new VisitDTO(i)).ToList();
+        }
     }
 }

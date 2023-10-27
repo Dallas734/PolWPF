@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using BLL.Interfaces;
 using BLL.Models;
+using DAL.Entities;
 using PolWPF.Views;
 
 namespace PolWPF.ViewModels
@@ -31,6 +32,7 @@ namespace PolWPF.ViewModels
         IPatientService patientService;
         IReportService reportService;
         IVisitService visitService;
+        ISheduleService sheduleService;
 
 
         private PatientDTO selectedPatient;
@@ -58,15 +60,15 @@ namespace PolWPF.ViewModels
             }
         }
 
-        private PatientDTO selectedTalonPatient;
-        public PatientDTO SelectedTalonPatient
+        private DoctorDTO selectedSheduleDoctor;
+
+        public DoctorDTO SelectedSheduleDoctor
         {
-            get { return selectedTalonPatient; }
-            set
-            {
-                if (selectedTalon.Visit != null && selectedTalon != null)
-                    selectedTalonPatient = context.patientDTOs.Where(i => i.Id == selectedTalon.Visit.Patient_id).FirstOrDefault();
-                OnPropertyChanged("SelectedTalonPatient");
+            get { return selectedSheduleDoctor; }
+            set 
+            { 
+                selectedSheduleDoctor = value;
+                OnPropertyChanged("SelectedSheduleDoctor");
             }
         }
 
@@ -143,9 +145,76 @@ namespace PolWPF.ViewModels
             set
             {
                 selectedTalon = value;
-                if(selectedTalon.Visit != null && selectedTalon != null)
+                if(selectedTalon != null && selectedTalon.Visit != null)
                     selectedTalon.Patient = context.patientDTOs.Where(i => i.Id == selectedTalon.Visit.Patient_id).FirstOrDefault();
                 OnPropertyChanged("SelectedTalon");
+            }
+        }
+
+        private PatientDTO selectedVisitPatient;
+        public PatientDTO SelectedVisitPatient
+        {
+            get
+            {
+                return selectedVisitPatient;
+            }
+            set
+            {
+                selectedVisitPatient = value;
+                OnPropertyChanged("SelectedVisitPatient");
+            }
+        }
+
+        private PatientDTO selectedCardPatient;
+        public PatientDTO SelectedCardPatient
+        {
+            get
+            {
+                return selectedCardPatient;
+            }
+            set
+            {
+                selectedCardPatient = value;
+                OnPropertyChanged("SelectedCardPatient");
+            }
+        }
+
+        private DateTime selectedVisitDate = DateTime.Now.Date;
+        public DateTime SelectedVisitDate
+        {
+            get { return selectedVisitDate; }
+            set
+            {
+                selectedVisitDate = value;
+                OnPropertyChanged("SelectedVisitDate");
+            }
+        }
+
+        private VisitDTO selectedFutureVisit;
+        public VisitDTO SelectedFutureVisit
+        {
+            get
+            {
+                return selectedFutureVisit;
+            }
+            set
+            {
+                selectedFutureVisit = value;
+                OnPropertyChanged("SelectedFutureVisit");
+            }
+        }
+
+        private SheduleDTO selectedSheduleItem;
+        public SheduleDTO SelectedSheduleItem
+        {
+            get
+            {
+                return selectedSheduleItem;
+            }
+            set
+            {
+                selectedSheduleItem = value;
+                OnPropertyChanged("SelectedSheduleItem");
             }
         }
 
@@ -160,21 +229,20 @@ namespace PolWPF.ViewModels
 
         public ObservableCollection<AreaDTO> AllAreas { get; set; }
 
-        private ObservableCollection<Talon> talons;
-        public ObservableCollection<Talon> Talons
-        { 
-            get
-            {
-                return talons;
-            } 
-            set
-            {
-                talons = value;
-                OnPropertyChanged("Talons");
-            }
-        }
+        public ObservableCollection<DiagnosisDTO> AllDiagnosis { get; set; }
 
-        public RegistratorViewModel(IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService)
+        public ObservableCollection<ProcedureDTO> AllProcedures { get; set; }
+
+        public ObservableCollection<VisitDTO> AllPatientVisit { get; set; }
+
+        public ObservableCollection<VisitDTO> PatientCard { get; set; }
+
+        public ObservableCollection<Talon> Talons { get; set; }
+
+        public ObservableCollection<SheduleDTO> DoctorShedule { get; set; }
+
+
+        public RegistratorViewModel(IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService)
         {
             this.context = context;
             this.comboService = comboService;
@@ -182,6 +250,7 @@ namespace PolWPF.ViewModels
             this.patientService = patientService;
             this.reportService = reportService;
             this.visitService = visitService;
+            this.sheduleService = sheduleService;
 
             AllNowDoctors = new ObservableCollection<DoctorDTO>();
             AllDoctors = new ObservableCollection<DoctorDTO>();
@@ -192,7 +261,12 @@ namespace PolWPF.ViewModels
             AllAddresses = new ObservableCollection<AddressDTO>();
             AllGenders = new ObservableCollection<GenderDTO>();
             AllAreas = new ObservableCollection<AreaDTO>();
+            AllDiagnosis = new ObservableCollection<DiagnosisDTO>();
+            AllProcedures = new ObservableCollection<ProcedureDTO>();
             Talons = new ObservableCollection<Talon>();
+            AllPatientVisit = new ObservableCollection<VisitDTO>();
+            PatientCard = new ObservableCollection<VisitDTO>();
+            DoctorShedule = new ObservableCollection<SheduleDTO>();
 
             comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs);
             comboService.FillObsCollection<PatientDTO>(AllPatients, context.patientDTOs);
@@ -202,6 +276,8 @@ namespace PolWPF.ViewModels
             comboService.FillObsCollection<AddressDTO>(AllAddresses, context.addressDTOs);
             comboService.FillObsCollection<GenderDTO>(AllGenders, context.genderDTOs);
             comboService.FillObsCollection<AreaDTO>(AllAreas, context.areaDTOs);
+            comboService.FillObsCollection<DiagnosisDTO>(AllDiagnosis, context.diagnosisDTOs);
+            comboService.FillObsCollection<ProcedureDTO>(AllProcedures, context.procedureDTOs);
         }
 
         private RelayCommand removePatientCommand;
@@ -340,7 +416,7 @@ namespace PolWPF.ViewModels
                 return getTalonsCommand ??
                     (getTalonsCommand = new RelayCommand(obj =>
                     {
-                        Talons = new ObservableCollection<Talon>(visitService.GetTalons(SelectedDoctor, SelectedDate));
+                        comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(SelectedDoctor, SelectedDate));
                     },
                     (obj) => (selectedDoctor != null && selectedDate != null)));
             }
@@ -354,18 +430,122 @@ namespace PolWPF.ViewModels
                 return addVisitCommand ??
                     (addVisitCommand = new RelayCommand(obj =>
                     {
-                        Talon talon = obj as Talon;
-                        VisitDTO visit = new VisitDTO();
-                        visit.Diagnosis_id = 9;
-                        visit.Procedure_id = 4;
-                        visit.Patient_id = selectedPatient.Id;
-                        visit.Doctor_id = selectedDoctor.Id;
-                        visit.DateT = selectedDate;
-                        visit.TimeT = talon.Time;
-                        visit.VisitStatus_id = 1;
+                        try
+                        {
+                            Talon talon = obj as Talon;
+                            VisitDTO visit = new VisitDTO();
+                            visit.Diagnosis_id = 9;
+                            visit.Procedure_id = 4;
+                            visit.Patient_id = selectedPatient.Id;
+                            visit.Doctor_id = selectedDoctor.Id;
+                            visit.DateT = selectedDate;
+                            visit.TimeT = talon.Time;
+                            visit.VisitStatus_id = 1;
+
+                            context.AddVisit(visit);
+                            context.Save();
+
+                            MessageBox.Show("Успешно!");
+
+                            comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(SelectedDoctor, SelectedDate));
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
 
                     },
                     (obj) => (selectedTalon != null && selectedTalon.Visit == null)));
+            }
+        }
+
+        private RelayCommand removeVisitCommand;
+        public RelayCommand RemoveVisitCommand
+        {
+            get
+            {
+                return removeVisitCommand ??
+                  (removeVisitCommand = new RelayCommand(obj =>
+                  {
+                      Talon talon = obj as Talon;
+                      context.DeleteVisit(talon.Visit);
+                      context.Save();
+                      comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(SelectedDoctor, SelectedDate));
+                  },
+                 //условие, при котором будет доступна команда
+                 (obj) => (selectedTalon != null && selectedTalon.Visit != null)));
+            }
+        }
+
+
+        private RelayCommand showPatientVisits;
+        public RelayCommand ShowPatientVisits
+        {
+            get
+            {
+                return showPatientVisits ??
+                  (showPatientVisits = new RelayCommand(obj =>
+                  {
+                      comboService.FillObsCollection<VisitDTO>(AllPatientVisit, visitService.GetFutureVisitsOnPatientAndDate(selectedVisitPatient, selectedVisitDate));
+                  },
+                 //условие, при котором будет доступна команда
+                 (obj) => (selectedVisitDate != null && selectedVisitPatient != null)));
+            }
+        }
+
+        private RelayCommand deletePatientVisits;
+        public RelayCommand DeletePatientVisits
+        {
+            get
+            {
+                return deletePatientVisits ??
+                  (deletePatientVisits = new RelayCommand(obj =>
+                  {
+                      try
+                      {
+                          VisitDTO visit = obj as VisitDTO;
+                          context.DeleteVisit(visit);
+                          context.Save();
+                          comboService.FillObsCollection<VisitDTO>(AllPatientVisit, visitService.GetFutureVisitsOnPatientAndDate(selectedVisitPatient, selectedVisitDate));
+                          MessageBox.Show("Успешно");
+                      }
+                      catch (Exception ex)
+                      {
+                          MessageBox.Show(ex.Message);
+                      }
+                  },
+                 //условие, при котором будет доступна команда
+                 (obj) => (selectedFutureVisit != null)));
+            }
+        }
+
+        private RelayCommand showPatientCard;
+        public RelayCommand ShowPatientCard
+        {
+            get
+            {
+                return showPatientCard ??
+                    (showPatientCard = new RelayCommand(obj =>
+                    {
+                        PatientDTO patient = obj as PatientDTO;
+                        comboService.FillObsCollection(PatientCard, patientService.GetPatientCard(patient));
+                    },
+                    (obj) => (selectedCardPatient != null)));
+            }
+        }
+
+        private RelayCommand getSheduleCommand;
+        public RelayCommand GetSheduleCommand
+        {
+            get
+            {
+                return getSheduleCommand ??
+                    (getSheduleCommand = new RelayCommand(obj =>
+                    {
+                        DoctorDTO doctor = obj as DoctorDTO;
+                        comboService.FillObsCollection(DoctorShedule, sheduleService.GetSheduleOnDoctor(doctor));
+                    },
+                    (obj) => (selectedSheduleDoctor != null)));
             }
         }
 

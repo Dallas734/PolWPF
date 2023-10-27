@@ -22,11 +22,17 @@ namespace BLL.Models
 
         public int Day_id { get; set; }
 
+        public string DayName { get; set; }
+
         public int Doctor_id { get; set; }
 
         public TimeSpan? BeginTime { get; set; }
 
         public TimeSpan? EndTime { get; set; }
+
+        public DateTime? newBeginTime {  get; set; }
+
+        public DateTime? newEndTime { get; set; }
 
     }
 }

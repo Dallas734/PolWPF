@@ -32,6 +32,7 @@ namespace PolWPF
         IPatientService patientService;
         IReportService reportService;
         IVisitService visitService;
+        ISheduleService sheduleService;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,8 +44,9 @@ namespace PolWPF
             patientService = kernel.Get<IPatientService>();
             reportService = kernel.Get<IReportService>();
             visitService = kernel.Get<IVisitService>();
+            sheduleService = kernel.Get<ISheduleService>();
 
-            DataContext = new MainViewModel(this, dbCrud, comboService, doctorService, patientService, reportService, visitService);
+            DataContext = new MainViewModel(this, dbCrud, comboService, doctorService, patientService, reportService, visitService, sheduleService);
         }
     }
 

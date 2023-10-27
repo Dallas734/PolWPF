@@ -54,9 +54,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <local:SheduleDay x:Name="SheduleDayDoctor" />
-                        </Border>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>

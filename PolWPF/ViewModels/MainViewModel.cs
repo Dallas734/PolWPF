@@ -25,6 +25,7 @@ namespace PolWPF.ViewModels
         IPatientService patientService;
         IReportService reportService;
         IVisitService visitService;
+        ISheduleService sheduleService;
 
         private MainWindow mainWindow;
         private RegistratorWindow _registratorWindow;
@@ -56,7 +57,7 @@ namespace PolWPF.ViewModels
             }
         }
 
-        public MainViewModel(MainWindow mainWindow, IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService)
+        public MainViewModel(MainWindow mainWindow, IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService)
         {
             this.mainWindow = mainWindow;
             this.context = context;
@@ -65,11 +66,12 @@ namespace PolWPF.ViewModels
             this.patientService = patientService;
             this.reportService = reportService;
             this.visitService = visitService;
+            this.sheduleService = sheduleService;
         }
 
         private void ToRegistratorPage(object obj)
         {
-            _registratorWindow = new RegistratorWindow(context, comboService, doctorService, patientService, reportService, visitService);
+            _registratorWindow = new RegistratorWindow(context, comboService, doctorService, patientService, reportService, visitService, sheduleService);
             _registratorWindow.Show();
             mainWindow.Close(); 
         }

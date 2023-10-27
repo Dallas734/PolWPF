@@ -39,9 +39,9 @@ namespace BLL.Services
                 Talon talon = new Talon();
                 talon.Time = beginTime.Value;
                 talon.Date = date;
-                if (dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date.Date && i.VisitStatus.Id == 1).FirstOrDefault() != null)
+                if (dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date.Date && i.VisitStatus.Id == 1 && i.Doctor_id == doctor.Id).FirstOrDefault() != null)
                 {
-                    VisitDTO visitDTO = new VisitDTO(dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date && i.VisitStatus.Id == 1).FirstOrDefault());
+                    VisitDTO visitDTO = new VisitDTO(dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date && i.VisitStatus.Id == 1 && i.Doctor_id == doctor.Id).FirstOrDefault());
                     talon.Visit = visitDTO;
                     talon.Status = "Занято";
                 }
@@ -51,6 +51,12 @@ namespace BLL.Services
             }
 
             return talons;
+        }
+
+        public List<VisitDTO> GetFutureVisitsOnPatientAndDate(PatientDTO patient, DateTime date)
+        {
+            return dbContext.Visits.GetList().Where(
+                          i => i.Patient_id == patient.Id && i.DateT == date.Date && i.VisitStatus_id == 1).Select(i => new VisitDTO(i)).ToList();
         }
     }
 }

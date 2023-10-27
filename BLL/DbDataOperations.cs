@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Entities;
+using System.ComponentModel;
 
 namespace BLL
 {
@@ -248,6 +249,19 @@ namespace BLL
             }
         }
 
+        public void AddVisit(VisitDTO visit)
+        {
+            dbRepos.Visits.Create(new Visit()
+            {
+                DateT = visit.DateT, 
+                TimeT = visit.TimeT, 
+                Doctor_id = visit.Doctor_id,
+                Patient_id = visit.Patient_id,
+                Diagnosis_id = visit.Diagnosis_id, 
+                Procedure_id = visit.Procedure_id, 
+                VisitStatus_id = visit.VisitStatus_id
+            });
+        }
         public List<VisitStatusDTO> visitStatusDTOs
         {
             get
@@ -255,7 +269,6 @@ namespace BLL
                 return dbRepos.VisitStatuses.GetAll().Select(i => new VisitStatusDTO(i)).ToList();
             }
         }
-
         public void AddVisitStatus(VisitStatusDTO visitStatusDTO)
         {
             dbRepos.VisitStatuses.Create(new VisitStatus()
@@ -265,6 +278,10 @@ namespace BLL
             });
         }
 
+        public void DeleteVisit(VisitDTO visit)
+        {
+            dbRepos.Visits.Delete(visit.Id);
+        }
         public List<GenderDTO> genderDTOs
         {
             get
