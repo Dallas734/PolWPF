@@ -49,6 +49,8 @@ namespace BLL.Interfaces
         void AddVisit(VisitDTO visitDTO);
         void DeleteVisit(VisitDTO visitDTO);
 
+        void UpdateVisit(VisitDTO visitDTO);
+
         List<VisitStatusDTO> visitStatusDTOs { get; }
         void AddVisitStatus(VisitStatusDTO visitStatusDTO);
 

@@ -78,7 +78,7 @@ namespace PolWPF.ViewModels
 
         private void ToDoctorPage(object obj)
         {
-            _doctorWindow = new DoctorWindow();
+            _doctorWindow = new DoctorWindow(context, comboService, patientService, reportService, visitService, sheduleService);
             _doctorWindow.Show();
             mainWindow.Close();
         }

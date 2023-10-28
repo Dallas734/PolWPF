@@ -93,7 +93,7 @@
                                         <Label FontSize="16" FontWeight="Black" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top">Врач</Label>
                                         <ComboBox x:Name="DoctorComboAddVisit" Width="216" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedDoctor}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllNowDoctors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                         <Label FontSize="16" FontWeight="Black" Grid.Column="6" HorizontalAlignment="Left" VerticalAlignment="Top">Пациент</Label>
-                                        <ComboBox x:Name="ЗфешутеComboAddVisit" Width="216" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedPatient}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllNowPatients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                        <ComboBox x:Name="PatientComboAddVisit" Width="216" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedPatient}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllNowPatients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                         <Button x:Name="AddVisitBtn" Grid.Column="8" Content="Записать" Command="{Binding AddVisitCommand}" Margin ="15, 0, 0,0 " CommandParameter="{Binding SelectedTalon}"/>
                                     </Grid>
                                 </StackPanel>
@@ -244,7 +244,7 @@
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Рецепт" Binding="{Binding Recipe}"/>
+                                    <DataGridTextColumn Header="Рецепт" Binding="{Binding Recipe}" IsReadOnly="True" Width="*"/>
                                     <DataGridTemplateColumn Header="Процедура" Width="*" IsReadOnly="True">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>

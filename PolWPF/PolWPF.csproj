@@ -96,6 +96,7 @@
     <Compile Include="Util\ReposModule.cs" />
     <Compile Include="ViewModels\AddDoctorViewModel.cs" />
     <Compile Include="ViewModels\AddPatientViewModel.cs" />
+    <Compile Include="ViewModels\DoctorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegistratorViewModel.cs" />
     <Compile Include="Views\AddAddressWindow.xaml.cs">

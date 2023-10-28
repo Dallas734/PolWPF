@@ -15,5 +15,6 @@ namespace BLL.Interfaces
         List<Talon> GetTalons(DoctorDTO doctor, DateTime date);
 
         List<VisitDTO> GetFutureVisitsOnPatientAndDate(PatientDTO patient, DateTime date);
+
     }
 }

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BLL.Interfaces;
+using PolWPF.ViewModels;
 
 namespace PolWPF
 {
@@ -19,9 +21,11 @@ namespace PolWPF
     /// </summary>
     public partial class DoctorWindow : Window
     {
-        public DoctorWindow()
+        public DoctorWindow(IDbCrud dbCrud, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService)
         {
             InitializeComponent();
+
+            DataContext = new DoctorViewModel(dbCrud, comboService, patientService, reportService, visitService, sheduleService);
         }
     }
 }

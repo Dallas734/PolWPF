@@ -31,8 +31,15 @@ namespace BLL.Services
         public List<Talon> GetTalons(DoctorDTO doctor, DateTime date)
         {
             List<Talon> talons = new List<Talon>();
-            TimeSpan? beginTime = dbContext.Shedules.GetAll().Where(i => i.Doctor_id == doctor.Id && i.Day_id == (int)date.DayOfWeek).FirstOrDefault().BeginTime;
-            TimeSpan? endTime = dbContext.Shedules.GetAll().Where(i => i.Doctor_id == doctor.Id && i.Day_id == (int)date.DayOfWeek).FirstOrDefault().EndTime;
+            TimeSpan? beginTime = new TimeSpan();
+            TimeSpan? endTime = new TimeSpan();
+
+            int num = (int)date.DayOfWeek;
+            if (num == 0)
+                num = 7;
+
+            beginTime = dbContext.Shedules.GetAll().Where(i => i.Doctor_id == doctor.Id && i.Day_id == num).FirstOrDefault().BeginTime;
+            endTime = dbContext.Shedules.GetAll().Where(i => i.Doctor_id == doctor.Id && i.Day_id == num).FirstOrDefault().EndTime;
 
             while (beginTime <= endTime)
             {
@@ -43,7 +50,7 @@ namespace BLL.Services
                 {
                     VisitDTO visitDTO = new VisitDTO(dbContext.Visits.GetAll().Where(i => i.TimeT == talon.Time && i.DateT == date && i.VisitStatus.Id == 1 && i.Doctor_id == doctor.Id).FirstOrDefault());
                     talon.Visit = visitDTO;
-                    talon.Status = "Занято";
+                    talon.Status = "Ожидает";
                 }
 
                 talons.Add(talon);
@@ -52,11 +59,12 @@ namespace BLL.Services
 
             return talons;
         }
-
+        
         public List<VisitDTO> GetFutureVisitsOnPatientAndDate(PatientDTO patient, DateTime date)
         {
             return dbContext.Visits.GetList().Where(
                           i => i.Patient_id == patient.Id && i.DateT == date.Date && i.VisitStatus_id == 1).Select(i => new VisitDTO(i)).ToList();
         }
+
     }
 }

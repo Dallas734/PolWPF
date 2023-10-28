@@ -290,6 +290,18 @@ namespace BLL
             }
         }
 
+        public void UpdateVisit(VisitDTO visit)
+        {
+            Visit v = dbRepos.Visits.GetItem(visit.Id);
+            v.Procedure_id = visit.Procedure_id;
+            v.Diagnosis_id = visit.Diagnosis_id;
+            v.Recipe = visit.Recipe;
+            v.VisitStatus_id = visit.VisitStatus_id;
+
+            dbRepos.Visits.Update(v);
+            dbRepos.Save();
+        }
+
         public void UpdateShedule(SheduleDTO shedule)
         {
             Shedule s = dbRepos.Shedules.GetItem(shedule.Id);
