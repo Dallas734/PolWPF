@@ -54,6 +54,8 @@ namespace BLL.Interfaces
 
         List<GenderDTO> genderDTOs { get; }
 
+        void UpdateShedule(SheduleDTO shedule);
+
         bool Save();
     }
 }

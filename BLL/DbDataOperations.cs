@@ -290,6 +290,16 @@ namespace BLL
             }
         }
 
+        public void UpdateShedule(SheduleDTO shedule)
+        {
+            Shedule s = dbRepos.Shedules.GetItem(shedule.Id);
+            s.BeginTime = shedule.newBeginTime.Value.TimeOfDay;
+            s.EndTime = shedule.newEndTime.Value.TimeOfDay;
+            
+            dbRepos.Shedules.Update(s);
+            dbRepos.Save();
+        }
+
 
         public bool Save()
         {

@@ -549,5 +549,22 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private RelayCommand saveSheduleCommand;
+        public RelayCommand SaveSheduleCommand
+        {
+            get
+            {
+                return saveSheduleCommand ??
+                    (saveSheduleCommand = new RelayCommand(obj =>
+                    {
+                        SheduleDTO shedule = obj as SheduleDTO;
+                        context.UpdateShedule(shedule);
+                        context.Save();
+                        MessageBox.Show("Изменения сохранены!");
+                    },
+                    (obj) => (selectedSheduleItem != null)));
+            }
+        }
+
     }
 }
