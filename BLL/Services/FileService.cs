@@ -26,7 +26,7 @@ namespace BLL.Services
                 document.Open();
 
                 // Шрифт
-                BaseFont baseFont = BaseFont.CreateFont("TimesNewRomanRegular.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                BaseFont baseFont = BaseFont.CreateFont(@"..\..\Resources\TimesNewRomanRegular.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                 Font font = new Font(baseFont, Font.DEFAULTSIZE, Font.NORMAL);
 
                 // Определяем количество столбцов
