@@ -218,6 +218,18 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private AreaDTO selectedReportArea;
+
+        public AreaDTO SelectedReportArea
+        {
+            get { return selectedReportArea; }
+            set
+            {
+                selectedReportArea = value;
+                OnPropertyChanged("SelectedReportArea");
+            }
+        }
+
         public ObservableCollection<DoctorDTO> AllDoctors { get; set; }
         public ObservableCollection<PatientDTO> AllPatients { get; set; }
         public ObservableCollection<SpecializationDTO> AllSpecializations { get; set; }
@@ -566,5 +578,22 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private RelayCommand getReportCommand;
+
+        public RelayCommand GatReportCommand
+        {
+            get
+            {
+                return getReportCommand ??
+                    (getReportCommand = new RelayCommand(obj =>
+                    {
+                        AreaDTO area = obj as AreaDTO;
+
+                        // Что то с привзякой данных и диаграммами
+                        
+                    },
+                    (obj) => (selectedReportArea != null)));
+            }
+        }
     }
 }

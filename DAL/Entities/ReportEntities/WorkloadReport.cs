@@ -10,6 +10,6 @@ namespace DAL.Entities.ReportEntities
     {
         public string DoctorFIO {  get; set; }
 
-        public string Workload {  get; set; }
+        public double Workload {  get; set; }
     }
 }
