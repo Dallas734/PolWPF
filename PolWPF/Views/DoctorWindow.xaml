@@ -151,17 +151,13 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Диагноз</Label>
-                            <ComboBox x:Name="DiagnosisCombo" Width="216" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <Button Grid.Column="2" Content="Добавить диагноз" HorizontalAlignment="Center" Margin="20, 0, 0, 0"/>
-                            <Button Grid.Column="3" Content="Удалить диагноз" HorizontalAlignment="Center" Margin="20, 0, 0, 0"/>
-                            <Button Grid.Column="4" Content="Сохранить " HorizontalAlignment="Center" Margin="20, 0, 0, 0"/>
+                            <TextBox Grid.Column="0" Width="200" Text="{Binding NewDiagnosisName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Grid.Column="1" Content="Добавить диагноз" Command="{Binding AddDiagnosisCommand}" HorizontalAlignment="Center" Margin="20, 0, 0, 0"/>
+                            <Button Grid.Column="2" Content="Удалить диагноз" Command="{Binding DeleteDiagnosisCommand}" CommandParameter="{Binding SelectedDiagnosis}" HorizontalAlignment="Center" Margin="20, 0, 0, 0"/>
                         </Grid>
                     </StackPanel>
-                    <DataGrid x:Name="DiagnosisGrid" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0"/>
+                    <DataGrid x:Name="DiagnosisGrid" Grid.Row="1" ItemsSource="{Binding AllDiagnosis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDiagnosis, Mode=TwoWay}" IsReadOnly="True"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Статистика диагнозов">

@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -98,6 +99,28 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private DiagnosisDTO selectedDiagnosis;
+        public DiagnosisDTO SelectedDiagnosis
+        {
+            get => selectedDiagnosis;
+            set
+            {
+                selectedDiagnosis = value;
+                OnPropertyChanged("SelectedDiagnosis");
+            }
+        }
+
+        private string newDiagnosisName;
+        public string NewDiagnosisName
+        {
+            get => newDiagnosisName;
+            set
+            {
+                newDiagnosisName = value;
+                OnPropertyChanged("NewDiagnosisName");
+            }
+        }
+
         public ObservableCollection<PatientDTO> AllPatients { get; set; }
         public ObservableCollection<DoctorDTO> AllDoctors { get; set; }
         public ObservableCollection<VisitDTO> PatientCard { get; set; }
@@ -187,6 +210,52 @@ namespace PolWPF.ViewModels
                         }
                     },
                     (obj) =>selectedTalon!= null && selectedProcedure != null && selectedDiagnosisVisit != null));
+            }
+        }
+
+        private RelayCommand addDiagnosisCommand;
+        public RelayCommand AddDiagnosisCommand
+        {
+            get
+            {
+                return addDiagnosisCommand ??
+                    (addDiagnosisCommand = new RelayCommand(obj =>
+                    {
+                        try
+                        {
+                            DiagnosisDTO diagnosis = new DiagnosisDTO();
+                            diagnosis.Name = newDiagnosisName;
+
+                            context.AddDiagnosis(diagnosis);
+                            context.Save();
+
+                            MessageBox.Show("Успешно!");
+
+                            comboService.FillObsCollection(AllDiagnosis, context.diagnosisDTOs);
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    },
+                    (obj) => newDiagnosisName != null));
+            }
+        }
+
+        private RelayCommand deleteDiagnosisCommand;
+        public RelayCommand DeleteDiagnosisCommand
+        {
+            get
+            {
+                return deleteDiagnosisCommand ??
+                    (deleteDiagnosisCommand = new RelayCommand(obj =>
+                    {
+                        DiagnosisDTO diagnosis = obj as DiagnosisDTO;
+                        context.DeleteDiagnosis(diagnosis);
+                        context.Save();
+                        comboService.FillObsCollection(AllDiagnosis, context.diagnosisDTOs);
+                    },
+                    (obj) => selectedDiagnosis != null));
             }
         }
     }

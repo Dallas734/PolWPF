@@ -105,6 +105,11 @@ namespace BLL
             });
         }
 
+        public void DeleteDiagnosis(DiagnosisDTO diagnosisDTO)
+        {
+            dbRepos.Diagnosises.Delete(diagnosisDTO.Id);
+        }
+
         public List<DoctorDTO> doctorDTOs 
         {
             get

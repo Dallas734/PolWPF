@@ -24,6 +24,7 @@ namespace BLL.Interfaces
 
         List<DiagnosisDTO> diagnosisDTOs { get; }
         void AddDiagnosis(DiagnosisDTO diagnosisDTO);
+        void DeleteDiagnosis(DiagnosisDTO diagnosisDTO);
 
         List<DoctorDTO> doctorDTOs { get; }
         void AddDoctor(DoctorDTO doctorDTO);
