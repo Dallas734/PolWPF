@@ -14,6 +14,7 @@ namespace DAL.Repository
 
         public ReportRepositorySQL(PolyclinicContext dbContext)
         {
+            // Делаем
             this.dbContext = dbContext;
         }
 
