@@ -21,7 +21,7 @@ namespace PolWPF.Util
         public override void Load()
         {
             Bind<IDbRepository>().To<DbRepositorySQL>().InSingletonScope().WithConstructorArgument(connectionString);
-            Bind<IReportRepository>().To<ReportRepositorySQL>();
+            // Bind<IReportRepository>().To<ReportRepositorySQL>();
         }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="Entities\Patient.cs" />
     <Compile Include="Entities\PolyclinicContext.cs" />
     <Compile Include="Entities\Procedure.cs" />
+    <Compile Include="Entities\ReportEntities\WorkloadReport.cs" />
     <Compile Include="Entities\Shedule.cs" />
     <Compile Include="Entities\Specialization.cs" />
     <Compile Include="Entities\Status.cs" />
