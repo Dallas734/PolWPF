@@ -10,8 +10,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using BLL.Interfaces;
 using BLL.Models;
-using DAL.Entities;
 using PolWPF.Views;
+using LiveCharts.Wpf;
+using BLL.Models.ReportModels;
+using LiveCharts;
+using LiveCharts.Defaults;
 
 namespace PolWPF.ViewModels
 {
@@ -33,6 +36,7 @@ namespace PolWPF.ViewModels
         IReportService reportService;
         IVisitService visitService;
         ISheduleService sheduleService;
+        IFileService fileService;
 
 
         private PatientDTO selectedPatient;
@@ -231,10 +235,15 @@ namespace PolWPF.ViewModels
         }
 
         public ObservableCollection<DoctorDTO> AllDoctors { get; set; }
+
         public ObservableCollection<PatientDTO> AllPatients { get; set; }
+
         public ObservableCollection<SpecializationDTO> AllSpecializations { get; set; }
+
         public ObservableCollection<StatusDTO> AllStatus { get; set; }
+
         public ObservableCollection<CategoryDTO> AllCategories { get; set; }
+
         public ObservableCollection<AddressDTO> AllAddresses { get; set; }
 
         public ObservableCollection<GenderDTO> AllGenders { get; set; }
@@ -253,8 +262,9 @@ namespace PolWPF.ViewModels
 
         public ObservableCollection<SheduleDTO> DoctorShedule { get; set; }
 
+        public SeriesCollection Series { get; set; }
 
-        public RegistratorViewModel(IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService)
+        public RegistratorViewModel(IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
             this.context = context;
             this.comboService = comboService;
@@ -263,6 +273,7 @@ namespace PolWPF.ViewModels
             this.reportService = reportService;
             this.visitService = visitService;
             this.sheduleService = sheduleService;
+            this.fileService = fileService;
 
             AllNowDoctors = new ObservableCollection<DoctorDTO>();
             AllDoctors = new ObservableCollection<DoctorDTO>();
@@ -279,6 +290,7 @@ namespace PolWPF.ViewModels
             AllPatientVisit = new ObservableCollection<VisitDTO>();
             PatientCard = new ObservableCollection<VisitDTO>();
             DoctorShedule = new ObservableCollection<SheduleDTO>();
+            Series = new SeriesCollection();
 
             comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs);
             comboService.FillObsCollection<PatientDTO>(AllPatients, context.patientDTOs);
@@ -579,8 +591,7 @@ namespace PolWPF.ViewModels
         }
 
         private RelayCommand getReportCommand;
-
-        public RelayCommand GatReportCommand
+        public RelayCommand GetReportCommand
         {
             get
             {
@@ -588,9 +599,33 @@ namespace PolWPF.ViewModels
                     (getReportCommand = new RelayCommand(obj =>
                     {
                         AreaDTO area = obj as AreaDTO;
+                        Series.Clear();
 
-                        // Что то с привзякой данных и диаграммами
-                        
+                        List<ReportModel> reportList = reportService.MakeWorkloadReport(area.Id);
+                        foreach(ReportModel report in reportList)
+                        {
+                            Series.Add(new PieSeries() {
+                                Title = report.Name,
+                                DataLabels = true,
+                                Values = new ChartValues<ObservableValue>() { new ObservableValue(report.Workload) }
+                            });
+                        }
+                    },
+                    (obj) => (selectedReportArea != null)));
+            }
+        }
+
+        private RelayCommand saveFileCommand;
+        public RelayCommand SaveFileCommand
+        {
+            get
+            {
+                return saveFileCommand ??
+                    (saveFileCommand = new RelayCommand(obj =>
+                    {
+                        AreaDTO areaDTO = obj as AreaDTO;
+                        string header = "Отчет загруженности на участке №" + areaDTO.Id;
+                        fileService.Save("DoctorWorkloadReport.pdf", reportService.MakeWorkloadReport(areaDTO.Id), header);
                     },
                     (obj) => (selectedReportArea != null)));
             }

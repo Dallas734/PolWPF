@@ -19,9 +19,10 @@ namespace DAL.Repository
             this.dbContext = dbContext;
         }
 
-        public List<WorkloadReport> MakeWorkLoadReport(int area_id)
+        public List<Report> MakeWorkLoadReport(int area_id)
         {
-            List<WorkloadReport> report = new List<WorkloadReport>();
+            double workload;
+            List<Report> report = new List<Report>();
 
             int count = dbContext.Visit.Join(dbContext.Doctor, v => v.Doctor_id, d => d.Id, (v, d) => d)
                 .Where(d => d.Area_id == area_id)
@@ -35,12 +36,14 @@ namespace DAL.Repository
                 .Where(d => d.Id == doctor.Id)
                 .Count();
 
-                double workload = doctorVisitCount / count;
+                if (count == 0)
+                    workload = 0;
+                else workload = Math.Round((double)doctorVisitCount / count, 2);
 
-                report.Add(new WorkloadReport()
+                report.Add(new Report()
                 {
-                    DoctorFIO = doctor.LastName + " " + doctor.FirstName + " " + doctor.Surname,
-                    Workload = workload
+                    Name = doctor.LastName + " " + doctor.FirstName + " " + doctor.Surname,
+                    Workload = workload   
                 });
             }
 

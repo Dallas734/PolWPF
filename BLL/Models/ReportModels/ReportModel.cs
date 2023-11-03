@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace BLL.Models.ReportModels
 {
-    public class WorkloadReportModel
+    public class ReportModel
     {
-        public WorkloadReportModel(WorkloadReport report)
+        public ReportModel(Report report)
         {
-            DoctorFIO = report.DoctorFIO;
+            Name = report.Name;
             Workload = report.Workload;
         }
 
-        public string DoctorFIO { get; set; }
+        public string Name { get; set; }
 
         public double Workload { get; set; }
     }

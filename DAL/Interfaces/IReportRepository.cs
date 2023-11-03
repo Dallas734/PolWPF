@@ -9,6 +9,6 @@ namespace DAL.Interfaces
 {
     public interface IReportRepository
     {
-        List<WorkloadReport> MakeWorkLoadReport(int area_id);
+        List<Report> MakeWorkLoadReport(int area_id);
     }
 }

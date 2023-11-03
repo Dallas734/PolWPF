@@ -18,9 +18,9 @@ namespace BLL.Services
             dbContext = repos;
         }
 
-        public List<WorkloadReportModel> MakeWorkloadReport(int area_id)
+        public List<ReportModel> MakeWorkloadReport(int area_id)
         {
-            return dbContext.Reports.MakeWorkLoadReport(area_id).Select(i => new WorkloadReportModel(i)).ToList();
+            return dbContext.Reports.MakeWorkLoadReport(area_id).Select(i => new ReportModel(i)).ToList();
         }
     }
 }

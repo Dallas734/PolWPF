@@ -27,6 +27,7 @@ namespace PolWPF.ViewModels
         IVisitService visitService;
         ISheduleService sheduleService;
         IDoctorService doctorService;
+        IFileService fileService;
 
         private PatientDTO selectedCardPatient;
         public PatientDTO SelectedCardPatient
@@ -129,7 +130,7 @@ namespace PolWPF.ViewModels
 
         public ObservableCollection<Talon> Talons { get; set; }
 
-        public DoctorViewModel(IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService)
+        public DoctorViewModel(IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
             this.context = context;
             this.comboService = comboService;
@@ -137,6 +138,7 @@ namespace PolWPF.ViewModels
             this.reportService = reportService;
             this.visitService = visitService;
             this.sheduleService = sheduleService;
+            this.fileService = fileService;
 
             AllPatients = new ObservableCollection<PatientDTO>();
             PatientCard = new ObservableCollection<VisitDTO>();

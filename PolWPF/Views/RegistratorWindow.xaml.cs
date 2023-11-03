@@ -21,11 +21,11 @@ namespace PolWPF
     /// </summary>
     public partial class RegistratorWindow : Window
     {
-        public RegistratorWindow(IDbCrud dbCrud, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService)
+        public RegistratorWindow(IDbCrud dbCrud, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
             InitializeComponent();
             
-            DataContext = new RegistratorViewModel(dbCrud, comboService, doctorService, patientService, reportService, visitService, sheduleService);
+            DataContext = new RegistratorViewModel(dbCrud, comboService, doctorService, patientService, reportService, visitService, sheduleService, fileService);
         }
 
         private void CardGrid_LayoutUpdated(object sender, EventArgs e)

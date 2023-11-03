@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities.ReportEntities
 {
-    public class WorkloadReport
+    public class Report
     {
-        public string DoctorFIO {  get; set; }
+        public string Name {  get; set; }
 
         public double Workload {  get; set; }
+
     }
 }

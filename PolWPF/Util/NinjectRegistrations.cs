@@ -21,6 +21,7 @@ namespace PolWPF.Util
             Bind<IReportService>().To<ReportService>();
             Bind<ISheduleService>().To<SheduleService>();
             Bind<IVisitService>().To<VisitService>();
+            Bind<IFileService>().To<FileService>();
         }
     }
 }

@@ -26,6 +26,7 @@ namespace PolWPF.ViewModels
         IReportService reportService;
         IVisitService visitService;
         ISheduleService sheduleService;
+        IFileService fileService;
 
         private MainWindow mainWindow;
         private RegistratorWindow _registratorWindow;
@@ -57,7 +58,7 @@ namespace PolWPF.ViewModels
             }
         }
 
-        public MainViewModel(MainWindow mainWindow, IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService)
+        public MainViewModel(MainWindow mainWindow, IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
             this.mainWindow = mainWindow;
             this.context = context;
@@ -67,18 +68,19 @@ namespace PolWPF.ViewModels
             this.reportService = reportService;
             this.visitService = visitService;
             this.sheduleService = sheduleService;
+            this.fileService = fileService;
         }
 
         private void ToRegistratorPage(object obj)
         {
-            _registratorWindow = new RegistratorWindow(context, comboService, doctorService, patientService, reportService, visitService, sheduleService);
+            _registratorWindow = new RegistratorWindow(context, comboService, doctorService, patientService, reportService, visitService, sheduleService, fileService);
             _registratorWindow.Show();
             mainWindow.Close(); 
         }
 
         private void ToDoctorPage(object obj)
         {
-            _doctorWindow = new DoctorWindow(context, comboService, patientService, reportService, visitService, sheduleService);
+            _doctorWindow = new DoctorWindow(context, comboService, patientService, reportService, visitService, sheduleService, fileService);
             _doctorWindow.Show();
             mainWindow.Close();
         }
