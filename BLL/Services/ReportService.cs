@@ -22,5 +22,10 @@ namespace BLL.Services
         {
             return dbContext.Reports.MakeWorkLoadReport(area_id).Select(i => new ReportModel(i)).ToList();
         }
+
+        public List<ReportModel> MakeDiagnosisReport(int doctor_id)
+        {
+            return dbContext.Reports.MakeDiagnosisReport(doctor_id).Select(i => new ReportModel(i)).ToList();
+        }
     }
 }

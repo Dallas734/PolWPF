@@ -10,5 +10,7 @@ namespace BLL.Interfaces
     public interface IReportService
     {
         List<ReportModel> MakeWorkloadReport(int area_id);
+
+        List<ReportModel> MakeDiagnosisReport(int doctor_id);
     }
 }

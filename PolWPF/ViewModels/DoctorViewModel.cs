@@ -1,6 +1,9 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using BLL.Models.ReportModels;
 using DAL.Entities;
+using LiveCharts.Defaults;
+using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,11 +12,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using LiveCharts.Wpf;
 
 namespace PolWPF.ViewModels
 {
     public class DoctorViewModel : INotifyPropertyChanged
     {
+        private int doctor_id = 1;
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -130,6 +136,8 @@ namespace PolWPF.ViewModels
 
         public ObservableCollection<Talon> Talons { get; set; }
 
+        public SeriesCollection Series { get; set; }
+
         public DoctorViewModel(IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
             this.context = context;
@@ -146,6 +154,7 @@ namespace PolWPF.ViewModels
             AllDiagnosis = new ObservableCollection<DiagnosisDTO>();
             AllProcedures = new ObservableCollection<ProcedureDTO>();
             Talons = new ObservableCollection<Talon>();
+            Series = new SeriesCollection();
 
             comboService.FillObsCollection(AllPatients, context.patientDTOs);
             comboService.FillObsCollection(AllDoctors, context.doctorDTOs);
@@ -176,7 +185,7 @@ namespace PolWPF.ViewModels
                 return getTalonsCommand ??
                     (getTalonsCommand = new RelayCommand(obj =>
                     {
-                        comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(context.doctorDTOs.Where(i => i.Id == 1).FirstOrDefault(), SelectedDate));
+                        comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault(), SelectedDate));
                     },
                     (obj) => (selectedDate != null)));
             }
@@ -202,16 +211,16 @@ namespace PolWPF.ViewModels
 
                             context.UpdateVisit(visit);
                             context.Save();
-                            comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(context.doctorDTOs.Where(i => i.Id == 1).FirstOrDefault(), SelectedDate));
+                            comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault(), SelectedDate));
 
                             MessageBox.Show("Запись успешно завершена!");
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }
                     },
-                    (obj) =>selectedTalon!= null && selectedProcedure != null && selectedDiagnosisVisit != null));
+                    (obj) => selectedTalon != null && selectedProcedure != null && selectedDiagnosisVisit != null));
             }
         }
 
@@ -235,7 +244,7 @@ namespace PolWPF.ViewModels
 
                             comboService.FillObsCollection(AllDiagnosis, context.diagnosisDTOs);
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }
@@ -258,6 +267,44 @@ namespace PolWPF.ViewModels
                         comboService.FillObsCollection(AllDiagnosis, context.diagnosisDTOs);
                     },
                     (obj) => selectedDiagnosis != null));
+            }
+        }
+
+        private RelayCommand getReportCommand;
+        public RelayCommand GetReportCommand
+        {
+            get
+            {
+                return getReportCommand ??
+                    (getReportCommand = new RelayCommand(obj =>
+                    {
+                        Series.Clear();
+
+                        List<ReportModel> reportList = reportService.MakeDiagnosisReport(doctor_id);
+                        foreach (ReportModel report in reportList)
+                        {
+                            Series.Add(new PieSeries()
+                            {
+                                Title = report.Name,
+                                DataLabels = true,
+                                Values = new ChartValues<ObservableValue>() { new ObservableValue(report.Workload) }
+                            });
+                        }
+                    }));
+            }
+        }
+
+        private RelayCommand saveFileCommand;
+        public RelayCommand SaveFileCommand
+        {
+            get
+            {
+                return saveFileCommand ??
+                    (saveFileCommand = new RelayCommand(obj =>
+                    {
+                        string header = "Отчет поставленных диагнозов у врача: " + context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault().FullName;
+                        fileService.Save("DiagnosisWorkloadReport.pdf", reportService.MakeDiagnosisReport(doctor_id), header);
+                    }));
             }
         }
     }

@@ -10,5 +10,6 @@ namespace DAL.Interfaces
     public interface IReportRepository
     {
         List<Report> MakeWorkLoadReport(int area_id);
+        List<Report> MakeDiagnosisReport(int doctor_id);
     }
 }

@@ -49,5 +49,31 @@ namespace DAL.Repository
 
             return report;
         }
+
+        public List<Report> MakeDiagnosisReport(int doctor_id)
+        {
+            double workload;
+            List<Report> report = new List<Report>();
+
+            int count = dbContext.Visit.Where(i => i.Doctor_id == doctor_id && i.VisitStatus_id == 2).Count();
+            List<int> diagnosis_ids = dbContext.Visit.Where(i => i.Doctor_id == doctor_id && i.VisitStatus_id == 2).
+                Select(i => (int)i.Diagnosis_id).Distinct().ToList();
+
+            foreach(int id in diagnosis_ids)
+            {
+                int diagnosisCount = dbContext.Visit.Where(i => i.Doctor_id == doctor_id && i.VisitStatus_id == 2 && i.Diagnosis_id == id).Count();
+                if (count == 0)
+                    workload = 0;
+                else workload = Math.Round((double)diagnosisCount / count, 2);
+
+                report.Add(new Report()
+                {
+                    Name = dbContext.Diagnosis.Where(i => i.Id == id).FirstOrDefault().Name,
+                    Workload = workload
+                });
+            }
+
+            return report;
+        }
     }
 }
