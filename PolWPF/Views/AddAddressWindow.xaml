@@ -18,8 +18,8 @@
         </Grid.RowDefinitions>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">Адрес</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">Номер участка</Label>
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding AddressName}"/>
-        <ComboBox Grid.Column="1" Grid.Row="1" Text="{Binding AreaNum}"/>
-        <Button Grid.Column="1" Grid.Row="2" Margin="0, 20, 0, 0" Width="200" Content="Подтвердить"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding SelectedName}"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" SelectedItem="{Binding SelectedArea}" DisplayMemberPath="Id" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.allAreas, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <Button Grid.Column="1" Grid.Row="2" Margin="0, 20, 0, 0" Width="200" Content="Подтвердить" Command="{Binding SubmitCommand}"/>
     </Grid>
 </Window>

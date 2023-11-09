@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BLL.Interfaces;
+using PolWPF.ViewModels;
 
 namespace PolWPF.Views
 {
@@ -19,9 +21,10 @@ namespace PolWPF.Views
     /// </summary>
     public partial class AddAddressWindow : Window
     {
-        public AddAddressWindow()
+        public AddAddressWindow(IDbCrud dbCrud, IComboService comboService)
         {
             InitializeComponent();
+            DataContext = new AddAddressViewModel(dbCrud, comboService);
         }
     }
 }

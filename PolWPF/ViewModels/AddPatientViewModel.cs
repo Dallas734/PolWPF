@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
 using DAL.Entities;
+using PolWPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,11 +21,23 @@ namespace PolWPF.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private AddAddressWindow _addAddressWindow;
+
         IDbCrud context;
         IComboService comboService;
 
         public ObservableCollection<GenderDTO> allGenders { get; set; }
-        public ObservableCollection<AddressDTO> allAddresses {  get; set; }
+
+        private ObservableCollection<AddressDTO> allAddresses;
+        public ObservableCollection<AddressDTO> AllAddresses
+        {
+            get { return allAddresses; }
+            set
+            {
+                allAddresses = value;
+                OnPropertyChanged("AllAddresses");
+            }
+        }
 
         public ObservableCollection<AreaDTO> allAreas { get; set; }
 
@@ -90,7 +103,7 @@ namespace PolWPF.ViewModels
             set
             {
                 selectedArea = value;
-                allAddresses = new ObservableCollection<AddressDTO>(context.addressDTOs.Where(i => i.Area_id == selectedArea.Id).ToList());
+                AllAddresses = new ObservableCollection<AddressDTO>(context.addressDTOs.Where(i => i.Area_id == selectedArea.Id).ToList());
                 OnPropertyChanged("SelectedArea");
             }
         }
@@ -131,6 +144,7 @@ namespace PolWPF.ViewModels
         public AddPatientViewModel(IDbCrud context, IComboService comboService)
         {
             this.context = context;
+            this.comboService = comboService;
             //allAddresses = new ObservableCollection<AddressDTO>();
             allAreas = new ObservableCollection<AreaDTO>();
             allGenders = new ObservableCollection<GenderDTO>();
@@ -170,6 +184,24 @@ namespace PolWPF.ViewModels
                             MessageBox.Show(ex.Message);
                         }
 
+                    }));
+            }
+        }
+
+        private RelayCommand addAddressCommand;
+        public RelayCommand AddAddressCommand
+        {
+            get
+            {
+                return addAddressCommand ??
+                    (addAddressCommand = new RelayCommand(obj =>
+                    {
+                        _addAddressWindow = new AddAddressWindow(context, comboService);
+                        _addAddressWindow.ShowDialog();
+                        if (selectedArea != null)
+                        {
+                            AllAddresses = new ObservableCollection<AddressDTO>(context.addressDTOs.Where(i => i.Area_id == selectedArea.Id).ToList());
+                        }
                     }));
             }
         }
