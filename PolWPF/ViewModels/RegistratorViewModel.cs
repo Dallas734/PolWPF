@@ -479,7 +479,7 @@ namespace PolWPF.ViewModels
                         }
 
                     },
-                    (obj) => (selectedTalon != null && selectedTalon.Visit == null)));
+                    (obj) => (selectedTalon != null && selectedTalon.Visit == null && selectedPatient != null)));
             }
         }
 
