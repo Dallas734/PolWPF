@@ -18,14 +18,14 @@ namespace BLL.Services
             dbContext = repos;
         }
 
-        public List<ReportModel> MakeWorkloadReport(int area_id)
+        public List<ReportModel> MakeWorkloadReport(int area_id, DateTime begin, DateTime end)
         {
-            return dbContext.Reports.MakeWorkLoadReport(area_id).Select(i => new ReportModel(i)).ToList();
+            return dbContext.Reports.MakeWorkLoadReport(area_id, begin, end).Select(i => new ReportModel(i)).ToList();
         }
 
-        public List<ReportModel> MakeDiagnosisReport(int doctor_id)
+        public List<ReportModel> MakeDiagnosisReport(int doctor_id, DateTime begin, DateTime end)
         {
-            return dbContext.Reports.MakeDiagnosisReport(doctor_id).Select(i => new ReportModel(i)).ToList();
+            return dbContext.Reports.MakeDiagnosisReport(doctor_id, begin, end).Select(i => new ReportModel(i)).ToList();
         }
     }
 }

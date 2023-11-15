@@ -234,6 +234,28 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private DateTime beginReportDate = DateTime.Now.Date;
+        public DateTime BeginReportDate
+        {
+            get { return beginReportDate; }
+            set
+            {
+                beginReportDate = value;
+                OnPropertyChanged("BeginReportDate");
+            }
+        }
+
+        private DateTime endReportDate = DateTime.Now.Date;
+        public DateTime EndReportDate
+        {
+            get { return endReportDate; }
+            set
+            {
+                endReportDate = value;
+                OnPropertyChanged("EndReportDate");
+            }
+        }
+
         public ObservableCollection<DoctorDTO> AllDoctors { get; set; }
 
         public ObservableCollection<PatientDTO> AllPatients { get; set; }
@@ -598,20 +620,28 @@ namespace PolWPF.ViewModels
                 return getReportCommand ??
                     (getReportCommand = new RelayCommand(obj =>
                     {
-                        AreaDTO area = obj as AreaDTO;
-                        Series.Clear();
-
-                        List<ReportModel> reportList = reportService.MakeWorkloadReport(area.Id);
-                        foreach(ReportModel report in reportList)
+                        try
                         {
-                            Series.Add(new PieSeries() {
-                                Title = report.Name,
-                                DataLabels = true,
-                                Values = new ChartValues<ObservableValue>() { new ObservableValue(report.Workload) }
-                            });
+                            AreaDTO area = obj as AreaDTO;
+                            Series.Clear();
+
+                            List<ReportModel> reportList = reportService.MakeWorkloadReport(area.Id, beginReportDate, endReportDate);
+                            foreach (ReportModel report in reportList)
+                            {
+                                Series.Add(new PieSeries()
+                                {
+                                    Title = report.Name,
+                                    DataLabels = true,
+                                    Values = new ChartValues<ObservableValue>() { new ObservableValue(report.Workload) }
+                                });
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
                         }
                     },
-                    (obj) => (selectedReportArea != null)));
+                    (obj) => (selectedReportArea != null && beginReportDate != null && endReportDate != null)));
             }
         }
 
@@ -623,11 +653,18 @@ namespace PolWPF.ViewModels
                 return saveFileCommand ??
                     (saveFileCommand = new RelayCommand(obj =>
                     {
-                        AreaDTO areaDTO = obj as AreaDTO;
-                        string header = "Отчет загруженности на участке №" + areaDTO.Id;
-                        fileService.Save("DoctorWorkloadReport.pdf", reportService.MakeWorkloadReport(areaDTO.Id), header);
+                        try
+                        {
+                            AreaDTO areaDTO = obj as AreaDTO;
+                            string header = "Отчет загруженности на участке №" + areaDTO.Id + " c " + beginReportDate.ToString("dd/MM/yyyy") + " по " + endReportDate.ToString("dd/MM/yyyy");
+                            fileService.Save("DoctorWorkloadReport.pdf", reportService.MakeWorkloadReport(areaDTO.Id, beginReportDate, endReportDate), header);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     },
-                    (obj) => (selectedReportArea != null)));
+                    (obj) => (selectedReportArea != null && beginReportDate != null && endReportDate != null)));
             }
         }
     }

@@ -383,11 +383,19 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Участок</Label>
                                 <ComboBox x:Name="AreaComboReport" Width="216" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedReportArea}" DisplayMemberPath="Id" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllAreas, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-                                <Button Content="Составить отчёт" Width="200" Grid.Column="2" Margin="20, 0, 0, 0" Command="{Binding GetReportCommand}" CommandParameter="{Binding SelectedReportArea}"/>
-                                <Button Content="Сохранить в файл" Width="200" Grid.Column="3" Margin="20, 0, 0, 0" Command="{Binding SaveFileCommand}" CommandParameter="{Binding SelectedReportArea}"/>
+                                <Label FontSize="16" FontWeight="Black" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">C</Label>
+                                <DatePicker x:Name="BeginReportDate"  Grid.Column="3" HorizontalAlignment="Center" SelectedDate="{Binding BeginReportDate}" Width="100" Margin="10, 0, 0, 0"/>
+                                <Label FontSize="16" FontWeight="Black" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top">До</Label>
+                                <DatePicker x:Name="EndReportDate"  Grid.Column="5" HorizontalAlignment="Center" SelectedDate="{Binding EndReportDate}" Width="100" Margin="10, 0, 0, 0"/>
+                                <Button Content="Составить отчёт" Width="200" Grid.Column="6" Margin="20, 0, 0, 0" Command="{Binding GetReportCommand}" CommandParameter="{Binding SelectedReportArea}"/>
+                                <Button Content="Сохранить в файл" Width="200" Grid.Column="7" Margin="20, 0, 0, 0" Command="{Binding SaveFileCommand}" CommandParameter="{Binding SelectedReportArea}"/>
                             </Grid>
                             <lvc:PieChart Grid.Row="1" Margin="0, 10, 0, 0" Series="{Binding Series}" Hoverable="True" LegendLocation="Bottom"/>
                         </Grid>

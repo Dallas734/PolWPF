@@ -41,7 +41,7 @@ namespace BLL.Services
                 table.AddCell(cell);
 
                 // Добавляем заголовки таблицы
-                table.AddCell(new PdfPCell(new Phrase(new Phrase("Объект", font))));
+                table.AddCell(new PdfPCell(new Phrase(new Phrase("Объект", font))));    
                 table.AddCell(new PdfPCell(new Phrase(new Phrase("%", font))));
 
                 // дОбавляем данные

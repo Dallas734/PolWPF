@@ -128,6 +128,28 @@ namespace PolWPF.ViewModels
             }
         }
 
+        private DateTime beginReportDate = DateTime.Now.Date;
+        public DateTime BeginReportDate
+        {
+            get { return beginReportDate; }
+            set
+            {
+                beginReportDate = value;
+                OnPropertyChanged("BeginReportDate");
+            }
+        }
+
+        private DateTime endReportDate = DateTime.Now.Date;
+        public DateTime EndReportDate
+        {
+            get { return endReportDate; }
+            set
+            {
+                endReportDate = value;
+                OnPropertyChanged("EndReportDate");
+            }
+        }
+
         public ObservableCollection<PatientDTO> AllPatients { get; set; }
         public ObservableCollection<DoctorDTO> AllDoctors { get; set; }
         public ObservableCollection<VisitDTO> PatientCard { get; set; }
@@ -278,19 +300,27 @@ namespace PolWPF.ViewModels
                 return getReportCommand ??
                     (getReportCommand = new RelayCommand(obj =>
                     {
-                        Series.Clear();
-
-                        List<ReportModel> reportList = reportService.MakeDiagnosisReport(doctor_id);
-                        foreach (ReportModel report in reportList)
+                        try
                         {
-                            Series.Add(new PieSeries()
+                            Series.Clear();
+
+                            List<ReportModel> reportList = reportService.MakeDiagnosisReport(doctor_id, beginReportDate, endReportDate);
+                            foreach (ReportModel report in reportList)
                             {
-                                Title = report.Name,
-                                DataLabels = true,
-                                Values = new ChartValues<ObservableValue>() { new ObservableValue(report.Workload) }
-                            });
+                                Series.Add(new PieSeries()
+                                {
+                                    Title = report.Name,
+                                    DataLabels = true,
+                                    Values = new ChartValues<ObservableValue>() { new ObservableValue(report.Workload) }
+                                });
+                            }
                         }
-                    }));
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    },
+                    (obj) => beginReportDate != null && endReportDate != null));
             }
         }
 
@@ -302,9 +332,18 @@ namespace PolWPF.ViewModels
                 return saveFileCommand ??
                     (saveFileCommand = new RelayCommand(obj =>
                     {
-                        string header = "Отчет поставленных диагнозов у врача: " + context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault().FullName;
-                        fileService.Save("DiagnosisWorkloadReport.pdf", reportService.MakeDiagnosisReport(doctor_id), header);
-                    }));
+                        try
+                        {
+                            string header = "Отчет поставленных диагнозов у врача: " + context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault().FullName 
+                            + "\nc " + beginReportDate.ToString("dd/MM/yyyy") + " по " + endReportDate.ToString("dd/MM/yyyy");
+                            fileService.Save("DiagnosisWorkloadReport.pdf", reportService.MakeDiagnosisReport(doctor_id, beginReportDate, endReportDate), header);
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    },
+                    (obj) => beginReportDate != null && endReportDate != null));
             }
         }
     }
