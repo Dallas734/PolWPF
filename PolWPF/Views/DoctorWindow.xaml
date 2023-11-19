@@ -10,8 +10,13 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left"/>
         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1"/>
-        <TabControl Grid.Column="0" TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black">
+        <TabControl Grid.Column="0" TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black" Grid.Row="1">
             <TabItem Header="Карта пациента">
                 <Grid>
                     <Grid.RowDefinitions>

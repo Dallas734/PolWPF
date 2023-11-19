@@ -14,7 +14,12 @@
         <CollectionViewSource x:Key="Specializations" Source="{Binding AllSpecializations}"/>
     </Window.Resources>
     <Grid x:Name="BackGrid">
-        <TabControl TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left"/>
+        <TabControl TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black" Grid.Row="1">
             <TabItem Header="Пациенты">
                 <TabControl BorderThickness="5, 10, 15, 20" BorderBrush="Black">
                     <TabItem Header="Сведения о пациенте">
@@ -258,6 +263,7 @@
                             </DataGrid>
                         </Grid>
                     </TabItem>
+                    
                 </TabControl>
             </TabItem>
             <TabItem Header="Врачи">
@@ -286,11 +292,11 @@
                             <DataGrid x:Name="DoctorGridInfo" Grid.Row="1" ItemsSource="{Binding AllDoctors}" SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Специальность">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
                                                 <ComboBox x:Name="Combo1" DisplayMemberPath="Name" SelectedValue="{Binding Specialization_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllSpecializations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate> 
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="Auto"/>
                                     <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="Auto"/>
@@ -347,25 +353,25 @@
                                 </StackPanel>
                             </Border>
                             <Grid Grid.Row="1">
-                                    <DataGrid ItemsSource="{Binding DoctorShedule}" SelectedItem="{Binding SelectedSheduleItem}" AutoGenerateColumns="False" CanUserAddRows="False">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="День недели" Binding="{Binding DayName}" Width="*" IsReadOnly="True"></DataGridTextColumn>
-                                            <DataGridTemplateColumn Header="Начало" Width="*">
-                                                <DataGridTemplateColumn.CellTemplate>
+                                <DataGrid ItemsSource="{Binding DoctorShedule}" SelectedItem="{Binding SelectedSheduleItem}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="День недели" Binding="{Binding DayName}" Width="*" IsReadOnly="True"></DataGridTextColumn>
+                                        <DataGridTemplateColumn Header="Начало" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <xctk:TimePicker Value="{Binding newBeginTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StartTime="08:00" EndTime="20:00" TimeInterval="00:30:00"/>
                                                 </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn Header="Конец" Width="*">
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Конец" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
                                                     <xctk:TimePicker Value="{Binding newEndTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StartTime="08:00" EndTime="20:00" TimeInterval="00:30:00"/>
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </Grid>
                         </Grid>
                     </TabItem>
