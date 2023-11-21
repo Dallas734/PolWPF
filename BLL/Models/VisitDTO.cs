@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,9 @@ namespace BLL.Models
             TimeT = v.TimeT;
             Doctor_id = v.Doctor_id;
             VisitStatus_id = v.VisitStatus_id;
+            Doctor = new DoctorDTO(v.Doctor);
+            Diagnosis = new DiagnosisDTO(v.Diagnosis);
+            Procedure = new ProcedureDTO(v.Procedure);
         }
         public int Id { get; set; }
 
@@ -55,5 +59,10 @@ namespace BLL.Models
 
         public int VisitStatus_id { get; set; }
 
+        public DoctorDTO Doctor { get; set; }
+
+        public DiagnosisDTO Diagnosis { get; set; }
+
+        public ProcedureDTO Procedure { get; set; }
     }
 }

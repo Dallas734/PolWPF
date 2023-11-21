@@ -233,32 +233,14 @@
                                     <Button Content="Показать" Grid.Column="2" Margin="10, 0, 0, 0" Command="{Binding ShowPatientCard}" CommandParameter="{Binding SelectedCardPatient}"/>
                                 </Grid>
                             </StackPanel>
-                            <DataGrid x:Name="CardGrid" Grid.Row="1" ItemsSource="{Binding PatientCard}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False">
+                            <DataGrid x:Name="CardGrid" Grid.Row="1" ItemsSource="{Binding PatientCard}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Врач" Width="*" IsReadOnly="True">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ComboBox x:Name="Combo1" DisplayMemberPath="FullName" SelectedValue="{Binding Doctor_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllDoctors, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" IsEnabled="False"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Дата" Binding="{Binding DateT, StringFormat=d}" IsReadOnly="True" Width="*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Время" Binding="{Binding TimeT}" IsReadOnly="True" Width="*"></DataGridTextColumn>
-                                    <DataGridTemplateColumn Header="Диагноз" Width="*" IsReadOnly="True">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ComboBox DisplayMemberPath="Name" SelectedValue="{Binding Diagnosis_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllDiagnosis, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" IsEnabled="False"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Рецепт" Binding="{Binding Recipe}" IsReadOnly="True" Width="*"/>
-                                    <DataGridTemplateColumn Header="Процедура" Width="*" IsReadOnly="True">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ComboBox DisplayMemberPath="Name" SelectedValue="{Binding Diagnosis_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllProcedures, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" IsEnabled="False"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Врач" Binding="{Binding Doctor.FullName, StringFormat=d}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Дата" Binding="{Binding DateT, StringFormat=d}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Время" Binding="{Binding TimeT}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Диагноз" Binding="{Binding Diagnosis.Name, StringFormat=d}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Рецепт" Binding="{Binding Recipe}" Width="*"/>
+                                    <DataGridTextColumn Header="Процедура" Binding="{Binding Procedure.Name, StringFormat=d}" Width="*"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
