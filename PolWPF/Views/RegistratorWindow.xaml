@@ -298,7 +298,13 @@
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Участок" Binding="{Binding Area_id}" Width="Auto"/>
+                                    <DataGridTemplateColumn Header="Участок">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox x:Name="ComboArea" DisplayMemberPath="Id" SelectedValue="{Binding Area_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" ItemsSource="{Binding Path=DataContext.AllAreas, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <DataGridTemplateColumn Header="Категория">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
