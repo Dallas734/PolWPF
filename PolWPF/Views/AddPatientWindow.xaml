@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolWPF.Views"
         mc:Ignorable="d"
-        Title="AddPatientWindow" Height="450" Width="800">
+        Title="Добавить пациента" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

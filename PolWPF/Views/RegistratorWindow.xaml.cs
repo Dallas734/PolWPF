@@ -25,7 +25,7 @@ namespace PolWPF
         {
             InitializeComponent();
             
-            DataContext = new RegistratorViewModel(dbCrud, comboService, doctorService, patientService, reportService, visitService, sheduleService, fileService);
+            DataContext = new RegistratorViewModel(this, dbCrud, comboService, doctorService, patientService, reportService, visitService, sheduleService, fileService);
         }
 
         private void CardGrid_LayoutUpdated(object sender, EventArgs e)

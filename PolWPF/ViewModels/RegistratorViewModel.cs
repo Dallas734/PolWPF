@@ -26,6 +26,8 @@ namespace PolWPF.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private MainWindow _mainWindow;
+        private RegistratorWindow _registratorWindow;
         private AddDoctorWindow _addDoctorWindow;
         private AddPatientWindow _addPatientWindow;
 
@@ -286,8 +288,9 @@ namespace PolWPF.ViewModels
 
         public SeriesCollection Series { get; set; }
 
-        public RegistratorViewModel(IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
+        public RegistratorViewModel(RegistratorWindow registratorWindow, IDbCrud context, IComboService comboService, IDoctorService doctorService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
+            this._registratorWindow = registratorWindow;
             this.context = context;
             this.comboService = comboService;
             this.doctorService = doctorService;
@@ -324,6 +327,26 @@ namespace PolWPF.ViewModels
             comboService.FillObsCollection<AreaDTO>(AllAreas, context.areaDTOs);
             comboService.FillObsCollection<DiagnosisDTO>(AllDiagnosis, context.diagnosisDTOs);
             comboService.FillObsCollection<ProcedureDTO>(AllProcedures, context.procedureDTOs);
+        }
+
+        private void ToMainWindow(object obj)
+        {
+            _mainWindow = new MainWindow();
+            _mainWindow.Show();
+            _registratorWindow.Close();
+        }
+
+        private RelayCommand toMainWindowCommand;
+        public RelayCommand ToMainWindowCommand
+        {
+            get
+            {
+                return toMainWindowCommand ??
+                  (toMainWindowCommand = new RelayCommand(obj =>
+                  {
+                      ToMainWindow(obj);
+                  }));
+            }
         }
 
         private RelayCommand removePatientCommand;

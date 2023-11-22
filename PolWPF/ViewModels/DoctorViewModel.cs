@@ -26,6 +26,9 @@ namespace PolWPF.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private MainWindow _mainWindow;
+        private DoctorWindow _doctorWindow;
+
         IDbCrud context;
         IComboService comboService;
         IPatientService patientService;
@@ -34,6 +37,26 @@ namespace PolWPF.ViewModels
         ISheduleService sheduleService;
         IDoctorService doctorService;
         IFileService fileService;
+
+        private void ToMainWindow(object obj)
+        {
+            _mainWindow = new MainWindow();
+            _mainWindow.Show();
+            _doctorWindow.Close();
+        }
+
+        private RelayCommand toMainWindowCommand;
+        public RelayCommand ToMainWindowCommand
+        {
+            get
+            {
+                return toMainWindowCommand ??
+                  (toMainWindowCommand = new RelayCommand(obj =>
+                  {
+                      ToMainWindow(obj);
+                  }));
+            }
+        }
 
         private PatientDTO selectedCardPatient;
         public PatientDTO SelectedCardPatient
@@ -160,8 +183,9 @@ namespace PolWPF.ViewModels
 
         public SeriesCollection Series { get; set; }
 
-        public DoctorViewModel(IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
+        public DoctorViewModel(DoctorWindow doctorWindow, IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
+            _doctorWindow = doctorWindow;
             this.context = context;
             this.comboService = comboService;
             this.patientService = patientService;

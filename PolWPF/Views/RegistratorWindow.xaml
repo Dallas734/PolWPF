@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolWPF"
         mc:Ignorable="d"
-        Title="RegistratorWindow" Height="480" Width="1500"
+        Title="Окно регистратора" Height="480" Width="1500"
         xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:lrm="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit"
@@ -18,7 +18,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left"/>
+        <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left" Command="{Binding ToMainWindowCommand}"/>
         <TabControl TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black" Grid.Row="1">
             <TabItem Header="Пациенты">
                 <TabControl BorderThickness="5, 10, 15, 20" BorderBrush="Black">

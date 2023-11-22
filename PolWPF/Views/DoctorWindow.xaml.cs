@@ -25,7 +25,7 @@ namespace PolWPF
         {
             InitializeComponent();
 
-            DataContext = new DoctorViewModel(dbCrud, comboService, patientService, reportService, visitService, sheduleService, fileService);
+            DataContext = new DoctorViewModel(this, dbCrud, comboService, patientService, reportService, visitService, sheduleService, fileService);
         }
     }
 }
