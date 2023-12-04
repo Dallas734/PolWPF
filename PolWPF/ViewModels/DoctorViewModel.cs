@@ -13,6 +13,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using LiveCharts.Wpf;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
+using ToastNotifications.Messages;
 
 namespace PolWPF.ViewModels
 {
@@ -37,6 +41,21 @@ namespace PolWPF.ViewModels
         ISheduleService sheduleService;
         IDoctorService doctorService;
         IFileService fileService;
+
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.TopRight,
+                offsetX: 10,
+                offsetY: 10);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
 
         private void ToMainWindow(object obj)
         {
@@ -259,7 +278,7 @@ namespace PolWPF.ViewModels
                             context.Save();
                             comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault(), SelectedDate));
 
-                            MessageBox.Show("Запись успешно завершена!");
+                            notifier.ShowSuccess("Запись успешно завершена!");
                         }
                         catch (Exception ex)
                         {
@@ -286,7 +305,7 @@ namespace PolWPF.ViewModels
                             context.AddDiagnosis(diagnosis);
                             context.Save();
 
-                            MessageBox.Show("Успешно!");
+                            notifier.ShowSuccess("Успешно!");
 
                             comboService.FillObsCollection(AllDiagnosis, context.diagnosisDTOs);
                         }
@@ -311,6 +330,7 @@ namespace PolWPF.ViewModels
                         context.DeleteDiagnosis(diagnosis);
                         context.Save();
                         comboService.FillObsCollection(AllDiagnosis, context.diagnosisDTOs);
+                        notifier.ShowSuccess("Удаление успешно");
                     },
                     (obj) => selectedDiagnosis != null));
             }
@@ -361,6 +381,7 @@ namespace PolWPF.ViewModels
                             string header = "Отчет поставленных диагнозов у врача: " + context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault().FullName 
                             + "\nc " + beginReportDate.ToString("dd/MM/yyyy") + " по " + endReportDate.ToString("dd/MM/yyyy");
                             fileService.Save("DiagnosisWorkloadReport.pdf", reportService.MakeDiagnosisReport(doctor_id, beginReportDate, endReportDate), header);
+                            notifier.ShowSuccess("Сохранение успешно");
                         }
                         catch(Exception ex)
                         {

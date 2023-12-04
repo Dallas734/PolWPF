@@ -381,6 +381,7 @@ namespace PolWPF.ViewModels
                           AllPatients.Remove(patient);
                           context.DeletePatient(patient);
                           context.Save();
+                          notifier.ShowSuccess("Удаление успешно");
                       }
                   },
                  //условие, при котором будет доступна команда
@@ -402,6 +403,7 @@ namespace PolWPF.ViewModels
                           AllDoctors.Remove(doctor);
                           context.DeleteDoctor(doctor);
                           context.Save();
+                          notifier.ShowSuccess("Удаление успешно");
                       }
                   },
                  //условие, при котором будет доступна команда
@@ -420,6 +422,7 @@ namespace PolWPF.ViewModels
                      _addDoctorWindow = new AddDoctorWindow(context, comboService);
                      _addDoctorWindow.ShowDialog();
                      comboService.FillObsCollection(AllDoctors, context.doctorDTOs);
+                     notifier.ShowSuccess("Добавление успешно");
                  }));
 
             }
@@ -436,6 +439,7 @@ namespace PolWPF.ViewModels
                         _addPatientWindow = new AddPatientWindow(context, comboService);
                         _addPatientWindow.ShowDialog();
                         comboService.FillObsCollection(AllPatients, context.patientDTOs);
+                        notifier.ShowSuccess("Добавление успешно");
                     }));
             }
         }
@@ -455,7 +459,7 @@ namespace PolWPF.ViewModels
                             {
                                 context.UpdateDoctor(doctor);
                                 context.Save();
-                                MessageBox.Show("Изменения сохранены!");
+                                notifier.ShowSuccess("Изменения сохранены!");
                             }
                         }
                         catch (Exception ex)
@@ -558,6 +562,7 @@ namespace PolWPF.ViewModels
                       context.DeleteVisit(talon.Visit);
                       context.Save();
                       comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(SelectedDoctor, SelectedDate));
+                      notifier.ShowSuccess("Удаление успешно");
                   },
                  //условие, при котором будет доступна команда
                  (obj) => (selectedTalon != null && selectedTalon.Visit != null)));
@@ -594,7 +599,7 @@ namespace PolWPF.ViewModels
                           context.DeleteVisit(visit);
                           context.Save();
                           comboService.FillObsCollection<VisitDTO>(AllPatientVisit, visitService.GetFutureVisitsOnPatientAndDate(selectedVisitPatient, selectedVisitDate));
-                          notifier.ShowSuccess("Успешно");
+                          notifier.ShowSuccess("Удаление успешно");
                       }
                       catch (Exception ex)
                       {
