@@ -699,6 +699,7 @@ namespace PolWPF.ViewModels
                             AreaDTO areaDTO = obj as AreaDTO;
                             string header = "Отчет загруженности на участке №" + areaDTO.Id + " c " + beginReportDate.ToString("dd/MM/yyyy") + " по " + endReportDate.ToString("dd/MM/yyyy");
                             fileService.Save("DoctorWorkloadReport.pdf", reportService.MakeWorkloadReport(areaDTO.Id, beginReportDate, endReportDate), header);
+                            notifier.ShowSuccess("Документ сохранен в pdf!");
                         }
                         catch (Exception ex)
                         {

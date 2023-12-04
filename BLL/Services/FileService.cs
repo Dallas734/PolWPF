@@ -55,8 +55,6 @@ namespace BLL.Services
                 document.Add(table);
 
                 document.Close();
-
-                MessageBox.Show("Документ сохранен в pdf!");
             }
             catch (Exception ex)
             {
