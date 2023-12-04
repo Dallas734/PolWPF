@@ -15,6 +15,10 @@ using LiveCharts.Wpf;
 using BLL.Models.ReportModels;
 using LiveCharts;
 using LiveCharts.Defaults;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
+using ToastNotifications.Messages;
 
 namespace PolWPF.ViewModels
 {
@@ -40,6 +44,20 @@ namespace PolWPF.ViewModels
         ISheduleService sheduleService;
         IFileService fileService;
 
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.TopRight,
+                offsetX: 10,
+                offsetY: 10);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
 
         private PatientDTO selectedPatient;
         public PatientDTO SelectedPatient
@@ -464,7 +482,7 @@ namespace PolWPF.ViewModels
                             {
                                 context.UpdatePatient(patient);
                                 context.Save();
-                                MessageBox.Show("Изменения сохранены!");
+                                notifier.ShowSuccess("Изменения сохранены!");
                             }
                         }
                         catch (Exception ex)
@@ -514,7 +532,7 @@ namespace PolWPF.ViewModels
                             context.AddVisit(visit);
                             context.Save();
 
-                            MessageBox.Show("Успешно!");
+                            notifier.ShowSuccess("Успешно!");
 
                             comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(SelectedDoctor, SelectedDate));
                         }
@@ -576,7 +594,7 @@ namespace PolWPF.ViewModels
                           context.DeleteVisit(visit);
                           context.Save();
                           comboService.FillObsCollection<VisitDTO>(AllPatientVisit, visitService.GetFutureVisitsOnPatientAndDate(selectedVisitPatient, selectedVisitDate));
-                          MessageBox.Show("Успешно");
+                          notifier.ShowSuccess("Успешно");
                       }
                       catch (Exception ex)
                       {
@@ -629,7 +647,7 @@ namespace PolWPF.ViewModels
                         SheduleDTO shedule = obj as SheduleDTO;
                         context.UpdateShedule(shedule);
                         context.Save();
-                        MessageBox.Show("Изменения сохранены!");
+                        notifier.ShowSuccess("Изменения сохранены!");
                     },
                     (obj) => (selectedSheduleItem != null)));
             }
