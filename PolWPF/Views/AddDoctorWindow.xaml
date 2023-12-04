@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolWPF.Views"
         mc:Ignorable="d"
-        Title="Добавить доктора" Height="450" Width="800">
+        Title="Добавить доктора" Height="450" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Icon="..\Resources\icon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
