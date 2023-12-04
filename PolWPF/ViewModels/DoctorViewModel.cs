@@ -221,7 +221,8 @@ namespace PolWPF.ViewModels
             Talons = new ObservableCollection<Talon>();
             Series = new SeriesCollection();
 
-            comboService.FillObsCollection(AllPatients, context.patientDTOs);
+            //comboService.FillObsCollection(AllPatients, context.patientDTOs);
+            AllPatients = new ObservableCollection<PatientDTO>(patientService.GetPatientsOnArea(Convert.ToInt32(context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault().Area_id)).ToList());
             comboService.FillObsCollection(AllDoctors, context.doctorDTOs);
             comboService.FillObsCollection(AllDiagnosis, context.diagnosisDTOs);
             comboService.FillObsCollection(AllProcedures, context.procedureDTOs);
