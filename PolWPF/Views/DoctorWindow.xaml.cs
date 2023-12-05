@@ -21,11 +21,11 @@ namespace PolWPF
     /// </summary>
     public partial class DoctorWindow : Window
     {
-        public DoctorWindow(IDbCrud dbCrud, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
+        public DoctorWindow(int doctor_id, IDbCrud dbCrud, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
             InitializeComponent();
 
-            DataContext = new DoctorViewModel(this, dbCrud, comboService, patientService, reportService, visitService, sheduleService, fileService);
+            DataContext = new DoctorViewModel(this, doctor_id, dbCrud, comboService, patientService, reportService, visitService, sheduleService, fileService);
         }
     }
 }

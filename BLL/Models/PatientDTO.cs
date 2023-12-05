@@ -23,7 +23,7 @@ namespace BLL.Models
             FullName = p.LastName + " " + p.FirstName + " " + p.Surname;
             Gender_id = p.Gender_id;
             DateOfBirth = p.DateOfBirth;
-            Address_id = p.Address_id;
+            Address_id = (int)p.Address_id;
             Polis = p.Polis;
             WorkPlace = p.WorkPlace;
         }

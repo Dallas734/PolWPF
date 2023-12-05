@@ -22,7 +22,7 @@ namespace PolWPF.ViewModels
 {
     public class DoctorViewModel : INotifyPropertyChanged
     {
-        private int doctor_id = 1;
+        private int doctor_id;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -202,8 +202,10 @@ namespace PolWPF.ViewModels
 
         public SeriesCollection Series { get; set; }
 
-        public DoctorViewModel(DoctorWindow doctorWindow, IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
+        public DoctorViewModel(DoctorWindow doctorWindow, int doctor_id, IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
+            this.doctor_id = doctor_id;
+
             _doctorWindow = doctorWindow;
             this.context = context;
             this.comboService = comboService;

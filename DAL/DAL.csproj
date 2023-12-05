@@ -65,9 +65,11 @@
     <Compile Include="Entities\PolyclinicContext.cs" />
     <Compile Include="Entities\Procedure.cs" />
     <Compile Include="Entities\ReportEntities\Report.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Shedule.cs" />
     <Compile Include="Entities\Specialization.cs" />
     <Compile Include="Entities\Status.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Visit.cs" />
     <Compile Include="Entities\VisitStatus.cs" />
     <Compile Include="Interfaces\IDbRepository.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Repository\SheduleRepositorySQL.cs" />
     <Compile Include="Repository\SpecializationRepositorySQL.cs" />
     <Compile Include="Repository\StatusRepositorySQL.cs" />
+    <Compile Include="Repository\UserRepositorySQL.cs" />
     <Compile Include="Repository\VisitRepositorySQL.cs" />
     <Compile Include="Repository\VisitStatusRepositorySQL.cs" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace DAL.Repository
 {
@@ -28,6 +29,7 @@ namespace DAL.Repository
         private VisitStatusRepositorySQL visitStatusRepository;
         private GenderRepositorySQL genderRepository;  
         private ReportRepositorySQL reportRepository;
+        private UserRepositorySQL userRepository;
         public DbRepositorySQL(string connectionString)
         {
             this.dbContext = new PolyclinicContext();
@@ -186,6 +188,16 @@ namespace DAL.Repository
                 if (reportRepository == null)
                     reportRepository = new ReportRepositorySQL(dbContext);
                 return reportRepository;
+            }
+        }
+
+        public IRepository<User> Users
+        {
+            get
+            {
+                if (userRepository == null)
+                    userRepository = new UserRepositorySQL(dbContext);
+                return userRepository;
             }
         }
         public int Save()

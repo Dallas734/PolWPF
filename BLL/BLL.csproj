@@ -75,6 +75,7 @@
     <Compile Include="Models\SheduleDTO.cs" />
     <Compile Include="Models\SpecializationDTO.cs" />
     <Compile Include="Models\StatusDTO.cs" />
+    <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\VisitDTO.cs" />
     <Compile Include="Models\VisitStatusDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

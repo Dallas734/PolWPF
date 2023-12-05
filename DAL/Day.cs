@@ -1,4 +1,4 @@
-namespace DAL.Entities
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
@@ -6,26 +6,23 @@ namespace DAL.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Address")]
-    public partial class Address
+    [Table("Day")]
+    public partial class Day
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        public Day()
         {
-            Patient = new HashSet<Patient>();
+            Shedule = new HashSet<Shedule>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        public int? Area_id { get; set; }
-
         [Required]
-        [StringLength(256)]
+        [StringLength(50)]
         public string Name { get; set; }
 
-        public virtual Area Area { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Patient> Patient { get; set; }
+        public virtual ICollection<Shedule> Shedule { get; set; }
     }
 }

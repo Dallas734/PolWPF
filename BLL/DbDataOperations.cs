@@ -21,6 +21,14 @@ namespace BLL
             dbRepos = dbRepositorySQL;
         }
 
+        public List<UserDTO> usersDTOs
+        {
+            get
+            {
+                return dbRepos.Users.GetAll().Select(i => new UserDTO(i)).ToList();
+            }
+        }
+
         public List<AddressDTO> addressDTOs 
         { 
             get 

@@ -8,6 +8,12 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
+using ToastNotifications.Messages;
+using System.Windows.Controls;
 
 namespace PolWPF.ViewModels
 {
@@ -32,28 +38,52 @@ namespace PolWPF.ViewModels
         private RegistratorWindow _registratorWindow;
         private DoctorWindow _doctorWindow;
 
-        private RelayCommand registratorAutCommand;
-        public RelayCommand RegistratorAutCommand
+        Notifier notifier = new Notifier(cfg =>
         {
-            get
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.TopRight,
+                offsetX: 10,
+                offsetY: 10);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
+
+        private string login;
+        public string Login
+        {
+            get => login;
+            set
             {
-                return registratorAutCommand ??
-                  (registratorAutCommand = new RelayCommand(obj =>
-                  {
-                      ToRegistratorPage(obj);
-                  }));
+                login = value;
+                OnPropertyChanged("Login");
             }
         }
 
-        private RelayCommand doctorAutCommand;
-        public RelayCommand DoctorAutCommand
+        private string password;
+        public string Password
+        {
+            get => password;
+            set
+            {
+                password = value;
+                OnPropertyChanged("Password");
+            }
+        }
+
+        private RelayCommand autCommand;
+        public RelayCommand AutCommand
         {
             get
             {
-                return doctorAutCommand ??
-                  (doctorAutCommand = new RelayCommand(obj =>
+                return autCommand ??
+                  (autCommand = new RelayCommand(obj =>
                   {
-                      ToDoctorPage(obj);
+                      Authentication(obj);
                   }));
             }
         }
@@ -78,11 +108,39 @@ namespace PolWPF.ViewModels
             mainWindow.Close(); 
         }
 
-        private void ToDoctorPage(object obj)
+        private void ToDoctorPage(object obj, int doctor_id)
         {
-            _doctorWindow = new DoctorWindow(context, comboService, patientService, reportService, visitService, sheduleService, fileService);
+            _doctorWindow = new DoctorWindow(doctor_id, context, comboService, patientService, reportService, visitService, sheduleService, fileService);
             _doctorWindow.Show();
             mainWindow.Close();
+        }
+
+        private void Authentication(object obj)
+        {
+            PasswordBox box = obj as PasswordBox;
+            password = box.Password;
+
+            if (password == "" || login == "")
+            {
+                notifier.ShowError("Введите все данные");
+                return;
+            }
+
+            var user = context.usersDTOs.Where(i => i.Login == login && i.Password == password).FirstOrDefault();
+            if (user == null)
+            {
+                notifier.ShowError("Введен неправильный логин или пароль");
+            }
+            else
+            {
+                if (user.Role_id == 1)
+                    ToRegistratorPage(obj);
+                else if (user.Role_id == 2)
+                {
+                    int doctor_id = context.doctorDTOs.Where(i => i.User_id == user.Id).FirstOrDefault().Id;
+                    ToDoctorPage(obj, doctor_id);
+                }
+            }
         }
     }
 }

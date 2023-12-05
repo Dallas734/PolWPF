@@ -44,6 +44,8 @@ namespace DAL.Entities
 
         public int? Gender_id { get; set; }
 
+        public int? User_id { get; set; }
+
         public virtual Area Area { get; set; }
 
         public virtual Category Category { get; set; }
@@ -55,6 +57,8 @@ namespace DAL.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Shedule> Shedule { get; set; }
+
+        public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Visit> Visit { get; set; }

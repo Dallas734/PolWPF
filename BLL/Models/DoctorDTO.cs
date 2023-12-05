@@ -25,6 +25,7 @@ namespace BLL.Models
             Area_id = d.Area_id;
             Category_id = d.Category_id;
             FullName = d.LastName + " " + d.FirstName + " " + d.Surname;
+            User_id = d.User_id;
         }
 
         public int Id { get; set; }
@@ -46,5 +47,7 @@ namespace BLL.Models
         public int Category_id { get; set; }
 
         public int? Gender_id { get; set; }
+
+        public int? User_id { get; set; }
     }
 }

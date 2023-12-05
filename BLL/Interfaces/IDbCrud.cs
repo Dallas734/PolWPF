@@ -9,6 +9,7 @@ namespace BLL.Interfaces
 {
     public interface IDbCrud
     {
+        List<UserDTO> usersDTOs {  get; }
         List<AddressDTO> addressDTOs { get; }
         void AddAddress(AddressDTO addressDTO);
 

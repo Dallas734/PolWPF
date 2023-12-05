@@ -1,4 +1,4 @@
-namespace DAL.Entities
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
@@ -6,26 +6,30 @@ namespace DAL.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Address")]
-    public partial class Address
+    [Table("User")]
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        public User()
         {
-            Patient = new HashSet<Patient>();
+            Doctor = new HashSet<Doctor>();
         }
 
         public int Id { get; set; }
 
-        public int? Area_id { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Login { get; set; }
 
         [Required]
-        [StringLength(256)]
-        public string Name { get; set; }
+        [StringLength(50)]
+        public string Password { get; set; }
 
-        public virtual Area Area { get; set; }
+        public int? Role_id { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Patient> Patient { get; set; }
+        public virtual ICollection<Doctor> Doctor { get; set; }
+
+        public virtual Role Role { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace BLL.Models
         public AddressDTO(Address a)
         {
             Id = a.Id;
-            Area_id = a.Area_id;
+            Area_id = (int)a.Area_id;
             Name = a.Name;
         }
 

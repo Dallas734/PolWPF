@@ -27,6 +27,8 @@ namespace DAL.Interfaces
 
         IRepository<Gender> Genders { get; }
 
+        IRepository<User> Users { get; }
+
         IReportRepository Reports { get; }
         int Save();
     }

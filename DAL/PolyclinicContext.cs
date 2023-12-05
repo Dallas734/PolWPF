@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace DAL.Entities
+namespace DAL
 {
     public partial class PolyclinicContext : DbContext
     {
