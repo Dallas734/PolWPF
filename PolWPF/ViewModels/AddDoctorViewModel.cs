@@ -9,6 +9,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 
 namespace PolWPF.ViewModels
 {
@@ -28,6 +32,21 @@ namespace PolWPF.ViewModels
         public ObservableCollection<StatusDTO> allStatus { get; set; }
         public ObservableCollection<AreaDTO> allAreas { get; set; }
         public ObservableCollection<GenderDTO> allGenders { get; set; }
+
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.TopRight,
+                offsetX: 10,
+                offsetY: 10);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
 
         private SpecializationDTO selectedSpecialization;
         public SpecializationDTO SelectedSpecialization
@@ -168,7 +187,7 @@ namespace PolWPF.ViewModels
                             context.AddDoctor(doctor);
                             context.Save();
 
-                            MessageBox.Show("Успешно!");
+                            notifier.ShowSuccess("Добавление успешно");
                         }
                         catch (Exception ex)
                         {

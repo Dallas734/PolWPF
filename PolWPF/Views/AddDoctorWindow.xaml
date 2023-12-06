@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label FontSize="16" FontWeight="Black" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">Специальность</Label>
+        <Label FontSize="16" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Black">Специальность</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">Фамилия</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">Имя</Label>
         <Label FontSize="16" FontWeight="Black" Grid.Column="0"  Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top">Отчество</Label>

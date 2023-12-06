@@ -422,7 +422,6 @@ namespace PolWPF.ViewModels
                      _addDoctorWindow = new AddDoctorWindow(context, comboService);
                      _addDoctorWindow.ShowDialog();
                      comboService.FillObsCollection(AllDoctors, context.doctorDTOs);
-                     notifier.ShowSuccess("Добавление успешно");
                  }));
 
             }
@@ -439,7 +438,6 @@ namespace PolWPF.ViewModels
                         _addPatientWindow = new AddPatientWindow(context, comboService);
                         _addPatientWindow.ShowDialog();
                         comboService.FillObsCollection(AllPatients, context.patientDTOs);
-                        notifier.ShowSuccess("Добавление успешно");
                     }));
             }
         }
