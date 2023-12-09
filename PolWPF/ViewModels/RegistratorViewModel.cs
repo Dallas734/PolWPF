@@ -46,17 +46,25 @@ namespace PolWPF.ViewModels
 
         Notifier notifier = new Notifier(cfg =>
         {
-            cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.MainWindow,
+            try
+            {
+                cfg.PositionProvider = new PrimaryScreenPositionProvider(
                 corner: Corner.TopRight,
-                offsetX: 10,
-                offsetY: 10);
+                offsetX: 20,
+                offsetY: 30);
 
-            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(3),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(7),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
-            cfg.Dispatcher = Application.Current.Dispatcher;
+                cfg.DisplayOptions.TopMost = true;
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex + "");
+            }
         });
 
         private PatientDTO selectedPatient;
