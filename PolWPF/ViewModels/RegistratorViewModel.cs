@@ -506,6 +506,8 @@ namespace PolWPF.ViewModels
                     (getTalonsCommand = new RelayCommand(obj =>
                     {
                         comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(SelectedDoctor, SelectedDate));
+                        if (Talons.Count == 0)
+                            notifier.ShowInformation("Врач в этот день не работает");
                     },
                     (obj) => (selectedDoctor != null && selectedDate != null)));
             }

@@ -254,6 +254,8 @@ namespace PolWPF.ViewModels
                     (getTalonsCommand = new RelayCommand(obj =>
                     {
                         comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault(), SelectedDate));
+                        if (Talons.Count == 0)
+                            notifier.ShowInformation("Зписей нет");
                     },
                     (obj) => (selectedDate != null)));
             }
