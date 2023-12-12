@@ -263,7 +263,7 @@ namespace PolWPF.ViewModels
                     {
                         comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault(), SelectedDate));
                         if (Talons.Count == 0)
-                            notifier.ShowInformation("Зписей нет");
+                            notifier.ShowInformation("Записей нет");
                     },
                     (obj) => (selectedDate != null)));
             }

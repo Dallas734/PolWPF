@@ -208,6 +208,7 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>-->
                                             <DataGridTextColumn Header="Врач" Binding="{Binding Doctor.FullName}" IsReadOnly="True" Width="*"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Специальность" Binding="{Binding Doctor.SpecializationDTO.Name}" Width="*"></DataGridTextColumn>
                                             <DataGridTextColumn Header="Дата" Binding="{Binding DateT, StringFormat=d}" IsReadOnly="True" Width="*"></DataGridTextColumn>
                                             <DataGridTextColumn Header="Время" Binding="{Binding TimeT}" IsReadOnly="True" Width="*"></DataGridTextColumn>
                                         </DataGrid.Columns>
@@ -239,6 +240,7 @@
                             <DataGrid x:Name="CardGrid" Grid.Row="1" ItemsSource="{Binding PatientCard}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Врач" Binding="{Binding Doctor.FullName}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Специальность" Binding="{Binding Doctor.SpecializationDTO.Name}" Width="*"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Дата" Binding="{Binding DateT, StringFormat=d}" Width="*"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Время" Binding="{Binding TimeT}" Width="*"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Диагноз" Binding="{Binding Diagnosis.Name}" Width="*"></DataGridTextColumn>

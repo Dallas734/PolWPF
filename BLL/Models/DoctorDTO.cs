@@ -26,6 +26,7 @@ namespace BLL.Models
             Category_id = d.Category_id;
             FullName = d.LastName + " " + d.FirstName + " " + d.Surname;
             User_id = d.User_id;
+            SpecializationDTO = new SpecializationDTO(d.Specialization);
         }
 
         public int Id { get; set; }
@@ -39,6 +40,8 @@ namespace BLL.Models
         public string FullName { get; set; }
 
         public DateTime DateOfBirth { get; set; }
+        
+        public SpecializationDTO SpecializationDTO { get; set; }
 
         public int Status_id { get; set; }
 
