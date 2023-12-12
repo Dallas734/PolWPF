@@ -34,6 +34,7 @@ namespace PolWPF.ViewModels
         private RegistratorWindow _registratorWindow;
         private AddDoctorWindow _addDoctorWindow;
         private AddPatientWindow _addPatientWindow;
+        private AboutWindow _aboutWindow;
 
         IDbCrud context;
         IComboService comboService;
@@ -362,6 +363,12 @@ namespace PolWPF.ViewModels
             _registratorWindow.Close();
         }
 
+        private void ToAboutWindow(object obj)
+        {
+            _aboutWindow = new AboutWindow();
+            _aboutWindow.ShowDialog();
+        }
+
         private RelayCommand toMainWindowCommand;
         public RelayCommand ToMainWindowCommand
         {
@@ -371,6 +378,19 @@ namespace PolWPF.ViewModels
                   (toMainWindowCommand = new RelayCommand(obj =>
                   {
                       ToMainWindow(obj);
+                  }));
+            }
+        }
+
+        private RelayCommand toAboutWindowCommand;
+        public RelayCommand ToAboutWindowCommand
+        {
+            get
+            {
+                return toAboutWindowCommand ??
+                  (toAboutWindowCommand = new RelayCommand(obj =>
+                  {
+                      ToAboutWindow(obj);
                   }));
             }
         }

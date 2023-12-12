@@ -17,12 +17,17 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using ToastNotifications.Messages;
+using System.Reflection.Emit;
+using System.Windows.Controls;
+using PolWPF.Views;
 
 namespace PolWPF.ViewModels
 {
     public class DoctorViewModel : INotifyPropertyChanged
     {
         private int doctor_id;
+
+        TextBlock loginLabel;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -32,6 +37,7 @@ namespace PolWPF.ViewModels
 
         private MainWindow _mainWindow;
         private DoctorWindow _doctorWindow;
+        private AboutWindow _aboutWindow;
 
         IDbCrud context;
         IComboService comboService;
@@ -72,6 +78,12 @@ namespace PolWPF.ViewModels
             _doctorWindow.Close();
         }
 
+        private void ToAboutWindow(object obj)
+        {
+            _aboutWindow = new AboutWindow();
+            _aboutWindow.ShowDialog();
+        }
+
         private RelayCommand toMainWindowCommand;
         public RelayCommand ToMainWindowCommand
         {
@@ -81,6 +93,19 @@ namespace PolWPF.ViewModels
                   (toMainWindowCommand = new RelayCommand(obj =>
                   {
                       ToMainWindow(obj);
+                  }));
+            }
+        }
+
+        private RelayCommand toAboutWindowCommand;
+        public RelayCommand ToAboutWindowCommand
+        {
+            get
+            {
+                return toAboutWindowCommand ??
+                  (toAboutWindowCommand = new RelayCommand(obj =>
+                  {
+                      ToAboutWindow(obj);
                   }));
             }
         }
@@ -213,6 +238,8 @@ namespace PolWPF.ViewModels
         public DoctorViewModel(DoctorWindow doctorWindow, int doctor_id, IDbCrud context, IComboService comboService, IPatientService patientService, IReportService reportService, IVisitService visitService, ISheduleService sheduleService, IFileService fileService)
         {
             this.doctor_id = doctor_id;
+            this.loginLabel = doctorWindow.FindName("LoginText") as TextBlock;
+            loginLabel.Text = "Добро пожаловать, " + context.doctorDTOs.Where(i => i.Id == doctor_id).FirstOrDefault().FullName;
 
             _doctorWindow = doctorWindow;
             this.context = context;

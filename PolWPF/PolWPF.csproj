@@ -112,12 +112,16 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
     <Compile Include="Util\ReposModule.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AddAddressViewModel.cs" />
     <Compile Include="ViewModels\AddDoctorViewModel.cs" />
     <Compile Include="ViewModels\AddPatientViewModel.cs" />
     <Compile Include="ViewModels\DoctorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegistratorViewModel.cs" />
+    <Compile Include="Views\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddAddressWindow.xaml.cs">
       <DependentUpon>AddAddressWindow.xaml</DependentUpon>
     </Compile>
@@ -133,6 +137,10 @@
     <Compile Include="Views\RegistratorWindow.xaml.cs">
       <DependentUpon>RegistratorWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AddAddressWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

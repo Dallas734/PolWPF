@@ -1,0 +1,38 @@
+﻿<Window x:Class="PolWPF.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PolWPF.Views"
+        mc:Ignorable="d"
+        Title="AboutWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TreeView Grid.Column="0">
+            <TreeViewItem Header="О программе" Selected="AboutItemSelected"/>
+            <TreeViewItem Header="Окно регистратора">
+                <TreeViewItem Header="Вкладка пациенты">
+                    <TreeViewItem Header="Сведения о пациенте" Selected="PatientInfoItemSelected"/>
+                    <TreeViewItem Header="Записать пациента" Selected="AddVisitItemSelected"/>
+                    <TreeViewItem Header="Записи пациента" Selected="PatientVisitsItemSelected"/>
+                    <TreeViewItem Header="Карта пациента" Selected="PatientCardItemSelected"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Вкладка врачи">
+                    <TreeViewItem Header="Сведения о врачах" Selected="DoctorInfoItemSelected"/>
+                    <TreeViewItem Header="Расписание врача" Selected="ScheduleItemSelected"/>
+                    <TreeViewItem Header="Статистика посещений на участке" Selected="AreaReportItemSelected"/>
+                </TreeViewItem>
+            </TreeViewItem>
+            <TreeViewItem Header="Окно врача">
+                <TreeViewItem Header="Карта пациента" Selected="CardItemSelected"/>
+                <TreeViewItem Header="Записи" Selected="DoctorVisitItemSelected"/>
+                <TreeViewItem Header="Диагнозы" Selected="DiagnosisItemSelected"/>
+                <TreeViewItem Header="Статистика диагнозов" Selected="DiagnosisReportItemSelected"/>
+            </TreeViewItem>
+        </TreeView>
+        <TextBlock Grid.Column="1" Text="{Binding AboutText}" x:Name="TextBlock" TextWrapping="Wrap"/>
+    </Grid>
+</Window>

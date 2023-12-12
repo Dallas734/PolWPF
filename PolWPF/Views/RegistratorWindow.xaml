@@ -20,7 +20,14 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left" Command="{Binding ToMainWindowCommand}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left" Command="{Binding ToMainWindowCommand}"/>
+            <MenuItem Header="О программе" Grid.Column="1" HorizontalAlignment="Left" Command="{Binding ToAboutWindowCommand}"/>
+        </Grid>
         <TabControl TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black" Grid.Row="1">
             <TabItem Header="Пациенты">
                 <TabControl BorderThickness="5, 10, 15, 20" BorderBrush="Black">

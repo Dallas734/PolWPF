@@ -16,7 +16,15 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left" Command="{Binding ToMainWindowCommand}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <MenuItem Header="Выход" Grid.Row="0" HorizontalAlignment="Left" Command="{Binding ToMainWindowCommand}"/>
+            <MenuItem Header="О программе" Grid.Column="1" HorizontalAlignment="Left" Command="{Binding ToAboutWindowCommand}"/>
+        </Grid>
+        <TextBlock Name="LoginText" FontSize="16" FontWeight="Black" HorizontalAlignment="Right" Margin="0, 0, 10, 0"></TextBlock>
         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1"/>
         <TabControl Grid.Column="0" TabStripPlacement="Left" BorderThickness="5, 10, 15, 20" BorderBrush="Black" Grid.Row="1">
             <TabItem Header="Карта пациента">
@@ -33,10 +41,12 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="204*"/>
+                                <ColumnDefinition Width="5*"/>
                             </Grid.ColumnDefinitions>
-                            <Label FontSize="16" FontWeight="Black" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">Пациент</Label>
-                            <ComboBox x:Name="PatientCardD" Width="216" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedItem="{Binding SelectedCardPatient}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllPatients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-                            <Button Content="Показать" Grid.Column="2" Margin="10, 0, 0, 0" Command="{Binding ShowPatientCard}" CommandParameter="{Binding SelectedCardPatient}"/>
+                            <Label FontSize="16" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Top">Пациент</Label>
+                            <ComboBox x:Name="PatientCardD" Width="216" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding SelectedCardPatient}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllPatients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                            <Button Content="Показать" Grid.Column="2" Margin="10,0,0,0" Command="{Binding ShowPatientCard}" CommandParameter="{Binding SelectedCardPatient}"/>
                         </Grid>
                     </StackPanel>
                     <DataGrid x:Name="CardGrid" Grid.Row="1" ItemsSource="{Binding PatientCard}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" VirtualizingPanel.ScrollUnit="Pixel">
