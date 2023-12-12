@@ -118,7 +118,7 @@
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border BorderBrush="Black" BorderThickness="1">
                                     <DataGrid x:Name="AddVisitGridInfo" Grid.Row="1" ItemsSource="{Binding Talons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTalon, Mode=TwoWay}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
@@ -269,8 +269,8 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button x:Name="AddDoctorBtn" Grid.Column="0" Width="200" Content="Добавить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding AddDoctorCommand}"/>
-                                    <Button x:Name="DeleteDoctorBtn" Grid.Column="1" Width="200" Content="Удалить доктора" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding RemoveDoctorCommand}" CommandParameter="{Binding SelectedDoctor}"/>
+                                    <Button x:Name="AddDoctorBtn" Grid.Column="0" Width="200" Content="Добавить врача" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding AddDoctorCommand}"/>
+                                    <Button x:Name="DeleteDoctorBtn" Grid.Column="1" Width="200" Content="Удалить врача" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding RemoveDoctorCommand}" CommandParameter="{Binding SelectedDoctor}"/>
                                     <Button x:Name="SaveDoctorBtn" Grid.Column="2" Width="200" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Command="{Binding SaveDoctorCommand}" CommandParameter="{Binding SelectedDoctor}"/>
                                 </Grid>
                             </StackPanel>

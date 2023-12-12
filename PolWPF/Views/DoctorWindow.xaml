@@ -39,7 +39,7 @@
                             <Button Content="Показать" Grid.Column="2" Margin="10, 0, 0, 0" Command="{Binding ShowPatientCard}" CommandParameter="{Binding SelectedCardPatient}"/>
                         </Grid>
                     </StackPanel>
-                    <DataGrid x:Name="CardGrid" Grid.Row="1" ItemsSource="{Binding PatientCard}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                    <DataGrid x:Name="CardGrid" Grid.Row="1" ItemsSource="{Binding PatientCard}" VerticalAlignment="Top" Grid.RowSpan="2" Margin="1, 1, 0, 0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" VirtualizingPanel.ScrollUnit="Pixel">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Врач" Binding="{Binding Doctor.FullName, StringFormat=d}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Дата" Binding="{Binding DateT, StringFormat=d}" Width="*"></DataGridTextColumn>

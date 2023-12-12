@@ -546,6 +546,7 @@ namespace PolWPF.ViewModels
 
                             notifier.ShowSuccess("Успешно!");
 
+                            //Talons.Clear();
                             comboService.FillObsCollection<Talon>(Talons, visitService.GetTalons(SelectedDoctor, SelectedDate));
                         }
                         catch(Exception ex)
