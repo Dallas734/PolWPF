@@ -19,6 +19,7 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using ToastNotifications.Messages;
+using BLL.Services;
 
 namespace PolWPF.ViewModels
 {
@@ -116,6 +117,76 @@ namespace PolWPF.ViewModels
                     AllNowDoctors = new ObservableCollection<DoctorDTO>(doctorService.GetDoctorsOnAreaAndSpecialization(SelectedArea.Id, SelectedSpecialization.Id));
                 AllNowPatients = new ObservableCollection<PatientDTO>(patientService.GetPatientsOnArea(selectedArea.Id));
                 OnPropertyChanged("SelectedArea");
+            }
+        }
+
+        private AreaDTO selectedDoctorArea;
+
+        public AreaDTO SelectedDoctorArea
+        {
+            get { return selectedDoctorArea; }
+            set
+            {
+                selectedDoctorArea = value;
+                if (SelectedDoctorArea != null)
+                    comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs.Where(i => i.Area_id == SelectedDoctorArea.Id).ToList());
+                OnPropertyChanged("SelectedDoctorArea");
+            }
+        }
+
+        private AreaDTO selectedSheduleDoctorArea;
+
+        public AreaDTO SelectedSheduleDoctorArea
+        {
+            get { return selectedSheduleDoctorArea; }
+            set
+            {
+                selectedSheduleDoctorArea = value;
+                if (SelectedSheduleDoctorArea != null)
+                    comboService.FillObsCollection<DoctorDTO>(AllSheduleDoctors, context.doctorDTOs.Where(i => i.Area_id == selectedSheduleDoctorArea.Id).ToList());
+                OnPropertyChanged("SelectedSheduleDoctorArea");
+            }
+        }
+
+        private AreaDTO selectedPatientArea;
+
+        public AreaDTO SelectedPatientArea
+        {
+            get { return selectedPatientArea; }
+            set
+            {
+                selectedPatientArea = value;
+                if (SelectedPatientArea != null)
+                    comboService.FillObsCollection<PatientDTO>(AllPatients, patientService.GetPatientsOnArea(SelectedPatientArea.Id));
+                OnPropertyChanged("SelectedPatientArea");
+            }
+        }
+
+        private AreaDTO selectedPatientAreaVisit;
+
+        public AreaDTO SelectedPatientAreaVisit
+        {
+            get { return selectedPatientAreaVisit; }
+            set
+            {
+                selectedPatientAreaVisit = value;
+                if (SelectedPatientAreaVisit != null)
+                    comboService.FillObsCollection<PatientDTO>(AllVisitPatients, patientService.GetPatientsOnArea(SelectedPatientAreaVisit.Id));
+                OnPropertyChanged("SelectedPatientAreaVisit");
+            }
+        }
+
+        private AreaDTO selectedPatientAreaCard;
+
+        public AreaDTO SelectedPatientAreaCard
+        {
+            get { return selectedPatientAreaCard; }
+            set
+            {
+                selectedPatientAreaCard = value;
+                if (SelectedPatientAreaCard != null)
+                    comboService.FillObsCollection<PatientDTO>(AllCardPatients, patientService.GetPatientsOnArea(SelectedPatientAreaCard.Id));
+                OnPropertyChanged("SelectedPatientAreaCard");
             }
         }
 
@@ -287,7 +358,13 @@ namespace PolWPF.ViewModels
 
         public ObservableCollection<DoctorDTO> AllDoctors { get; set; }
 
+        public ObservableCollection<DoctorDTO> AllSheduleDoctors { get; set; }
+
         public ObservableCollection<PatientDTO> AllPatients { get; set; }
+
+        public ObservableCollection<PatientDTO> AllVisitPatients { get; set; }
+
+        public ObservableCollection<PatientDTO> AllCardPatients { get; set; }
 
         public ObservableCollection<SpecializationDTO> AllSpecializations { get; set; }
 
@@ -329,7 +406,10 @@ namespace PolWPF.ViewModels
 
             AllNowDoctors = new ObservableCollection<DoctorDTO>();
             AllDoctors = new ObservableCollection<DoctorDTO>();
+            AllSheduleDoctors = new ObservableCollection<DoctorDTO>();
             AllPatients = new ObservableCollection<PatientDTO>();
+            AllVisitPatients = new ObservableCollection<PatientDTO>();
+            AllCardPatients = new ObservableCollection<PatientDTO>();
             AllSpecializations = new ObservableCollection<SpecializationDTO>();
             AllStatus = new ObservableCollection<StatusDTO>();
             AllCategories = new ObservableCollection<CategoryDTO>();
@@ -344,8 +424,8 @@ namespace PolWPF.ViewModels
             DoctorShedule = new ObservableCollection<SheduleDTO>();
             Series = new SeriesCollection();
 
-            comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs);
-            comboService.FillObsCollection<PatientDTO>(AllPatients, context.patientDTOs);
+            //comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs);
+            //comboService.FillObsCollection<PatientDTO>(AllPatients, context.patientDTOs);
             comboService.FillObsCollection<SpecializationDTO>(AllSpecializations, context.specializationDTOs);
             comboService.FillObsCollection<StatusDTO>(AllStatus, context.statusDTOs);
             comboService.FillObsCollection<CategoryDTO>(AllCategories, context.categoryDTOs);
