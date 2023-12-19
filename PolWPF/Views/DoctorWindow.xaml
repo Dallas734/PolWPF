@@ -157,7 +157,11 @@
                             <Button Grid.Column="2" Content="Удалить диагноз" Command="{Binding DeleteDiagnosisCommand}" CommandParameter="{Binding SelectedDiagnosis}" HorizontalAlignment="Center" Margin="20, 0, 0, 0"/>
                         </Grid>
                     </StackPanel>
-                    <DataGrid x:Name="DiagnosisGrid" Grid.Row="1" ItemsSource="{Binding AllDiagnosis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDiagnosis, Mode=TwoWay}" IsReadOnly="True"/>
+                    <DataGrid x:Name="DiagnosisGrid" Grid.Row="1" ItemsSource="{Binding AllDiagnosis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDiagnosis, Mode=TwoWay}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Статистика диагнозов">

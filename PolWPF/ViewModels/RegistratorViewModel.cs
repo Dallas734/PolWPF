@@ -529,7 +529,9 @@ namespace PolWPF.ViewModels
                  {
                      _addDoctorWindow = new AddDoctorWindow(context, comboService);
                      _addDoctorWindow.ShowDialog();
-                     comboService.FillObsCollection(AllDoctors, context.doctorDTOs);
+                     if (SelectedDoctorArea != null)
+                         comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs.Where(i => i.Area_id == SelectedDoctorArea.Id).ToList());
+                     //comboService.FillObsCollection(AllDoctors, context.doctorDTOs);
                  }));
 
             }
@@ -545,7 +547,9 @@ namespace PolWPF.ViewModels
                     {
                         _addPatientWindow = new AddPatientWindow(context, comboService);
                         _addPatientWindow.ShowDialog();
-                        comboService.FillObsCollection(AllPatients, context.patientDTOs);
+                        if (SelectedPatientArea != null)
+                            comboService.FillObsCollection<PatientDTO>(AllPatients, patientService.GetPatientsOnArea(SelectedPatientArea.Id));
+                        //comboService.FillObsCollection(AllPatients, context.patientDTOs);
                     }));
             }
         }
@@ -758,12 +762,15 @@ namespace PolWPF.ViewModels
                 return saveSheduleCommand ??
                     (saveSheduleCommand = new RelayCommand(obj =>
                     {
-                        SheduleDTO shedule = obj as SheduleDTO;
-                        context.UpdateShedule(shedule);
+                        ObservableCollection<SheduleDTO> shedules = obj as ObservableCollection<SheduleDTO>;
+                        foreach (SheduleDTO item in shedules)
+                        {
+                            context.UpdateShedule(item);
+                        }
                         context.Save();
                         notifier.ShowSuccess("Изменения сохранены!");
                     },
-                    (obj) => (selectedSheduleItem != null)));
+                    (obj) => (DoctorShedule != null)));
             }
         }
 

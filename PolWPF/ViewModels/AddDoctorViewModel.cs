@@ -194,7 +194,10 @@ namespace PolWPF.ViewModels
                             MessageBox.Show(ex.Message);
                         }
                         
-                    }));
+                    }, 
+                    (obj) => (SelectedSpecialization != null && SelectedLastName != null && SelectedFirstName != null
+                    && SelectedSurname != null && SelectedGender != null && SelectedDate != null && selectedCategory != null
+                    && selectedStatus != null && selectedArea != null)));
             }
         }
     }

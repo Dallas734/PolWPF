@@ -364,7 +364,7 @@
                                         <Label FontSize="16" FontWeight="Black" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">Врач</Label>
                                         <ComboBox x:Name="DoctorSheduleInfo" Grid.Column="3" Width="216" SelectedItem="{Binding SelectedSheduleDoctor}" DisplayMemberPath="FullName" SelectedValuePath="Id" ItemsSource="{Binding Path = DataContext.AllSheduleDoctors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                                         <Button Content="Показать" Grid.Column="4" Command="{Binding GetSheduleCommand}" CommandParameter="{Binding SelectedSheduleDoctor}" Margin="15, 0, 0, 0"/>
-                                        <Button Content="Сохранить" Grid.Column="5" Command="{Binding SaveSheduleCommand}" CommandParameter="{Binding SelectedSheduleItem}" Margin="15, 0, 0, 0"/>
+                                        <Button Content="Сохранить" Grid.Column="5" Command="{Binding SaveSheduleCommand}" CommandParameter="{Binding DoctorShedule}" Margin="15, 0, 0, 0"/>
                                     </Grid>
                                 </StackPanel>
                             </Border>

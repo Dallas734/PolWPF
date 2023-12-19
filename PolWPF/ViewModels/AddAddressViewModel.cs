@@ -80,7 +80,8 @@ namespace PolWPF.ViewModels
                             MessageBox.Show(ex.Message);
                         }
 
-                    }));
+                    },
+                    (obj) => (selectedName != null && selectedArea != null)));
             }
         }
     }
