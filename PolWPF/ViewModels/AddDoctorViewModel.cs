@@ -36,7 +36,7 @@ namespace PolWPF.ViewModels
         Notifier notifier = new Notifier(cfg =>
         {
             cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.MainWindow,
+                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive),
                 corner: Corner.TopRight,
                 offsetX: 10,
                 offsetY: 10);

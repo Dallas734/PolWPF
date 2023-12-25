@@ -50,25 +50,17 @@ namespace PolWPF.ViewModels
 
         Notifier notifier = new Notifier(cfg =>
         {
-            try
-            {
-                cfg.PositionProvider = new PrimaryScreenPositionProvider(
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive),
                 corner: Corner.TopRight,
-                offsetX: 20,
-                offsetY: 30);
+                offsetX: 10,
+                offsetY: 10);
 
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(7),
-                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
-                cfg.DisplayOptions.TopMost = true;
-
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex + "");
-            }
+            cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
         private void ToMainWindow(object obj)

@@ -13,5 +13,6 @@ namespace PolWPF
     /// </summary>
     public partial class App : Application
     {
+        ShutdownMode shutdown = ShutdownMode.OnLastWindowClose; 
     }
 }
