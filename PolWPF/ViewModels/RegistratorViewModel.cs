@@ -569,6 +569,8 @@ namespace PolWPF.ViewModels
                             {
                                 context.UpdateDoctor(doctor);
                                 context.Save();
+                                if (SelectedDoctorArea != null)
+                                    comboService.FillObsCollection<DoctorDTO>(AllDoctors, context.doctorDTOs.Where(i => i.Area_id == SelectedDoctorArea.Id).ToList());
                                 notifier.ShowSuccess("Изменения сохранены!");
                             }
                         }
@@ -596,6 +598,8 @@ namespace PolWPF.ViewModels
                             {
                                 context.UpdatePatient(patient);
                                 context.Save();
+                                if (SelectedPatientArea != null)
+                                    comboService.FillObsCollection<PatientDTO>(AllPatients, patientService.GetPatientsOnArea(SelectedPatientArea.Id));
                                 notifier.ShowSuccess("Изменения сохранены!");
                             }
                         }
