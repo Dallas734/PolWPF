@@ -17,9 +17,9 @@ namespace BLL.Services
         {
             dbContext = repository;
         }
-        public List<DoctorDTO> GetDoctorsOnWork()
+        public List<DoctorDTO> GetDoctorsOnWork(List<DoctorDTO> doctors)
         {
-            return new List<DoctorDTO>();
+            return doctors.Where(i => i.Status_id == 1).ToList();
         }
         public List<DoctorDTO> GetDoctorsOnAreaAndSpecialization(int area_id, int spec_id)
         {

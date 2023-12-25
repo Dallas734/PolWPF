@@ -114,7 +114,7 @@ namespace PolWPF.ViewModels
             {
                 selectedArea = value;
                 if (SelectedSpecialization != null)
-                    AllNowDoctors = new ObservableCollection<DoctorDTO>(doctorService.GetDoctorsOnAreaAndSpecialization(SelectedArea.Id, SelectedSpecialization.Id));
+                    AllNowDoctors = new ObservableCollection<DoctorDTO>(doctorService.GetDoctorsOnWork(doctorService.GetDoctorsOnAreaAndSpecialization(SelectedArea.Id, SelectedSpecialization.Id)));
                 AllNowPatients = new ObservableCollection<PatientDTO>(patientService.GetPatientsOnArea(selectedArea.Id));
                 OnPropertyChanged("SelectedArea");
             }
@@ -201,7 +201,7 @@ namespace PolWPF.ViewModels
             {
                 selectedSpecialization = value;
                 if (SelectedArea != null)
-                    AllNowDoctors = new ObservableCollection<DoctorDTO>(doctorService.GetDoctorsOnAreaAndSpecialization(SelectedArea.Id, SelectedSpecialization.Id));
+                    AllNowDoctors = new ObservableCollection<DoctorDTO>(doctorService.GetDoctorsOnWork(doctorService.GetDoctorsOnAreaAndSpecialization(SelectedArea.Id, SelectedSpecialization.Id)));
                 OnPropertyChanged("SelectedSpecialization");
             }
         }
